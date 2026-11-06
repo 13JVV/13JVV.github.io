@@ -4,13 +4,28 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="신재우, 인하대학교 산업경영공학과. 사용자 문제를 정의하고 AI 도구로 실제 앱과 웹서비스를 만들어 온 IT/AI 서비스 기획 포트폴리오입니다." />
-  <meta name="author" content="신재우" />
+  <meta name="author" content="신재우 Jaewoo Shin" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="신재우 Jaewoo Shin" />
-  <meta property="og:description" content="AI 제품 / 서비스 기획 포트폴리오" />
+  <meta property="og:description" content="AI 제품 / 서비스 기획 포트폴리오 · AI Product / Service Planning Portfolio" />
   <meta property="og:url" content="https://13jvv.github.io/" />
+  <meta property="og:image" content="https://13jvv.github.io/assets/img/profile.jpg" />
   <title>신재우 Jaewoo Shin</title>
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <script>
+    (function () {
+      var lang = 'ko';
+      try {
+        var q = new URLSearchParams(location.search).get('lang');
+        var saved = localStorage.getItem('portfolio-lang');
+        if (q === 'en' || q === 'ko') lang = q;
+        else if (saved === 'en' || saved === 'ko') lang = saved;
+      } catch (e) {}
+      document.documentElement.setAttribute('data-lang', lang);
+      document.documentElement.lang = lang;
+    })();
+  </script>
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -33,6 +48,10 @@
       --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
       --maxw: 1000px;
     }
+
+    /* 언어 전환: 선택하지 않은 언어는 숨깁니다. JS가 없으면 한글이 보입니다. */
+    html[data-lang="en"] body [lang="ko"],
+    html:not([data-lang="en"]) body [lang="en"] { display: none !important; }
 
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -75,18 +94,15 @@
     .nav-inner {
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 14px 22px;
+      padding: 12px 22px;
       display: flex;
-      align-items: baseline;
+      align-items: center;
       justify-content: space-between;
       gap: 18px;
     }
-    .nav-name {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-    }
+    .nav-name { font-size: 18px; font-weight: 700; color: var(--text); }
     .nav-name:hover { border-bottom-color: transparent; }
+    .nav-right { display: flex; align-items: center; gap: 22px; }
     .nav-links { display: flex; gap: 20px; font-size: 15px; }
     .nav-links a { color: var(--text-soft); border-bottom: none; position: relative; }
     .nav-links a::after {
@@ -99,6 +115,29 @@
     }
     .nav-links a:hover { color: var(--accent); }
     .nav-links a:hover::after { width: 100%; }
+
+    .lang-toggle {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px;
+      background: #fff;
+    }
+    .lang-toggle button {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      font: 600 12.5px/1 var(--sans);
+      letter-spacing: .8px;
+      color: var(--text-faint);
+      padding: 7px 11px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background .15s ease, color .15s ease;
+    }
+    .lang-toggle button:hover { color: var(--accent); }
+    .lang-toggle button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+    .lang-toggle button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
     /* ---------- LAYOUT ---------- */
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px 80px; }
@@ -135,14 +174,14 @@
       margin: 0 0 8px;
       letter-spacing: -0.5px;
     }
-    .hero h1 .en {
-      font-family: var(--serif);
+    .hero h1 .alt {
       font-weight: 500;
       font-size: 24px;
       color: var(--text-faint);
       margin-left: 10px;
       letter-spacing: 0;
     }
+    .hero h1 .alt.serif { font-family: var(--serif); }
     .bio p { margin: 16px 0; line-height: 1.75; }
     .seeking { color: var(--link); font-weight: 600; }
 
@@ -153,24 +192,10 @@
       border-radius: 14px;
       object-fit: cover;
       border: 1px solid var(--line);
-      overflow: hidden;
-    }
-    .photo.mono {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(150deg, #f8ece6, #f1dcd6 55%, #fbe9d7);
-      color: var(--accent);
-      font-size: 84px;
-      font-weight: 700;
-      letter-spacing: -2px;
+      display: block;
     }
 
-    .meta {
-      margin-top: 14px;
-      color: var(--text-soft);
-      line-height: 1.95;
-    }
+    .meta { margin-top: 14px; color: var(--text-soft); line-height: 1.95; }
     .meta .label { font-weight: 600; color: var(--text); margin-right: 4px; }
     .meta a { color: var(--link); }
     .meta a i { margin-right: 5px; }
@@ -185,16 +210,16 @@
       color: var(--accent);
       margin: 40px 0 18px;
     }
-    .section-title .en {
+    .section-title .latin {
       font-family: var(--serif);
       font-weight: 600;
       text-transform: uppercase;
       margin-right: 8px;
     }
-    .section-title .ko { color: var(--text-faint); font-weight: 600; letter-spacing: 1px; }
+    .section-title .sub { color: var(--text-faint); font-weight: 600; letter-spacing: 1px; }
     section { scroll-margin-top: 64px; }
 
-    /* ---------- ROWS (업데이트, 기타, 학력) ---------- */
+    /* ---------- ROWS ---------- */
     .row {
       display: grid;
       grid-template-columns: 104px 1fr;
@@ -235,12 +260,7 @@
     }
     .thumb:hover { border-bottom-color: var(--line); }
     .thumb > img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
-    .thumb.phones {
-      display: flex;
-      justify-content: center;
-      gap: 8px;
-      padding: 12px 12px 0;
-    }
+    .thumb.phones { display: flex; justify-content: center; gap: 8px; padding: 12px 12px 0; }
     .thumb.phones img {
       width: 62px;
       height: auto;
@@ -256,13 +276,7 @@
       padding: 0 16px;
       background: linear-gradient(150deg, #fbf0e6, #f6e4df);
     }
-    .thumb.stat .num {
-      font-family: var(--serif);
-      font-size: 38px;
-      font-weight: 600;
-      line-height: 1;
-      color: var(--accent);
-    }
+    .thumb.stat .num { font-family: var(--serif); font-size: 38px; font-weight: 600; line-height: 1; color: var(--accent); }
     .thumb.stat .cap { font-size: 12.5px; color: var(--text-soft); margin-top: 8px; line-height: 1.45; }
 
     .pub-title { font-weight: 700; color: var(--text); font-size: 17.5px; line-height: 1.4; margin-bottom: 3px; }
@@ -287,23 +301,22 @@
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 680px) {
       body { font-size: 16px; }
-      .nav-inner { padding: 12px 16px; }
-      .nav-links { gap: 14px; font-size: 14px; }
+      .nav-inner { padding: 10px 16px; gap: 12px; }
+      .nav-right { gap: 14px; }
+      .nav-links { gap: 12px; font-size: 14px; }
       .wrap { padding: 0 16px 64px; }
       .hero { grid-template-columns: 1fr; gap: 20px; padding: 32px 0 4px; }
       .photo { width: 112px; height: 112px; margin-top: 0; order: -1; }
-      .photo.mono { font-size: 44px; }
       .hero h1 { font-size: 30px; }
-      .hero h1 .en { font-size: 20px; margin-left: 6px; }
+      .hero h1 .alt { font-size: 20px; margin-left: 6px; }
       .row { grid-template-columns: 1fr; gap: 2px; }
       .pub { grid-template-columns: 1fr; gap: 14px; }
       .thumb { width: 100%; height: 170px; }
       .thumb.phones img { width: 84px; }
       footer { padding: 26px 16px 40px; }
     }
-    @media (max-width: 380px) {
-      .nav-name { font-size: 16px; }
-      .nav-links { gap: 10px; font-size: 13.5px; }
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
     }
   </style>
 </head>
@@ -312,12 +325,18 @@
   <!-- ============ NAV ============ -->
   <nav class="nav">
     <div class="nav-inner">
-      <a class="nav-name" href="#top">신재우</a>
-      <div class="nav-links">
-        <a href="#top">소개</a>
-        <a href="#projects">프로젝트</a>
-        <a href="#more">기타</a>
-        <a href="#education">학력</a>
+      <a class="nav-name" href="#top"><span lang="ko">신재우</span><span lang="en">Jaewoo Shin</span></a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#top"><span lang="ko">소개</span><span lang="en">About</span></a>
+          <a href="#projects"><span lang="ko">프로젝트</span><span lang="en">Projects</span></a>
+          <a href="#more"><span lang="ko">기타</span><span lang="en">More</span></a>
+          <a href="#education"><span lang="ko">학력</span><span lang="en">Education</span></a>
+        </div>
+        <div class="lang-toggle" role="group" aria-label="Language">
+          <button type="button" data-set-lang="ko" aria-pressed="true">KOR</button>
+          <button type="button" data-set-lang="en" aria-pressed="false">ENG</button>
+        </div>
       </div>
     </div>
   </nav>
@@ -327,24 +346,39 @@
     <!-- ============ HERO ============ -->
     <header class="hero fade d1">
       <div class="bio">
-        <p class="role">AI 제품 / 서비스 기획</p>
-        <h1>신재우<span class="en">Jaewoo Shin</span></h1>
-        <p>
-          <span class="s">안녕하세요, 인하대학교 <strong>산업경영공학과</strong> 신재우입니다.</span>
-          <span class="s"><span class="u">사용자 문제를 정의하고</span> <span class="u"><strong>AI 도구로 실제 앱과 웹서비스</strong>를 만들어 왔습니다.</span></span>
-          <span class="s"><span class="u">개인 프로젝트는 직접 출시하고</span> <span class="u">피드백을 받아 고쳐 봤습니다.</span></span>
-          <span class="s"><span class="u">팀 프로젝트에서는</span> <span class="u">데이터 설계와 협업을 맡았습니다.</span></span>
-          <span class="s"><span class="u">사용자 피드백과 데이터의 한계를</span> <span class="u">제품 결정에 반영하려고 합니다.</span></span>
-        </p>
-        <p class="seeking">
-          <span class="s"><span class="u">IT 서비스 기획, AI 서비스 기획</span> <span class="u">인턴 기회를 찾고 있습니다.</span></span>
-          <span class="s">2027년 1월부터 일할 수 있습니다.</span>
-        </p>
+        <div lang="ko">
+          <p class="role">AI 제품 / 서비스 기획</p>
+          <h1>신재우<span class="alt serif">Jaewoo Shin</span></h1>
+          <p>
+            <span class="s">안녕하세요, 인하대학교 <strong>산업경영공학과</strong> 신재우입니다.</span>
+            <span class="s"><span class="u">사용자 문제를 정의하고</span> <span class="u"><strong>AI 도구로 실제 앱과 웹서비스</strong>를 만들어 왔습니다.</span></span>
+            <span class="s"><span class="u">개인 프로젝트는 직접 출시하고</span> <span class="u">피드백을 받아 고쳐 봤습니다.</span></span>
+            <span class="s"><span class="u">팀 프로젝트에서는</span> <span class="u">데이터 설계와 협업을 맡았습니다.</span></span>
+            <span class="s"><span class="u">사용자 피드백과 데이터의 한계를</span> <span class="u">제품 결정에 반영하려고 합니다.</span></span>
+          </p>
+          <p class="seeking">
+            <span class="s"><span class="u">IT 서비스 기획, AI 서비스 기획</span> <span class="u">인턴 기회를 찾고 있습니다.</span></span>
+            <span class="s">2027년 1월부터 일할 수 있습니다.</span>
+          </p>
+        </div>
+        <div lang="en">
+          <p class="role">AI PRODUCT / SERVICE PLANNING</p>
+          <h1>Jaewoo Shin<span class="alt">신재우</span></h1>
+          <p>
+            <span class="s">Hi, I'm Jaewoo Shin, a senior in <strong>Industrial Engineering</strong> at Inha University.</span>
+            <span class="s">I define user problems and build <strong>real apps and web services with AI tools</strong>.</span>
+            <span class="s">I've shipped my own projects and kept improving them from user feedback.</span>
+            <span class="s">On team projects, I've handled data design and collaboration.</span>
+            <span class="s">I try to let user feedback and the limits of data shape product decisions.</span>
+          </p>
+          <p class="seeking">
+            <span class="s">I'm looking for internships in IT and AI service planning.</span>
+            <span class="s">Available from January 2027.</span>
+          </p>
+        </div>
       </div>
 
-      <!-- 사진을 넣으려면 assets/img/profile.jpg를 추가하고 아래 div를
-           <img class="photo" src="assets/img/profile.jpg" alt="신재우" /> 로 바꾸세요. -->
-      <div class="photo mono" role="img" aria-label="신재우">재우</div>
+      <img class="photo" src="assets/img/profile.jpg" alt="Profile" width="220" height="220" />
     </header>
 
     <div class="meta fade d2">
@@ -359,56 +393,63 @@
 
     <!-- ============ UPDATES ============ -->
     <section class="fade d3">
-      <h2 class="section-title"><span class="en">Updates</span><span class="ko">소식</span></h2>
+      <h2 class="section-title"><span class="latin">Updates</span><span class="sub" lang="ko">소식</span></h2>
       <div class="updates">
         <div class="row">
           <div class="date">10/2026</div>
           <div class="body">
-            <span class="name">빅콘테스트 AI데이터활용 캡스톤</span>에 팀장으로 참여해 제출했습니다.
-            <span class="status">결과 대기 중</span>
+            <span lang="ko"><span class="name">빅콘테스트 AI데이터활용 캡스톤</span>에 팀장으로 참여해 제출했습니다. <span class="status">결과 대기 중</span></span>
+            <span lang="en">Submitted the <span class="name">BigContest AI Data Capstone</span> as team lead. <span class="status">Awaiting results</span></span>
           </div>
         </div>
         <div class="row">
           <div class="date">07/2026</div>
           <div class="body">
-            <span class="name">CrowdSense</span>로 제4회 재난안전데이터 활용 창업경진대회에서
-            <span class="highlight">최우수상 (행정안전부 장관상)</span>을 받았습니다.
+            <span lang="ko"><span class="name">CrowdSense</span>로 제4회 재난안전데이터 활용 창업경진대회에서 <span class="highlight">최우수상 (행정안전부 장관상)</span>을 받았습니다.</span>
+            <span lang="en"><span class="name">CrowdSense</span> won the <span class="highlight">Excellence Award (Minister of the Interior and Safety Award)</span> at the 4th Disaster Safety Data Startup Competition.</span>
           </div>
         </div>
         <div class="row">
           <div class="date">07/2026</div>
           <div class="body">
-            <span class="name">반갑꼬리</span>를 관광데이터 활용 공모전에 제출하고 발표했습니다.
+            <span lang="ko"><span class="name">반갑꼬리</span>를 관광데이터 활용 공모전에 제출하고 발표했습니다.</span>
+            <span lang="en">Submitted and presented <span class="name">Bangapkkori</span> at the Tourism Data Contest.</span>
           </div>
         </div>
         <div class="row">
           <div class="date">03/2026</div>
           <div class="body">
-            <span class="name">It's me</span> 기획과 개발을 시작했습니다.
-            지금은 App Store와 Google Play에 공개되어 있습니다.
+            <span lang="ko"><span class="name">It's me</span> 기획과 개발을 시작했습니다. 지금은 App Store와 Google Play에 공개되어 있습니다.</span>
+            <span lang="en">Started planning and building <span class="name">It's me</span>. It is now live on the App Store and Google Play.</span>
           </div>
         </div>
         <div class="row">
           <div class="date">03/2026</div>
-          <div class="body"><span class="name">SQLD</span>를 취득했습니다.</div>
+          <div class="body">
+            <span lang="ko"><span class="name">SQLD</span>를 취득했습니다.</span>
+            <span lang="en">Earned <span class="name">SQLD</span> (SQL Developer).</span>
+          </div>
         </div>
         <div class="row">
           <div class="date">01/2026</div>
-          <div class="body"><span class="name">OPIc IH</span>를 취득했습니다.</div>
+          <div class="body">
+            <span lang="ko"><span class="name">OPIc IH</span>를 취득했습니다.</span>
+            <span lang="en">Earned <span class="name">OPIc IH</span>.</span>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ============ PROJECTS ============ -->
     <section id="projects">
-      <h2 class="section-title"><span class="en">Projects</span><span class="ko">주요 프로젝트</span></h2>
+      <h2 class="section-title"><span class="latin">Projects</span><span class="sub" lang="ko">주요 프로젝트</span></h2>
 
       <div class="pub">
-        <a class="thumb phones" href="projects/itsme/" aria-label="It's me 사례 보기">
+        <a class="thumb phones" href="projects/itsme/" aria-label="It's me">
           <img src="assets/img/itsme-home.webp" alt="" loading="lazy" />
           <img src="assets/img/itsme-wallet.webp" alt="" loading="lazy" />
         </a>
-        <div>
+        <div lang="ko">
           <div class="pub-title">It's me <span class="sub">디지털 명함, 관계 관리 앱</span></div>
           <div class="pub-meta">2026.03 ~ 현재 / 개인 프로젝트 / 기획, 디자인, AI 도구 기반 개발과 배포</div>
           <div class="pub-venue">App Store, Google Play 공개</div>
@@ -419,13 +460,24 @@
           </p>
           <div class="pub-links"><a href="projects/itsme/">사례 보기</a></div>
         </div>
+        <div lang="en">
+          <div class="pub-title">It's me <span class="sub">Digital business card and relationship app</span></div>
+          <div class="pub-meta">2026.03 ~ Present / Solo project / Planning, design, AI-assisted development and deployment</div>
+          <div class="pub-venue">Live on the App Store and Google Play</div>
+          <p class="pub-desc">
+            <span class="s">After people swap business cards, their contacts and the context of the meeting get scattered.</span>
+            <span class="s">I launched card creation and QR sharing first, then added OCR, a card wallet, and meeting briefings.</span>
+            <span class="s">Cards read by the Claude API are shown to the user to check and edit before saving.</span>
+          </p>
+          <div class="pub-links"><a href="projects/itsme/">Case study (Korean)</a></div>
+        </div>
       </div>
 
       <div class="pub">
-        <a class="thumb" href="projects/crowdsense/" aria-label="CrowdSense 사례 보기">
+        <a class="thumb" href="projects/crowdsense/" aria-label="CrowdSense">
           <img src="assets/img/crowdsense-live.webp" alt="" loading="lazy" />
         </a>
-        <div>
+        <div lang="ko">
           <div class="pub-title">CrowdSense <span class="sub">AI 인파 관제 지원 서비스</span></div>
           <div class="pub-meta">2026.07 제작과 발표, 이후 개선 중 / 개인 프로젝트 / 기획, 설계, AI 도구 기반 개발과 배포</div>
           <div class="pub-venue"><span class="award">제4회 재난안전데이터 활용 창업경진대회 최우수상 (행정안전부 장관상)</span></div>
@@ -440,14 +492,29 @@
             <a href="https://github.com/13JVV/crowdsense-overview" target="_blank" rel="noopener">GitHub</a>
           </div>
         </div>
+        <div lang="en">
+          <div class="pub-title">CrowdSense <span class="sub">AI crowd monitoring support service</span></div>
+          <div class="pub-meta">Built and presented 2026.07, still improving / Solo project / Planning, design, AI-assisted development and deployment</div>
+          <div class="pub-venue"><span class="award">Excellence Award (Minister of the Interior and Safety Award), 4th Disaster Safety Data Startup Competition</span></div>
+          <p class="pub-desc">
+            <span class="s">After a crowd alert, staff had to prepare actions, public notices, and reports separately.</span>
+            <span class="s">I connected the data evidence and an AI response draft on a single screen.</span>
+            <span class="s">With structured output, I split what can go into public notices from what needs an on-site check.</span>
+          </p>
+          <div class="pub-links">
+            <a href="projects/crowdsense/">Case study (Korean)</a>
+            <span class="sep">|</span>
+            <a href="https://github.com/13JVV/crowdsense-overview" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
       </div>
 
       <div class="pub">
-        <a class="thumb phones" href="projects/pet/" aria-label="반갑꼬리 사례 보기">
+        <a class="thumb phones" href="projects/pet/" aria-label="Bangapkkori">
           <img src="assets/img/pet-home.webp" alt="" loading="lazy" />
           <img src="assets/img/pet-explore.webp" alt="" loading="lazy" />
         </a>
-        <div>
+        <div lang="ko">
           <div class="pub-title">반갑꼬리 <span class="sub">반려동물 동반여행 앱</span></div>
           <div class="pub-meta">2026.07 ~ 현재 / 3인 팀 / 프론트엔드, 기능과 DB 설계, API 연동, 배포</div>
           <div class="pub-venue">App Store 공개, 관광데이터 활용 공모전 제출</div>
@@ -458,14 +525,26 @@
           </p>
           <div class="pub-links"><a href="projects/pet/">사례 보기</a></div>
         </div>
+        <div lang="en">
+          <div class="pub-title">Bangapkkori <span class="sub">Pet-friendly travel app</span></div>
+          <div class="pub-meta">2026.07 ~ Present / Team of 3 / Frontend, feature and DB design, API integration, deployment</div>
+          <div class="pub-venue">Live on the App Store, submitted to the Tourism Data Contest</div>
+          <p class="pub-desc">
+            <span class="s">I designed the flow that checks each venue's weight, breed, and area rules against the user's pet.</span>
+            <span class="s">When a rule is missing or unclear, the app never labels the venue as pet-friendly.</span>
+            <span class="s">When we disagreed on how much to show on a card, I built both versions, compared them, and went with my teammate's.</span>
+          </p>
+          <div class="pub-links"><a href="projects/pet/">Case study (Korean)</a></div>
+        </div>
       </div>
 
       <div class="pub">
-        <a class="thumb stat" href="projects/subscription/" aria-label="생성형 AI 구독 모델 분석 사례 보기">
+        <a class="thumb stat" href="projects/subscription/" aria-label="Generative AI subscription analysis">
           <span class="num">26.4%</span>
-          <span class="cap">전문성의 상대적 중요도<br />유효 응답자 113명</span>
+          <span class="cap" lang="ko">전문성의 상대적 중요도<br />유효 응답자 113명</span>
+          <span class="cap" lang="en">Relative importance of expertise<br />113 valid respondents</span>
         </a>
-        <div>
+        <div lang="ko">
           <div class="pub-title">생성형 AI 구독 모델 분석 <span class="sub">사용자 선택 실험</span></div>
           <div class="pub-meta">2026년 1학기 / 4인 팀 / R, 이산선택실험(DCE), 조건부 로짓</div>
           <p class="pub-desc">
@@ -475,72 +554,106 @@
           </p>
           <div class="pub-links"><a href="projects/subscription/">사례 보기</a></div>
         </div>
+        <div lang="en">
+          <div class="pub-title">Generative AI Subscription Analysis <span class="sub">User choice experiment</span></div>
+          <div class="pub-meta">Spring 2026 / Team of 4 / R, discrete choice experiment (DCE), conditional logit</div>
+          <p class="pub-desc">
+            <span class="s">I led the survey design, testing trade-offs between price, accuracy, security, personalization, and expertise.</span>
+            <span class="s">The team estimated the model together using choice data from 113 valid respondents.</span>
+            <span class="s">Within the attribute ranges we set, expertise had the highest relative importance at 26.4%.</span>
+          </p>
+          <div class="pub-links"><a href="projects/subscription/">Case study (Korean)</a></div>
+        </div>
       </div>
     </section>
 
     <!-- ============ MORE ============ -->
     <section id="more">
-      <h2 class="section-title"><span class="en">More</span><span class="ko">기타 프로젝트와 활동</span></h2>
+      <h2 class="section-title"><span class="latin">More</span><span class="sub" lang="ko">기타 프로젝트와 활동</span></h2>
       <div class="row">
         <div class="date">2026</div>
-        <div class="body">
+        <div class="body" lang="ko">
           <span class="name">AI 사회적 고립 캡스톤</span>
           <span class="s">AI 기반 사회적 고립 문제 분석 캡스톤을 마쳤습니다.</span>
+        </div>
+        <div class="body" lang="en">
+          <span class="name">AI Social Isolation Capstone</span>
+          <span class="s">Completed a capstone project analyzing social isolation with AI.</span>
         </div>
       </div>
       <div class="row">
         <div class="date">2026.03</div>
-        <div class="body">
+        <div class="body" lang="ko">
           <span class="name">교내 AI 문제해결 경진대회</span> <span class="status">팀장</span>
           <span class="s"><span class="u">캠퍼스 안전 문제에 대해</span> <span class="u">순찰과 정비 의사결정 구조, 관제 흐름을 제안했습니다.</span> <a class="more" href="projects/campus/">사례 보기</a></span>
+        </div>
+        <div class="body" lang="en">
+          <span class="name">Campus AI Problem-Solving Competition</span> <span class="status">Team lead</span>
+          <span class="s">Proposed a patrol and maintenance decision structure and a monitoring flow for campus safety. <a class="more" href="projects/campus/">Case study (Korean)</a></span>
         </div>
       </div>
       <div class="row">
         <div class="date">2026.03 ~</div>
-        <div class="body">
+        <div class="body" lang="ko">
           <span class="name">GoodGoodLawyer</span>
           <span class="s"><span class="u">부동산 법률정보 웹서비스를</span> <span class="u">혼자 기획하고 개발해 배포했습니다.</span></span>
         </div>
-      </div>
-      <div class="row">
-        <div class="date">수업</div>
-        <div class="body">
-          <span class="name">생산공정 시뮬레이션</span>
-          <span class="s"><span class="u">Arena로 공정 개선안을 비교하고</span> <span class="u">시뮬레이션 결과와 실제 운영 효과를 구분했습니다.</span> <a class="more" href="projects/factory/">사례 보기</a></span>
+        <div class="body" lang="en">
+          <span class="name">GoodGoodLawyer</span>
+          <span class="s">Planned, built, and deployed a real estate legal information web service on my own.</span>
         </div>
       </div>
       <div class="row">
-        <div class="date">수업</div>
-        <div class="body">
+        <div class="date"><span lang="ko">수업</span><span lang="en">Course</span></div>
+        <div class="body" lang="ko">
+          <span class="name">생산공정 시뮬레이션</span>
+          <span class="s"><span class="u">Arena로 공정 개선안을 비교하고</span> <span class="u">시뮬레이션 결과와 실제 운영 효과를 구분했습니다.</span> <a class="more" href="projects/factory/">사례 보기</a></span>
+        </div>
+        <div class="body" lang="en">
+          <span class="name">Production Process Simulation</span>
+          <span class="s">Compared process improvements in Arena and kept simulation results separate from real operating effects. <a class="more" href="projects/factory/">Case study (Korean)</a></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="date"><span lang="ko">수업</span><span lang="en">Course</span></div>
+        <div class="body" lang="ko">
           <span class="name">강화학습 PPO</span>
           <span class="s"><span class="u">LunarLander에서 PPO 설정별</span> <span class="u">학습 로그를 비교했습니다.</span> <a class="more" href="projects/lunar/">사례 보기</a></span>
+        </div>
+        <div class="body" lang="en">
+          <span class="name">Reinforcement Learning (PPO)</span>
+          <span class="s">Compared training logs across PPO settings in LunarLander. <a class="more" href="projects/lunar/">Case study (Korean)</a></span>
         </div>
       </div>
     </section>
 
     <!-- ============ EDUCATION ============ -->
     <section id="education">
-      <h2 class="section-title"><span class="en">Education</span><span class="ko">학력, 자격, 도구</span></h2>
+      <h2 class="section-title"><span class="latin">Education</span><span class="sub" lang="ko">학력, 자격, 도구</span></h2>
       <div class="row">
-        <div class="date">학력</div>
-        <div class="body">
+        <div class="date"><span lang="ko">학력</span><span lang="en">Education</span></div>
+        <div class="body" lang="ko">
           <span class="name">인하대학교 산업경영공학과</span> <span class="status">2021.03 ~ 2027.02 졸업 예정</span>
           <span class="s">관련 수업: 데이터베이스, 강화학습 및 알고리즘, 산업공학실험, 시스템 시뮬레이션</span>
         </div>
+        <div class="body" lang="en">
+          <span class="name">Inha University, B.S. in Industrial Engineering</span> <span class="status">2021.03 ~ 2027.02 (expected)</span>
+          <span class="s">Relevant courses: Databases, Reinforcement Learning and Algorithms, Industrial Engineering Lab, System Simulation</span>
+        </div>
       </div>
       <div class="row">
-        <div class="date">자격</div>
+        <div class="date"><span lang="ko">자격</span><span lang="en">Certificates</span></div>
         <div class="body">
           <span class="s"><span class="name">SQLD</span> <span class="status">2026.03.27 ~ 2028.03.27</span></span>
           <span class="s"><span class="name">OPIc IH</span> <span class="status">2026.01.31 ~ 2028.01.30</span></span>
         </div>
       </div>
       <div class="row">
-        <div class="date">도구</div>
+        <div class="date"><span lang="ko">도구</span><span lang="en">Tools</span></div>
         <div class="body">
-          <span class="s"><span class="name">제품 구현</span> TypeScript, React Native, Expo, Next.js, Firebase, Claude API</span>
-          <span class="s"><span class="name">데이터, 실험</span> Python, R, SQL, Arena</span>
-          <span class="s"><span class="name">개발 협업</span> Git, GitHub, Xcode, Claude Code, Codex</span>
+          <span class="s"><span class="name"><span lang="ko">제품 구현</span><span lang="en">Product</span></span> TypeScript, React Native, Expo, Next.js, Firebase, Claude API</span>
+          <span class="s"><span class="name"><span lang="ko">데이터, 실험</span><span lang="en">Data and experiments</span></span> Python, R, SQL, Arena</span>
+          <span class="s"><span class="name"><span lang="ko">개발 협업</span><span lang="en">Collaboration</span></span> Git, GitHub, Xcode, Claude Code, Codex</span>
         </div>
       </div>
     </section>
@@ -550,6 +663,26 @@
   <footer>
     © 2026 신재우 Jaewoo Shin
   </footer>
+
+  <script>
+    (function () {
+      var d = document.documentElement;
+      var buttons = document.querySelectorAll('[data-set-lang]');
+      function apply(lang, save) {
+        d.setAttribute('data-lang', lang);
+        d.lang = lang;
+        document.title = lang === 'en' ? 'Jaewoo Shin' : '신재우 Jaewoo Shin';
+        buttons.forEach(function (b) {
+          b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang));
+        });
+        if (save) { try { localStorage.setItem('portfolio-lang', lang); } catch (e) {} }
+      }
+      buttons.forEach(function (b) {
+        b.addEventListener('click', function () { apply(b.getAttribute('data-set-lang'), true); });
+      });
+      apply(d.getAttribute('data-lang') === 'en' ? 'en' : 'ko', false);
+    })();
+  </script>
 
 </body>
 </html>
