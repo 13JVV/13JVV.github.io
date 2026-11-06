@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="신재우, 인하대학교 산업경영공학과. 사용자 문제를 정의하고 AI 도구로 실제 앱과 웹서비스를 만들어 온 IT/AI 서비스 기획 포트폴리오입니다." />
+  <meta name="author" content="신재우" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="신재우 Jaewoo Shin" />
+  <meta property="og:description" content="AI 제품 / 서비스 기획 포트폴리오" />
+  <meta property="og:url" content="https://13jvv.github.io/" />
+  <title>신재우 Jaewoo Shin</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #fdfdfc;
+      --text: #1f2328;
+      --text-soft: #3a3f46;
+      --text-faint: #5b616b;
+      --line: #e7e7e2;
+      --accent: #9b2226;
+      --link: #4a7bd8;
+      --tile: #f6f2ec;
+      --serif: "Newsreader", Georgia, serif;
+      --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      --maxw: 1000px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16.5px;
+      line-height: 1.7;
+      word-break: keep-all;
+      overflow-wrap: break-word;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .15s ease, color .15s ease;
+    }
+    a:hover { border-bottom-color: currentColor; }
+    strong { font-weight: 600; color: var(--text); }
+
+    /* 한 문장 한 줄. 긴 문장은 .u 단위에서만 줄이 바뀝니다. */
+    .s { display: block; }
+    .u { display: inline-block; }
+
+    /* ---------- NAV ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: saturate(180%) blur(10px);
+      -webkit-backdrop-filter: saturate(180%) blur(10px);
+      background: rgba(253, 253, 252, 0.85);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav-inner {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 14px 22px;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 18px;
+    }
+    .nav-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .nav-name:hover { border-bottom-color: transparent; }
+    .nav-links { display: flex; gap: 20px; font-size: 15px; }
+    .nav-links a { color: var(--text-soft); border-bottom: none; position: relative; }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 0; height: 1.5px;
+      background: var(--accent);
+      transition: width .2s ease;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* ---------- LAYOUT ---------- */
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 22px 80px; }
+
+    .fade { opacity: 0; transform: translateY(8px); animation: rise .7s ease forwards; }
+    .d1 { animation-delay: .05s; }
+    .d2 { animation-delay: .15s; }
+    .d3 { animation-delay: .25s; }
+    @keyframes rise { to { opacity: 1; transform: none; } }
+    @media (prefers-reduced-motion: reduce) {
+      .fade { animation: none; opacity: 1; transform: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* ---------- HERO ---------- */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 40px;
+      align-items: start;
+      padding: 54px 0 8px;
+    }
+    .hero .role {
+      font-size: 14px;
+      color: var(--text-soft);
+      letter-spacing: 1.4px;
+      font-weight: 700;
+      margin: 0 0 6px;
+    }
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0 0 8px;
+      letter-spacing: -0.5px;
+    }
+    .hero h1 .en {
+      font-family: var(--serif);
+      font-weight: 500;
+      font-size: 24px;
+      color: var(--text-faint);
+      margin-left: 10px;
+      letter-spacing: 0;
+    }
+    .bio p { margin: 16px 0; line-height: 1.75; }
+    .seeking { color: var(--link); font-weight: 600; }
+
+    .photo {
+      width: 220px;
+      height: 220px;
+      margin-top: 34px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid var(--line);
+      overflow: hidden;
+    }
+    .photo.mono {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(150deg, #f8ece6, #f1dcd6 55%, #fbe9d7);
+      color: var(--accent);
+      font-size: 84px;
+      font-weight: 700;
+      letter-spacing: -2px;
+    }
+
+    .meta {
+      margin-top: 14px;
+      color: var(--text-soft);
+      line-height: 1.95;
+    }
+    .meta .label { font-weight: 600; color: var(--text); margin-right: 4px; }
+    .meta a { color: var(--link); }
+    .meta a i { margin-right: 5px; }
+    .sep { color: var(--text-faint); margin: 0 4px; }
+
+    /* ---------- SECTION ---------- */
+    .rule { border: none; border-top: 1px solid var(--line); margin: 46px 0 0; }
+    .section-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin: 40px 0 18px;
+    }
+    .section-title .en {
+      font-family: var(--serif);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-right: 8px;
+    }
+    .section-title .ko { color: var(--text-faint); font-weight: 600; letter-spacing: 1px; }
+    section { scroll-margin-top: 64px; }
+
+    /* ---------- ROWS (업데이트, 기타, 학력) ---------- */
+    .row {
+      display: grid;
+      grid-template-columns: 104px 1fr;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .row:last-child { border-bottom: none; }
+    .row .date {
+      color: var(--text-faint);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      padding-top: 1px;
+    }
+    .row .body { color: var(--text-soft); }
+    .row .body .name { font-weight: 600; color: var(--text); }
+    .row .body .more { font-weight: 600; white-space: nowrap; }
+    .row .body .status { color: var(--text-faint); font-size: 14.5px; }
+    .highlight { color: var(--accent); font-weight: 600; }
+
+    /* ---------- PROJECTS ---------- */
+    .pub {
+      display: grid;
+      grid-template-columns: 172px 1fr;
+      gap: 24px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .pub:last-child { border-bottom: none; }
+    .thumb {
+      width: 172px;
+      height: 124px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--tile);
+      overflow: hidden;
+      display: block;
+    }
+    .thumb:hover { border-bottom-color: var(--line); }
+    .thumb > img { width: 100%; height: 100%; object-fit: cover; object-position: left top; display: block; }
+    .thumb.phones {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 12px 0;
+    }
+    .thumb.phones img {
+      width: 62px;
+      height: auto;
+      align-self: flex-start;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(60, 40, 30, .14);
+    }
+    .thumb.phones img + img { margin-top: 14px; }
+    .thumb.stat {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 16px;
+      background: linear-gradient(150deg, #fbf0e6, #f6e4df);
+    }
+    .thumb.stat .num {
+      font-family: var(--serif);
+      font-size: 38px;
+      font-weight: 600;
+      line-height: 1;
+      color: var(--accent);
+    }
+    .thumb.stat .cap { font-size: 12.5px; color: var(--text-soft); margin-top: 8px; line-height: 1.45; }
+
+    .pub-title { font-weight: 700; color: var(--text); font-size: 17.5px; line-height: 1.4; margin-bottom: 3px; }
+    .pub-title .sub { font-weight: 500; color: var(--text-soft); }
+    .pub-meta { font-size: 14.5px; color: var(--text-faint); margin-bottom: 3px; }
+    .pub-venue { font-size: 14.5px; color: var(--link); font-weight: 600; line-height: 1.5; margin-bottom: 6px; }
+    .pub-venue .award { color: var(--accent); }
+    .pub-desc { margin: 0 0 6px; color: var(--text-soft); font-size: 15.5px; line-height: 1.7; }
+    .pub-links { font-size: 14.5px; }
+    .pub-links a { font-weight: 600; }
+
+    footer {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 30px 22px 50px;
+      border-top: 1px solid var(--line);
+      color: var(--text-faint);
+      font-size: 13.5px;
+      text-align: center;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 680px) {
+      body { font-size: 16px; }
+      .nav-inner { padding: 12px 16px; }
+      .nav-links { gap: 14px; font-size: 14px; }
+      .wrap { padding: 0 16px 64px; }
+      .hero { grid-template-columns: 1fr; gap: 20px; padding: 32px 0 4px; }
+      .photo { width: 112px; height: 112px; margin-top: 0; order: -1; }
+      .photo.mono { font-size: 44px; }
+      .hero h1 { font-size: 30px; }
+      .hero h1 .en { font-size: 20px; margin-left: 6px; }
+      .row { grid-template-columns: 1fr; gap: 2px; }
+      .pub { grid-template-columns: 1fr; gap: 14px; }
+      .thumb { width: 100%; height: 170px; }
+      .thumb.phones img { width: 84px; }
+      footer { padding: 26px 16px 40px; }
+    }
+    @media (max-width: 380px) {
+      .nav-name { font-size: 16px; }
+      .nav-links { gap: 10px; font-size: 13.5px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="nav-name" href="#top">신재우</a>
+      <div class="nav-links">
+        <a href="#top">소개</a>
+        <a href="#projects">프로젝트</a>
+        <a href="#more">기타</a>
+        <a href="#education">학력</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="wrap" id="top">
+
+    <!-- ============ HERO ============ -->
+    <header class="hero fade d1">
+      <div class="bio">
+        <p class="role">AI 제품 / 서비스 기획</p>
+        <h1>신재우<span class="en">Jaewoo Shin</span></h1>
+        <p>
+          <span class="s">안녕하세요, 인하대학교 <strong>산업경영공학과</strong> 신재우입니다.</span>
+          <span class="s"><span class="u">사용자 문제를 정의하고</span> <span class="u"><strong>AI 도구로 실제 앱과 웹서비스</strong>를 만들어 왔습니다.</span></span>
+          <span class="s"><span class="u">개인 프로젝트는 직접 출시하고</span> <span class="u">피드백을 받아 고쳐 봤습니다.</span></span>
+          <span class="s"><span class="u">팀 프로젝트에서는</span> <span class="u">데이터 설계와 협업을 맡았습니다.</span></span>
+          <span class="s"><span class="u">사용자 피드백과 데이터의 한계를</span> <span class="u">제품 결정에 반영하려고 합니다.</span></span>
+        </p>
+        <p class="seeking">
+          <span class="s"><span class="u">IT 서비스 기획, AI 서비스 기획</span> <span class="u">인턴 기회를 찾고 있습니다.</span></span>
+          <span class="s">2027년 1월부터 일할 수 있습니다.</span>
+        </p>
+      </div>
+
+      <!-- 사진을 넣으려면 assets/img/profile.jpg를 추가하고 아래 div를
+           <img class="photo" src="assets/img/profile.jpg" alt="신재우" /> 로 바꾸세요. -->
+      <div class="photo mono" role="img" aria-label="신재우">재우</div>
+    </header>
+
+    <div class="meta fade d2">
+      <span class="label">Contact</span>
+      sjwtlswodn [at] gmail.com
+      <br />
+      <span class="label">Follow</span>
+      <a href="https://github.com/13JVV" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a>
+    </div>
+
+    <hr class="rule" />
+
+    <!-- ============ UPDATES ============ -->
+    <section class="fade d3">
+      <h2 class="section-title"><span class="en">Updates</span><span class="ko">소식</span></h2>
+      <div class="updates">
+        <div class="row">
+          <div class="date">10/2026</div>
+          <div class="body">
+            <span class="name">빅콘테스트 AI데이터활용 캡스톤</span>에 팀장으로 참여해 제출했습니다.
+            <span class="status">결과 대기 중</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="date">07/2026</div>
+          <div class="body">
+            <span class="name">CrowdSense</span>로 제4회 재난안전데이터 활용 창업경진대회에서
+            <span class="highlight">최우수상 (행정안전부 장관상)</span>을 받았습니다.
+          </div>
+        </div>
+        <div class="row">
+          <div class="date">07/2026</div>
+          <div class="body">
+            <span class="name">반갑꼬리</span>를 관광데이터 활용 공모전에 제출하고 발표했습니다.
+          </div>
+        </div>
+        <div class="row">
+          <div class="date">03/2026</div>
+          <div class="body">
+            <span class="name">It's me</span> 기획과 개발을 시작했습니다.
+            지금은 App Store와 Google Play에 공개되어 있습니다.
+          </div>
+        </div>
+        <div class="row">
+          <div class="date">03/2026</div>
+          <div class="body"><span class="name">SQLD</span>를 취득했습니다.</div>
+        </div>
+        <div class="row">
+          <div class="date">01/2026</div>
+          <div class="body"><span class="name">OPIc IH</span>를 취득했습니다.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROJECTS ============ -->
+    <section id="projects">
+      <h2 class="section-title"><span class="en">Projects</span><span class="ko">주요 프로젝트</span></h2>
+
+      <div class="pub">
+        <a class="thumb phones" href="projects/itsme/" aria-label="It's me 사례 보기">
+          <img src="assets/img/itsme-home.webp" alt="" loading="lazy" />
+          <img src="assets/img/itsme-wallet.webp" alt="" loading="lazy" />
+        </a>
+        <div>
+          <div class="pub-title">It's me <span class="sub">디지털 명함, 관계 관리 앱</span></div>
+          <div class="pub-meta">2026.03 ~ 현재 / 개인 프로젝트 / 기획, 디자인, AI 도구 기반 개발과 배포</div>
+          <div class="pub-venue">App Store, Google Play 공개</div>
+          <p class="pub-desc">
+            <span class="s"><span class="u">명함을 주고받은 뒤</span> <span class="u">연락처와 만난 맥락이 흩어지는 문제에서 출발했습니다.</span></span>
+            <span class="s"><span class="u">명함 생성과 QR 공유를 먼저 출시하고</span> <span class="u">OCR, 지갑, 만남 브리핑으로 넓혔습니다.</span></span>
+            <span class="s"><span class="u">Claude API로 인식한 명함은</span> <span class="u">저장 전에 사용자가 확인하고 고치도록 설계했습니다.</span></span>
+          </p>
+          <div class="pub-links"><a href="projects/itsme/">사례 보기</a></div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <a class="thumb" href="projects/crowdsense/" aria-label="CrowdSense 사례 보기">
+          <img src="assets/img/crowdsense-live.webp" alt="" loading="lazy" />
+        </a>
+        <div>
+          <div class="pub-title">CrowdSense <span class="sub">AI 인파 관제 지원 서비스</span></div>
+          <div class="pub-meta">2026.07 제작과 발표, 이후 개선 중 / 개인 프로젝트 / 기획, 설계, AI 도구 기반 개발과 배포</div>
+          <div class="pub-venue"><span class="award">제4회 재난안전데이터 활용 창업경진대회 최우수상 (행정안전부 장관상)</span></div>
+          <p class="pub-desc">
+            <span class="s"><span class="u">인파 경보 뒤에 담당자가</span> <span class="u">조치와 전파, 보고를 따로 준비해야 하는 흐름을 문제로 봤습니다.</span></span>
+            <span class="s">데이터 근거와 AI 대응 초안을 한 화면에 연결했습니다.</span>
+            <span class="s"><span class="u">시민 안내 후보와 현장 확인이 필요한 후보는</span> <span class="u">구조화 출력으로 나눴습니다.</span></span>
+          </p>
+          <div class="pub-links">
+            <a href="projects/crowdsense/">사례 보기</a>
+            <span class="sep">|</span>
+            <a href="https://github.com/13JVV/crowdsense-overview" target="_blank" rel="noopener">GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <a class="thumb phones" href="projects/pet/" aria-label="반갑꼬리 사례 보기">
+          <img src="assets/img/pet-home.webp" alt="" loading="lazy" />
+          <img src="assets/img/pet-explore.webp" alt="" loading="lazy" />
+        </a>
+        <div>
+          <div class="pub-title">반갑꼬리 <span class="sub">반려동물 동반여행 앱</span></div>
+          <div class="pub-meta">2026.07 ~ 현재 / 3인 팀 / 프론트엔드, 기능과 DB 설계, API 연동, 배포</div>
+          <div class="pub-venue">App Store 공개, 관광데이터 활용 공모전 제출</div>
+          <p class="pub-desc">
+            <span class="s"><span class="u">시설마다 다른 몸무게, 품종, 이용 구역 조건을</span> <span class="u">반려동물 정보와 대조하는 흐름을 설계했습니다.</span></span>
+            <span class="s"><span class="u">조건이 없거나 모호한 데이터는</span> <span class="u">동반 가능으로 단정하지 않게 구분했습니다.</span></span>
+            <span class="s"><span class="u">카드 정보량은 두 화면안을 직접 구현해 비교하고</span> <span class="u">팀원 안을 채택했습니다.</span></span>
+          </p>
+          <div class="pub-links"><a href="projects/pet/">사례 보기</a></div>
+        </div>
+      </div>
+
+      <div class="pub">
+        <a class="thumb stat" href="projects/subscription/" aria-label="생성형 AI 구독 모델 분석 사례 보기">
+          <span class="num">26.4%</span>
+          <span class="cap">전문성의 상대적 중요도<br />유효 응답자 113명</span>
+        </a>
+        <div>
+          <div class="pub-title">생성형 AI 구독 모델 분석 <span class="sub">사용자 선택 실험</span></div>
+          <div class="pub-meta">2026년 1학기 / 4인 팀 / R, 이산선택실험(DCE), 조건부 로짓</div>
+          <p class="pub-desc">
+            <span class="s"><span class="u">설문 설계를 맡아</span> <span class="u">가격, 정확도, 보안, 개인화, 전문성 사이의 선택을 조사했습니다.</span></span>
+            <span class="s"><span class="u">유효 응답자 113명의 선택 데이터로</span> <span class="u">팀이 함께 모형을 추정했습니다.</span></span>
+            <span class="s"><span class="u">설정한 속성 범위에서</span> <span class="u">전문성의 상대적 중요도가 26.4%로 가장 높았습니다.</span></span>
+          </p>
+          <div class="pub-links"><a href="projects/subscription/">사례 보기</a></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ MORE ============ -->
+    <section id="more">
+      <h2 class="section-title"><span class="en">More</span><span class="ko">기타 프로젝트와 활동</span></h2>
+      <div class="row">
+        <div class="date">2026</div>
+        <div class="body">
+          <span class="name">AI 사회적 고립 캡스톤</span>
+          <span class="s">AI 기반 사회적 고립 문제 분석 캡스톤을 마쳤습니다.</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="date">2026.03</div>
+        <div class="body">
+          <span class="name">교내 AI 문제해결 경진대회</span> <span class="status">팀장</span>
+          <span class="s"><span class="u">캠퍼스 안전 문제에 대해</span> <span class="u">순찰과 정비 의사결정 구조, 관제 흐름을 제안했습니다.</span> <a class="more" href="projects/campus/">사례 보기</a></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="date">2026.03 ~</div>
+        <div class="body">
+          <span class="name">GoodGoodLawyer</span>
+          <span class="s"><span class="u">부동산 법률정보 웹서비스를</span> <span class="u">혼자 기획하고 개발해 배포했습니다.</span></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="date">수업</div>
+        <div class="body">
+          <span class="name">생산공정 시뮬레이션</span>
+          <span class="s"><span class="u">Arena로 공정 개선안을 비교하고</span> <span class="u">시뮬레이션 결과와 실제 운영 효과를 구분했습니다.</span> <a class="more" href="projects/factory/">사례 보기</a></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="date">수업</div>
+        <div class="body">
+          <span class="name">강화학습 PPO</span>
+          <span class="s"><span class="u">LunarLander에서 PPO 설정별</span> <span class="u">학습 로그를 비교했습니다.</span> <a class="more" href="projects/lunar/">사례 보기</a></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EDUCATION ============ -->
+    <section id="education">
+      <h2 class="section-title"><span class="en">Education</span><span class="ko">학력, 자격, 도구</span></h2>
+      <div class="row">
+        <div class="date">학력</div>
+        <div class="body">
+          <span class="name">인하대학교 산업경영공학과</span> <span class="status">2021.03 ~ 2027.02 졸업 예정</span>
+          <span class="s">관련 수업: 데이터베이스, 강화학습 및 알고리즘, 산업공학실험, 시스템 시뮬레이션</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="date">자격</div>
+        <div class="body">
+          <span class="s"><span class="name">SQLD</span> <span class="status">2026.03.27 ~ 2028.03.27</span></span>
+          <span class="s"><span class="name">OPIc IH</span> <span class="status">2026.01.31 ~ 2028.01.30</span></span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="date">도구</div>
+        <div class="body">
+          <span class="s"><span class="name">제품 구현</span> TypeScript, React Native, Expo, Next.js, Firebase, Claude API</span>
+          <span class="s"><span class="name">데이터, 실험</span> Python, R, SQL, Arena</span>
+          <span class="s"><span class="name">개발 협업</span> Git, GitHub, Xcode, Claude Code, Codex</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer>
+    © 2026 신재우 Jaewoo Shin
+  </footer>
+
+</body>
+</html>

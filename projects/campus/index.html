@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 기반 캠퍼스 안전 자원 최적 배분 플랫폼 — 포트폴리오</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F0F2F1;
+  --surface:#FFFFFF;
+  --ink:#16211F;
+  --ink-soft:#3D4C49;
+  --muted:#6B7A76;
+  --rule:#CBD4D1;
+  --rule-soft:#DFE5E3;
+
+  /* 위험 지수 0–100 색상 밴드 (제안서 정의) */
+  --safe:#2F7D4F;
+  --caution:#D5A215;
+  --warning:#DD6F26;
+  --danger:#BE3A2B;
+  /* 순찰 자원 = 파란색 (제안서 정의) */
+  --patrol:#2B5F9E;
+
+  --sans:'IBM Plex Sans KR',-apple-system,'Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  --mono:'IBM Plex Mono','D2Coding',ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.75;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  letter-spacing:-0.003em;
+}
+a{color:var(--patrol);text-decoration:none;border-bottom:1px solid var(--rule)}
+a:hover{border-bottom-color:var(--patrol)}
+:focus-visible{outline:2px solid var(--patrol);outline-offset:3px}
+
+/* ── 레이아웃 ───────────────────────── */
+.shell{max-width:1180px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr;gap:0}
+.doc{max-width:720px;margin:0 auto;width:100%}
+
+/* ── 헤더 / 히어로 ──────────────────── */
+header.masthead{border-bottom:1px solid var(--rule);background:var(--surface)}
+.masthead-inner{max-width:1180px;margin:0 auto;padding:56px 28px 0}
+.kicker{font-size:13px;color:var(--muted);font-weight:500;margin:0 0 18px}
+h1.title{
+  font-size:clamp(30px,4.6vw,50px);
+  line-height:1.18;
+  font-weight:600;
+  letter-spacing:-0.028em;
+  margin:0 0 14px;
+  max-width:16ch;
+}
+.title-en{
+  font-size:14px;color:var(--muted);font-weight:400;
+  line-height:1.6;margin:0 0 40px;max-width:52ch;font-style:italic;
+}
+
+/* 핵심 결정 히어로 */
+.decision{
+  display:grid;grid-template-columns:1fr auto 1fr;gap:0;
+  align-items:stretch;margin:0 0 6px;max-width:760px;
+}
+.decision-side{padding:20px 26px 22px 0}
+.decision-side:last-child{padding:20px 0 22px 26px}
+.decision-tag{font-size:12px;font-weight:600;margin:0 0 8px;letter-spacing:0.02em}
+.decision-tag.now{color:var(--danger)}
+.decision-tag.later{color:var(--patrol)}
+.decision-q{font-size:clamp(17px,2.1vw,21px);font-weight:500;line-height:1.45;margin:0 0 6px;letter-spacing:-0.02em}
+.decision-sub{font-size:13.5px;color:var(--muted);margin:0;line-height:1.6}
+.decision-split{width:1px;background:var(--rule)}
+.decision-lead{
+  font-size:14px;color:var(--ink-soft);max-width:60ch;margin:0 0 28px;
+  padding-left:0;line-height:1.7;
+}
+
+/* 위험 밴드 스케일 */
+.scale{margin:34px 0 0;max-width:760px}
+.scale-bar{display:flex;height:7px;border-radius:1px;overflow:hidden}
+.scale-bar span{flex:1}
+.scale-labels{display:flex;margin-top:9px}
+.scale-labels span{flex:1;font-size:12px;color:var(--muted);font-weight:500}
+.scale-note{font-size:12px;color:var(--muted);margin:12px 0 0}
+.scale-note b{font-weight:500;color:var(--ink-soft)}
+.masthead-pad{height:52px}
+
+/* ── 메타 정보 그리드 ───────────────── */
+.meta{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:0;border-top:1px solid var(--rule);margin-top:44px;
+}
+.meta div{padding:16px 20px 18px 0;border-right:1px solid var(--rule-soft)}
+.meta div:last-child{border-right:0}
+.meta dt{font-size:12px;color:var(--muted);margin:0 0 5px;font-weight:500}
+.meta dd{margin:0;font-size:14px;font-weight:500;line-height:1.5}
+
+/* ── 본문 ──────────────────────────── */
+main{padding:64px 0 100px}
+section{margin:0 0 76px;scroll-margin-top:24px}
+.sec-head{display:flex;gap:16px;align-items:baseline;border-bottom:2px solid var(--ink);padding-bottom:10px;margin-bottom:26px}
+.sec-num{font-family:var(--mono);font-size:13px;color:var(--muted);font-weight:500;flex:none;padding-top:2px}
+h2{font-size:clamp(21px,2.6vw,26px);font-weight:600;letter-spacing:-0.025em;margin:0;line-height:1.3}
+h3{font-size:17px;font-weight:600;margin:38px 0 12px;letter-spacing:-0.02em;line-height:1.4}
+h4{font-size:15px;font-weight:600;margin:26px 0 8px;color:var(--ink-soft)}
+p{margin:0 0 16px;max-width:70ch}
+strong{font-weight:600}
+em{font-style:normal;background:linear-gradient(transparent 62%,rgba(213,162,21,.32) 62%);font-weight:500}
+ul,ol{margin:0 0 18px;padding-left:20px;max-width:70ch}
+li{margin:0 0 7px}
+li::marker{color:var(--muted)}
+
+/* ── 표 ────────────────────────────── */
+.tw{overflow-x:auto;margin:0 0 24px;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:14.5px;min-width:440px}
+th{
+  text-align:left;font-weight:600;font-size:12.5px;color:var(--muted);
+  padding:0 16px 9px 0;border-bottom:1px solid var(--ink);vertical-align:bottom;
+}
+td{padding:13px 16px 13px 0;border-bottom:1px solid var(--rule-soft);vertical-align:top;line-height:1.6}
+tr:last-child td{border-bottom:1px solid var(--rule)}
+th:last-child,td:last-child{padding-right:0}
+td.num{font-family:var(--mono);font-size:13px;color:var(--muted);white-space:nowrap;width:1%}
+table.compact td{padding:9px 16px 9px 0;font-size:14px}
+
+/* ── 아키텍처 다이어그램 ────────────── */
+.arch{border:1px solid var(--rule);background:var(--surface);padding:26px 22px;margin:0 0 24px}
+.arch-node{
+  border:1px solid var(--rule);padding:12px 15px;text-align:center;
+  font-size:13.5px;line-height:1.5;background:var(--paper);
+}
+.arch-node b{display:block;font-weight:600;font-size:14px;margin-bottom:3px}
+.arch-node small{color:var(--muted);font-size:12px}
+.arch-brain{border:2px solid var(--ink);background:var(--surface)}
+.arch-arrow{text-align:center;color:var(--rule);font-size:15px;line-height:1;margin:9px 0;font-family:var(--mono)}
+.arch-tracks{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0}
+.track{border:1px solid var(--rule);background:var(--surface);padding:0;overflow:hidden}
+.track-top{padding:11px 15px 10px;color:#fff;font-size:13px;font-weight:600}
+.track.now .track-top{background:var(--danger)}
+.track.later .track-top{background:var(--patrol)}
+.track-top small{display:block;font-weight:400;font-size:11.5px;opacity:.82;margin-top:1px}
+.track ul{margin:0;padding:13px 15px 14px 30px;font-size:13.5px}
+.track li{margin:0 0 5px;color:var(--ink-soft)}
+.arch-loop{
+  margin-top:14px;border:1px dashed var(--rule);padding:11px 15px;text-align:center;
+  font-size:13px;color:var(--muted);background:var(--surface);
+}
+
+/* ── 본인 담당 표시 ────────────────── */
+.mine{
+  display:inline-block;font-size:11.5px;font-weight:600;color:#fff;
+  background:var(--ink);padding:2px 8px;margin-left:10px;
+  vertical-align:middle;letter-spacing:0.01em;flex:none;
+}
+tr.mine-row td{background:#E9EFF6}
+tr.mine-row td:first-child{padding-left:12px;border-left:3px solid var(--patrol)}
+.mine-inline{font-size:11.5px;font-weight:600;color:#fff;background:var(--patrol);padding:1px 7px;margin-left:8px;white-space:nowrap}
+
+.contrib{border:1px solid var(--ink);background:var(--surface);margin:0 0 26px}
+.contrib-head{
+  background:var(--ink);color:#fff;padding:13px 20px;
+  font-size:14.5px;font-weight:600;letter-spacing:-0.015em;
+}
+.contrib-head small{display:block;font-weight:400;font-size:12.5px;opacity:.72;margin-top:2px;letter-spacing:0}
+.contrib-item{padding:18px 20px;border-bottom:1px solid var(--rule-soft)}
+.contrib-item:last-child{border-bottom:0}
+.contrib-item h4{margin:0 0 7px;font-size:15px;color:var(--ink)}
+.contrib-item p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.7}
+.contrib-scope{
+  font-family:var(--mono);font-size:11.5px;color:var(--muted);
+  display:block;margin-bottom:5px;
+}
+
+/* ── 콜아웃 ────────────────────────── */
+.note{
+  border-left:3px solid var(--rule);padding:3px 0 3px 18px;margin:24px 0;
+  font-size:14.5px;color:var(--ink-soft);max-width:66ch;
+}
+.note p{margin:0 0 10px}
+.note p:last-child{margin:0}
+.note-label{font-size:12.5px;font-weight:600;color:var(--muted);margin:0 0 5px;display:block}
+.note.tip{border-left-color:var(--caution)}
+.note.tip .note-label{color:#9c7508}
+.note.point{border-left-color:var(--patrol)}
+.note.point .note-label{color:var(--patrol)}
+.note.warn{border-left-color:var(--danger)}
+.note.warn .note-label{color:var(--danger)}
+
+blockquote{
+  margin:22px 0;padding:0 0 0 20px;border-left:3px solid var(--ink);
+  font-size:17px;font-weight:500;line-height:1.6;letter-spacing:-0.018em;max-width:60ch;
+}
+
+/* ── 수식 / 코드 ───────────────────── */
+.formula{
+  font-family:var(--mono);font-size:15px;background:var(--surface);
+  border:1px solid var(--rule);padding:18px 20px;margin:0 0 16px;
+  overflow-x:auto;white-space:nowrap;
+}
+.formula .w{color:var(--muted)}
+.formula .plus{color:var(--safe)}
+.formula .minus{color:var(--danger)}
+code{font-family:var(--mono);font-size:13px;background:var(--surface);border:1px solid var(--rule-soft);padding:1px 5px}
+
+/* ── 키워드 태그 ───────────────────── */
+.tags{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 18px;padding:0;list-style:none;max-width:100%}
+.tags li{margin:0}
+.tags span{
+  display:inline-block;font-family:var(--mono);font-size:12px;
+  border:1px solid var(--rule);padding:4px 9px;color:var(--ink-soft);background:var(--surface);
+}
+
+/* ── 대시보드 구역 ─────────────────── */
+.zone{border-top:1px solid var(--rule);padding:22px 0 4px;margin:0}
+.zone-head{display:flex;gap:12px;align-items:baseline;margin:0 0 6px}
+.zone-id{
+  font-family:var(--mono);font-size:12px;font-weight:500;color:#fff;
+  background:var(--ink);padding:2px 8px;flex:none;
+}
+.zone-name{font-size:16px;font-weight:600;letter-spacing:-0.02em}
+.zone-where{font-size:12.5px;color:var(--muted)}
+.zone-q{font-size:14.5px;color:var(--ink-soft);margin:0 0 14px;font-weight:500}
+
+/* ── 활용 가이드 파트 ──────────────── */
+.part-break{
+  border-top:2px solid var(--ink);margin:96px 0 60px;padding:26px 0 0;
+}
+.part-break h2{font-size:clamp(23px,3vw,30px);margin:0 0 10px}
+.part-break p{font-size:15px;color:var(--muted);margin:0;max-width:58ch}
+
+.oneliner{
+  background:var(--surface);border:1px solid var(--rule);padding:22px 24px;margin:0 0 16px;
+}
+.oneliner .lbl{font-size:12px;color:var(--muted);font-weight:600;margin:0 0 9px}
+.oneliner p{margin:0;font-size:15px;line-height:1.65}
+.oneliner.en p{font-size:14px;font-style:italic;color:var(--ink-soft);line-height:1.6}
+
+.star{display:grid;grid-template-columns:auto 1fr;gap:0 20px;margin:0 0 8px}
+.star-k{
+  font-family:var(--mono);font-size:12px;font-weight:500;color:var(--muted);
+  padding-top:4px;border-right:1px solid var(--rule-soft);padding-right:20px;
+}
+.star-v{padding:0 0 20px}
+.star-v p{margin:0;font-size:14.5px;line-height:1.7}
+.star:last-of-type .star-v{padding-bottom:0}
+
+.qa{border-bottom:1px solid var(--rule-soft);padding:18px 0}
+.qa:first-of-type{border-top:1px solid var(--ink);}
+.qa-q{font-size:15px;font-weight:600;margin:0 0 8px;line-height:1.5;letter-spacing:-0.018em}
+.qa-a{font-size:14.5px;color:var(--ink-soft);margin:0;line-height:1.7}
+
+.fix{display:grid;grid-template-columns:auto 1fr;gap:0 18px;padding:22px 0;border-bottom:1px solid var(--rule-soft)}
+.fix:first-of-type{border-top:1px solid var(--ink)}
+.fix-n{font-family:var(--mono);font-size:22px;font-weight:400;color:var(--rule);line-height:1.2}
+.fix h4{margin:0 0 7px;font-size:15.5px;color:var(--ink)}
+.fix p{margin:0;font-size:14.5px;color:var(--ink-soft);line-height:1.7}
+
+footer{border-top:1px solid var(--rule);margin-top:70px;padding:26px 0 0;font-size:13px;color:var(--muted)}
+footer p{margin:0 0 12px;max-width:62ch}
+footer ul{list-style:none;padding:0;margin:0}
+footer li{margin:0 0 4px;font-size:12.5px}
+
+/* ── 목차 (넓은 화면) ──────────────── */
+nav.toc{display:none}
+@media (min-width:1080px){
+  .shell{grid-template-columns:200px 1fr;gap:56px}
+  .doc{margin:0}
+  nav.toc{
+    display:block;position:sticky;top:32px;align-self:start;
+    padding-top:66px;max-height:calc(100vh - 64px);overflow-y:auto;
+  }
+  nav.toc ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+  nav.toc li{margin:0}
+  nav.toc a{
+    display:block;padding:5px 0 5px 14px;font-size:12.5px;color:var(--muted);
+    border-bottom:0;margin-left:-1px;border-left:2px solid transparent;line-height:1.4;
+  }
+  nav.toc a:hover{color:var(--ink)}
+  nav.toc a.on{color:var(--ink);font-weight:600;border-left-color:var(--ink)}
+  nav.toc .gap{height:12px}
+}
+@media (max-width:640px){
+  body{font-size:15.5px}
+  .masthead-inner{padding:38px 20px 0}
+  .shell{padding:0 20px}
+  .decision{grid-template-columns:1fr;gap:0}
+  .decision-side{padding:16px 0 16px 16px;border-left:2px solid var(--rule)}
+  .decision-side:last-child{padding:16px 0 16px 16px}
+  .decision-side:first-child{border-left-color:var(--danger)}
+  .decision-side:last-child{border-left-color:var(--patrol)}
+  .decision-split{display:none}
+  .meta div{border-right:0;border-bottom:1px solid var(--rule-soft);padding-right:0}
+  .arch-tracks{grid-template-columns:1fr}
+  .star{grid-template-columns:1fr;gap:0}
+  .star-k{border-right:0;border-bottom:1px solid var(--rule-soft);padding:0 0 6px;margin-bottom:10px}
+  .star-v{padding-bottom:22px}
+  main{padding:44px 0 70px}
+  section{margin-bottom:60px}
+}
+@media print{
+  body{background:#fff;font-size:11pt}
+  nav.toc{display:none}
+  .shell{grid-template-columns:1fr;max-width:100%}
+  section{page-break-inside:avoid}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+<link rel="stylesheet" href="../../project-navigation.css">
+</head>
+<body>
+<div class="portfolio-return" role="navigation" aria-label="포트폴리오"><a href="../../#projects">← 프로젝트 목록</a></div>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="kicker">인하대학교 교내 경진대회 제출작 — 포트폴리오 정리본</p>
+    <h1 class="title">위험도에 따라 순찰과 정비를 연결하는 캠퍼스 안전 플랫폼</h1>
+    <p class="title-en">AI-based Campus Safety Resource Optimization and Intelligent Patrol and Maintenance Integrated Platform</p>
+
+    <p class="decision-lead">보행자·차량·오토바이·PM이 좁은 골목에 섞이는 인하대 후문 생활권을 대상으로, 한정된 안전 인력과 예산을 어디에 먼저 투입할지 결정하는 관제 플랫폼을 <strong>개념 설계</strong>했습니다. 위험도와 따로 움직이던 순찰·정비의 우선순위를 두 시간축으로 연결했습니다.</p>
+
+    <div class="decision">
+      <div class="decision-side">
+        <p class="decision-tag now">단기 트랙 — 지금</p>
+        <p class="decision-q">순찰 인력을 저 골목으로 보낼 것인가?</p>
+        <p class="decision-sub">실시간 위험 감지에 따른 순찰 경로 동적 재배치</p>
+      </div>
+      <div class="decision-split"></div>
+      <div class="decision-side">
+        <p class="decision-tag later">장기 트랙 — 나중</p>
+        <p class="decision-q">저 가로등을 먼저 고칠 것인가?</p>
+        <p class="decision-sub">누적 위험 로그 기반 시설 정비 우선순위 산출</p>
+      </div>
+    </div>
+
+    <div class="scale">
+      <div class="scale-bar" role="img" aria-label="위험 지수 0에서 100까지 네 단계 색상 밴드">
+        <span style="background:var(--safe)"></span>
+        <span style="background:var(--caution)"></span>
+        <span style="background:var(--warning)"></span>
+        <span style="background:var(--danger)"></span>
+      </div>
+      <div class="scale-labels">
+        <span>안전</span><span>주의</span><span>위험</span><span>매우 위험</span>
+      </div>
+      <p class="scale-note">판단의 기준이 되는 <b>구간별 위험 지수 0–100점</b>. 보행 밀집도, PM·오토바이 속도, 불법 주정차 체류 시간을 가중 합산하는 설계안입니다. 가중치와 임계값의 실측 검증은 남아 있습니다.</p>
+    </div>
+
+    <dl class="meta">
+      <div><dt>대상 지역</dt><dd>인하대학교 후문 생활권</dd></div>
+      <div><dt>팀 구성</dt><dd>5인 다학제 (공학 3 · 비공학 2)</dd></div>
+      <div><dt>본인 역할</dt><dd>팀장 — 총괄 및 DX 인프라 설계</dd></div>
+      <div><dt>제안 기술</dt><dd>Computer Vision · 강화학습 · 디지털 트윈</dd></div>
+      <div><dt>완료 범위</dt><dd>개념 설계·제안서 · 구현·효과 검증 전</dd></div>
+    </dl>
+    <div class="masthead-pad"></div>
+  </div>
+</header>
+
+<div class="shell">
+
+<nav class="toc" aria-label="목차">
+  <ol>
+    <li><a href="#s1">개요와 팀 구성</a></li>
+    <li><a href="#s2">문제 정의</a></li>
+    <li><a href="#s2-plan">기획 과정</a></li>
+    <li><a href="#s2-ai">AI 에이전트 활용 설계</a></li>
+    <li><a href="#s3">솔루션 — 이중 트랙</a></li>
+    <li><a href="#s4">시스템 아키텍처</a></li>
+    <li><a href="#s5">AI·알고리즘</a></li>
+    <li><a href="#s6">관제 대시보드 설계</a></li>
+    <li><a href="#s7">검증 계획 — 디지털 트윈</a></li>
+    <li><a href="#s8">실행 로드맵</a></li>
+    <li><a href="#s9">설계 결과와 검증 범위</a></li>
+    <li><a href="#s9-reflection">회고</a></li>
+  </ol>
+</nav>
+
+<main class="doc">
+
+<!-- 1 -->
+<section id="s1">
+  <div class="sec-head"><span class="sec-num">01</span><h2>개요와 팀 구성</h2></div>
+
+  <div class="tw"><table class="compact">
+    <tbody>
+      <tr><td class="num">과제명</td><td>AI 기반 캠퍼스 안전 자원 최적 배분 및 지능형 순찰·정비 통합 플랫폼</td></tr>
+      <tr><td class="num">영문명</td><td>AI-based Campus Safety Resource Optimization and Intelligent Patrol and Maintenance Integrated Platform</td></tr>
+      <tr><td class="num">유형</td><td>교내 경진대회 아이디어 제안 · 다학제 팀 프로젝트</td></tr>
+      <tr><td class="num">대상</td><td>인하대 후문 생활권 — 인하문화의거리, 인하로 47번길 원룸촌, 후문 삼거리 교차로</td></tr>
+      <tr><td class="num">산출물</td><td>시스템 아키텍처 설계 · 강화학습 의사결정 로직 · 관제 대시보드 UI 설계 · SUMO 디지털 트윈 검증 계획</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>내가 맡은 부분</h3>
+  <div class="contrib">
+    <div class="contrib-head">팀장 — 총괄 및 DX 인프라 아키텍처 설계<small>산업경영공학과</small></div>
+    <div class="contrib-item">
+      <h4>프로젝트 총괄</h4>
+      <span class="contrib-scope">전 과정 리딩</span>
+      <p>4개 전공(경영학·아태물류학·전기전자공학·산업경영공학)이 참여한 5인 팀의 방향을 설정하고, 각 전공의 산출물이 하나의 시스템으로 맞물리도록 조율했습니다. 안전 문제를 자원 배분 최적화 문제로 재정의한 프레이밍이 이 조율의 출발점이었습니다.</p>
+    </div>
+    <div class="contrib-item">
+      <h4>강화학습(PPO) 기반 자원 배분 알고리즘 개념 설계</h4>
+      <span class="contrib-scope">개념 설계 — 상태 · 행동 · 보상 정의</span>
+      <p>순찰과 정비라는 두 종류의 자원 배분을 하나의 순차적 의사결정 문제로 정식화했습니다. 상태 공간(유동인구 밀도·PM 속도·조도·최근 제보), 행동 공간(순찰 파견 / 조명 제어 / PM 지오펜싱 / 정비 등록), 그리고 <code>ΔSafety</code>·<code>Cost</code>·<code>Response_Time</code>을 가중 결합한 보상 함수를 정의했습니다.</p>
+    </div>
+    <div class="contrib-item">
+      <h4>DX 인프라 논리 흐름도 수립</h4>
+      <span class="contrib-scope">아키텍처 설계 — 수집에서 실행까지</span>
+      <p>엣지 단 데이터 수집에서 Kafka 파이프라인, 실시간 분석, 강화학습 의사결정을 거쳐 현장 조치와 피드백으로 되돌아오는 전체 흐름을 하나의 논리 구조로 설계했습니다. 개별 기술 요소를 나열하는 대신 <strong>데이터가 어디서 만들어져 어디서 소비되는지</strong>를 기준으로 계층을 나눈 것이 설계의 핵심입니다.</p>
+    </div>
+  </div>
+
+  <h3>팀 역할 분담</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:26%">전공</th><th>담당 영역</th></tr></thead>
+    <tbody>
+      <tr class="mine-row"><td>산업경영공학 <span class="mine-inline">본인</span></td><td>프로젝트 총괄, 강화학습 알고리즘 설계, DX 인프라 아키텍처 수립</td></tr>
+      <tr><td>산업경영공학</td><td>위험 지수 정량화 모델 구축, SUMO 기반 디지털 트윈 시뮬레이션</td></tr>
+      <tr><td>경영학</td><td>캠퍼스 안전 정책·법규 검토, 경제적 타당성 분석, 이해관계자 수용성 연구</td></tr>
+      <tr><td>아태물류학</td><td>순찰 경로 최적화 알고리즘 설계, 정비 자원 물류 프로세스 효율화</td></tr>
+      <tr><td>전기전자공학</td><td>엣지 컴퓨팅 기반 CCTV 연동 인프라, 실시간 데이터 파이프라인 설계</td></tr>
+    </tbody>
+  </table></div>
+
+</section>
+
+<!-- 2 -->
+<section id="s2">
+  <div class="sec-head"><span class="sec-num">02</span><h2>문제 정의</h2></div>
+
+  <h3>현장 배경</h3>
+  <ul>
+    <li>후문 일대는 학생 유동인구가 집중되는 동시에, 좁은 골목에 <strong>보행자·차량·오토바이·PM(전동킥보드)이 혼재</strong>되어 상시적 사고 위험이 존재합니다.</li>
+    <li>제안서는 <strong>후문 삼거리의 교통 환경 변화</strong>를 고려해, 보행자와 이동수단이 섞이는 구간의 안전 관리 대응 체계를 검토했습니다.</li>
+    <li>후문 주택가·원룸촌은 야간 조도 저하와 인적 드문 환경으로 학생들의 귀가 불안감이 높은 구역입니다. (인하대학신문 및 지역 언론 보도 기반)</li>
+  </ul>
+
+  <h3>기존 운영의 세 가지 한계</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:22%">한계</th><th style="width:38%">현재 구조</th><th>결과</th></tr></thead>
+    <tbody>
+      <tr><td><strong>정적 순찰</strong></td><td>고정 경로를 반복하는 방식</td><td>실시간으로 변하는 위험에 즉각 대응 불가</td></tr>
+      <tr><td><strong>사후 대응</strong></td><td>사고 발생 후 처리에 집중</td><td>예방적 개입의 부재</td></tr>
+      <tr><td><strong>근거 부재</strong></td><td>인력·예산 배분의 객관적 기준 없음</td><td>자원 배분이 경험과 관행에 의존</td></tr>
+    </tbody>
+  </table></div>
+
+  <blockquote>안전 인력이 10명뿐일 때 누구를 어디로 보낼 것인가. 정비 예산이 1,000만 원일 때 어느 골목의 가로등부터 고칠 것인가.</blockquote>
+
+  <p>위험을 지도에 표시한 다음, 운영자가 선택할 <strong>행동 대안과 우선순위</strong>까지 연결하는 것을 목표로 삼았습니다. 즉시 대응이 필요한 순찰과 시간을 두고 집행하는 시설 정비를 같은 위험 데이터에서 판단하도록 문제를 정의했습니다.</p>
+</section>
+
+<!-- 2-1 -->
+<section id="s2-plan">
+  <div class="sec-head"><span class="sec-num">02A</span><h2>기획 과정</h2><span class="mine">팀장 조율</span></div>
+
+  <p>4개 전공 5인이 서로 다른 언어로 문제를 보고 있었기 때문에, 먼저 “무엇을 감지하는가”보다 <strong>어떤 자원을 어떤 시간축으로 배분할 것인가</strong>를 공통 문제로 잡았습니다. 역할은 위험 정량화·디지털 트윈·정책/법규·물류·엣지 인프라로 나누되, 모든 산출물이 상태–행동–결과라는 하나의 의사결정 흐름에 연결되도록 조율했습니다.</p>
+  <div class="tw"><table class="compact">
+    <thead><tr><th>우선순위</th><th>먼저 정한 질문</th><th>후순위로 미룬 것</th></tr></thead>
+    <tbody>
+      <tr><td><strong>P0 · 단기 안전</strong></td><td>지금 어느 구역에 순찰 인력을 보낼 것인가?</td><td>전체 캠퍼스 확장, 완성형 하드웨어 도입</td></tr>
+      <tr><td><strong>P1 · 장기 정비</strong></td><td>누적 위험 로그를 기준으로 무엇을 먼저 고칠 것인가?</td><td>예산 집행 자동화, 외부 기관 연동</td></tr>
+      <tr><td><strong>검증</strong></td><td>실제 후문 생활권 데이터를 넣고 고정 순찰과 비교할 수 있는가?</td><td>현장 실험 대신 SUMO 디지털 트윈으로 반사실적 비교</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note point"><span class="note-label">협업 에피소드</span><p>전공별 제안이 충돌할 때 회의에서 결론을 밀어붙이기보다, 순찰 경로·정비 우선순위를 한 화면에 놓은 두 가지 대시보드 안을 직접 만들어 비교했습니다. 이 과정에서 팀원들의 전문성이 더 잘 드러나는 안을 채택하고, 팀장으로서 제 초기 안을 수정했습니다.</p></div>
+</section>
+
+<!-- 2-2 -->
+<section id="s2-ai">
+  <div class="sec-head"><span class="sec-num">02B</span><h2>AI 에이전트 활용 설계 과정</h2><span class="mine">본인 지휘</span></div>
+
+  <p>Claude Code와 Codex로 설계안과 검증 항목을 반복 정리했습니다. 에이전트가 제안한 상태·행동·보상 후보를 바로 채택하지 않고, 후문 생활권의 도로·시설 맥락과 팀의 안전 기준에 맞는지 제가 판정했습니다. 이 과정은 개념 설계를 위한 작업이며, PPO 학습이나 SUMO 실행 성과를 뜻하지 않습니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th>순서</th><th>프롬프트와 에이전트 작업</th><th>본인이 직접 결정한 지점</th></tr></thead>
+    <tbody>
+      <tr><td>1. 구조화</td><td>“위험 신호를 상태·행동·보상 후보로 나누고, 각 항목의 입력 출처와 누락값을 표로 정리하라.”</td><td>순찰 재배치와 정비 예산을 같은 최적화 문제로 묶되, 시간축은 단기·장기로 분리</td></tr>
+      <tr><td>2. 반복 생성</td><td>시나리오 매트릭스, 상태/행동 타입, 대시보드 표·문구, SUMO 대조군/실험군 체크리스트 생성</td><td>PPO의 상태·행동·보상 정의와 <code>ΔSafety - Cost - Response_Time</code> 가중치 설계 기준 결정 · 실제 값은 검증 후 보정</td></tr>
+      <tr><td>3. 일관성 검증</td><td>아키텍처의 입력이 PPO 상태에 빠짐없이 연결되는지, 대시보드 지표가 결과 지표와 일치하는지 diff로 점검</td><td>실제 측정 전 수치를 성과처럼 쓰지 않기, 예시 UI 값과 시뮬레이션 결과를 명확히 분리</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">이 프로젝트에서 AI 에이전트의 역할은 “설계자를 대체”하는 것이 아니라, 팀장이 정한 문제 구조를 빠르게 여러 안으로 전개하고 누락을 찾는 것이었습니다. 최종 설계와 팀 간 우선순위 조정은 제가 맡았습니다.</p>
+</section>
+
+<!-- 3 -->
+<section id="s3">
+  <div class="sec-head"><span class="sec-num">03</span><h2>솔루션 — 이중 트랙 구조</h2><span class="mine">본인 설계</span></div>
+
+  <p>단순한 앱이 아니라 <strong>안전 통합 관제 센터(ICC)의 인프라</strong>로 설계했습니다. 하나의 위험 판단에서 두 갈래의 서로 다른 시간축을 가진 조치가 갈라져 나옵니다.</p>
+
+  <div class="arch">
+    <div class="arch-node">
+      <b>위험 상태 (State)</b>
+      <small>CCTV 영상 · IoT 센서 · 학생 사진 제보 · 날씨/학사 API</small>
+    </div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-node arch-brain">
+      <b>강화학습 에이전트 (PPO)</b>
+      <small>“지금 무엇을 할 것인가?”</small>
+    </div>
+    <div class="arch-arrow">↓</div>
+    <div class="arch-tracks">
+      <div class="track now">
+        <div class="track-top">단기 — 실시간 순찰 재배치<small>초 · 분 단위</small></div>
+        <ul>
+          <li>순찰 경로 동적 갱신</li>
+          <li>현장 경고등 자동 제어</li>
+          <li>PM 지오펜싱 감속</li>
+        </ul>
+      </div>
+      <div class="track later">
+        <div class="track-top">장기 — 정비 우선순위 결정<small>주 · 월 단위</small></div>
+        <ul>
+          <li>볼라드 설치</li>
+          <li>조명 보강</li>
+          <li>포트홀 보수</li>
+        </ul>
+      </div>
+    </div>
+    <div class="arch-loop">조치 결과 피드백 → 데이터 축적 → 정책 재학습</div>
+  </div>
+
+  <div class="note point">
+    <span class="note-label">두 트랙을 나눈 이유</span>
+    <p>순찰은 즉시 움직일 인력을 배정하고, 정비는 반복되는 위험의 원인을 바꾸는 결정입니다. 집행 주기가 다른 두 업무를 분리하되, 학생 제보와 순찰 로그를 함께 참조하도록 설계했습니다. 데이터 축적에 따른 정확도 향상은 추후 검증할 가설입니다.</p>
+  </div>
+</section>
+
+<!-- 4 -->
+<section id="s4">
+  <div class="sec-head"><span class="sec-num">04</span><h2>시스템 아키텍처</h2><span class="mine">본인 설계</span></div>
+
+  <h3>Layer 1 — 데이터 수집</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:20%">구분</th><th style="width:32%">구성 요소</th><th>목적</th></tr></thead>
+    <tbody>
+      <tr><td>영상</td><td><strong>Edge AI Camera</strong><br><span style="color:var(--muted);font-size:13px">AI 내장형 스마트 CCTV</span></td><td>원본 영상을 전송하지 않고 <strong>객체 정보만 추출·전송</strong>하여 네트워크 부하 최소화</td></tr>
+      <tr><td rowspan="4">IoT 센서</td><td>mmWave 레이더</td><td>보행자·차량 거리 측정</td></tr>
+      <tr><td>초음파 / IR 센서</td><td>근거리 충돌 감지</td></tr>
+      <tr><td>조도 센서</td><td>야간 위험도 반영</td></tr>
+      <tr><td>소음 센서</td><td>이상 상황 감지</td></tr>
+      <tr><td>크라우드소싱</td><td>학생 전용 앱 사진 제보</td><td>불법 주차, 시야 차단, 조명 고장 등 시설 위험 수집</td></tr>
+      <tr><td>외부 API</td><td>기상청 날씨 · 학사 일정</td><td>시간대·계절성 위험 가중치 산정</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Layer 2 — 전송 및 처리</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:24%">구분</th><th>설계 내용</th></tr></thead>
+    <tbody>
+      <tr><td><strong>통신</strong></td><td>5G / Wi-Fi 6 기반 저지연 통신을 축으로, 저전력 센서는 <strong>LoRa를 병행</strong>해 에너지 효율 확보</td></tr>
+      <tr><td><strong>Edge–Cloud 협업</strong></td><td>Edge에서 객체 탐지와 위험 이벤트 필터링, Cloud(GPU 서버)에서 장기 학습과 정책 최적화를 수행하는 <strong>Hierarchical 구조</strong></td></tr>
+      <tr><td><strong>메시지 큐</strong></td><td><strong>Apache Kafka</strong> 파이프라인으로 CCTV 객체 메타데이터와 제보 이벤트를 전달하도록 설계</td></tr>
+      <tr><td><strong>스트림 처리</strong></td><td><strong>Spark Streaming / Flink</strong>로 실시간 위험 이벤트를 처리하고 즉각적 의사결정 지원</td></tr>
+      <tr><td><strong>신뢰성</strong></td><td><strong>Fail-safe 메커니즘</strong> — 시스템 장애 시에도 기본 순찰 정책이 유지되며, Edge 노드 단독 운영 모드 지원</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note point">
+    <span class="note-label">수집·분석·실행을 분리한 이유</span>
+    <p>영상에서 추출한 객체 정보와 학생 제보는 유입 주기와 처리 방식이 다릅니다. 수집과 분석 사이에 큐를 두어 각 단계의 의존성을 줄이고, 연결 장애 시 기본 순찰 정책을 유지하는 구조를 제안했습니다. Kafka·스트림 처리 도구는 설계 후보이며 부하·장애 실험은 수행 전입니다.</p>
+  </div>
+
+  <h3>Layer 3 — 실행 및 피드백</h3>
+  <p>정보 제공에서 멈추지 않고 <strong>물리적 제어까지 연결</strong>한 것이 이 계층의 차별점입니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:34%">채널</th><th>동작</th></tr></thead>
+    <tbody>
+      <tr><td>순찰대원 전용 앱</td><td>AI가 계산한 최적 순찰 경로를 실시간 푸시</td></tr>
+      <tr><td>관리자 관제 대시보드</td><td>위험 히트맵과 정비 우선순위 시각화</td></tr>
+      <tr><td><strong>스마트 경고등 / 가변형 표지판</strong></td><td>위험도가 임계치를 넘으면 <strong>자동 제어</strong>로 즉각적 물리 대응 수행</td></tr>
+      <tr><td><strong>PM 지오펜싱 제어</strong></td><td>공유 킥보드 API와 연동해 특정 구역에서 <strong>자동 감속 또는 운행 제한</strong> 적용</td></tr>
+      <tr><td>캠퍼스 지능형 안내판</td><td>구역별 안전 정보 업데이트</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- 5 -->
+<section id="s5">
+  <div class="sec-head"><span class="sec-num">05</span><h2>AI · 알고리즘</h2><span class="mine">본인 설계</span></div>
+
+  <h3>인식 — 무엇이 위험한가</h3>
+  <div class="tw"><table class="compact">
+    <thead><tr><th style="width:30%">기술</th><th>역할</th></tr></thead>
+    <tbody>
+      <tr><td><strong>YOLOv11</strong> (또는 YOLOv8)</td><td>보행자·차량·오토바이·PM 실시간 객체 검출</td></tr>
+      <tr><td><strong>ByteTrack</strong></td><td>객체별 이동 경로 추적 (Multi-Object Tracking)</td></tr>
+      <tr><td>수집 지표</td><td>보행 밀집도, PM·오토바이 주행 속도, 불법 주정차 체류 시간</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>정량화 — 얼마나 위험한가</h3>
+  <p>단순 빈도 통계가 아니라 <strong>교통공학의 표준 대리 지표(surrogate safety measure)</strong>를 채택했습니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:22%">지표</th><th style="width:40%">정의</th><th>해석</th></tr></thead>
+    <tbody>
+      <tr><td><strong>TTC</strong><br><span style="color:var(--muted);font-size:12.5px">Time-to-Collision</span></td><td>현재 속도와 경로를 유지할 때 충돌까지 남은 시간</td><td>값이 작을수록 위험</td></tr>
+      <tr><td><strong>PET</strong><br><span style="color:var(--muted);font-size:12.5px">Post-Encroachment Time</span></td><td>두 객체가 동일 지점을 통과한 시간 차</td><td>값이 작을수록 아슬아슬한 상황</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>상황 가중치 제안값 · 실측 보정 전</h4>
+  <div class="tw"><table class="compact">
+    <thead><tr><th style="width:60%">조건</th><th>가중치</th></tr></thead>
+    <tbody>
+      <tr><td>개강 시즌 및 축제 기간</td><td class="num" style="color:var(--ink)">× 1.4</td></tr>
+      <tr><td>우천·강설 (시야 차단)</td><td class="num" style="color:var(--ink)">× 1.3</td></tr>
+      <tr><td>목요일 저녁 시간대</td><td class="num" style="color:var(--ink)">× 1.2</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>예측 — 한 시간 뒤는 어떤가</h3>
+  <p><strong>LSTM</strong> 또는 <strong>XGBoost</strong>로 수업 종료 시간, 날씨, 요일 특성을 반영한 1시간 후 위험도를 미리 예측합니다. 사후 대응이 아닌 <strong>선제 배치</strong>를 가능하게 하는 장치입니다.</p>
+
+  <h3>의사결정 — 무엇을 할 것인가</h3>
+  <p>조치가 이후 위험 상태와 가용 자원에 영향을 주는 순차적 의사결정으로 보고, <strong>PPO(Proximal Policy Optimization)</strong> 기반 에이전트를 개념 설계했습니다. 규칙 기반 배분보다 효과적인지는 같은 시나리오에서 비교해야 합니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:20%">구성</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><strong>State</strong><br><span style="color:var(--muted);font-size:12.5px">상태</span></td><td>시간대별 유동인구 밀도 / PM·오토바이 주행 속도 / 조도 센서 측정값 / 최근 1시간 내 위험 제보 발생 여부</td></tr>
+      <tr><td><strong>Action</strong><br><span style="color:var(--muted);font-size:12.5px">행동</span></td><td>① 인근 순찰 대원에게 해당 구간 이동 명령 하달<br>② 위험 구간 지능형 조명 밝기 상향 제어<br>③ PM 업체 서버 연동을 통한 강제 감속 지오펜싱 적용<br>④ 정비 대상 등록 — 장기 트랙으로 이관</td></tr>
+      <tr><td><strong>Reward</strong><br><span style="color:var(--muted);font-size:12.5px">보상</span></td><td>TTC·PET 수치 개선량, 위험 신고 접수부터 현장 조치까지 걸린 시간의 단축 정도</td></tr>
+    </tbody>
+  </table></div>
+
+  <h4>보상 함수</h4>
+  <div class="formula">Reward = <span class="w">w₁</span> · <span class="plus">(ΔSafety)</span> <span class="minus">−</span> <span class="w">w₂</span> · <span class="minus">(Cost)</span> <span class="minus">−</span> <span class="w">w₃</span> · <span class="minus">(Response_Time)</span></div>
+  <ul>
+    <li><code>ΔSafety</code> — 조치 후 위험 감소량 <span style="color:var(--muted)">(최대화)</span></li>
+    <li><code>Cost</code> — 투입 자원 비용 <span style="color:var(--muted)">(최소화)</span></li>
+    <li><code>Response_Time</code> — 대응 소요 시간 <span style="color:var(--muted)">(최소화)</span></li>
+  </ul>
+  <p><strong>선택 기준</strong> — 안전 향상·비용·대응 시간의 균형을 보상 함수에 반영하는 설계입니다. 서로 다른 단위의 정규화와 가중치 결정은 남아 있으며, 가중 합만으로 Pareto 최적해를 검증한 것은 아닙니다.</p>
+</section>
+
+<!-- 6 -->
+<section id="s6">
+  <div class="sec-head"><span class="sec-num">06</span><h2>관제 대시보드 설계</h2></div>
+
+  <h3>설계 원칙</h3>
+  <div class="tw"><table>
+    <thead><tr><th style="width:28%">원칙</th><th>의미</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Situation Awareness</strong><br><span style="color:var(--muted);font-size:12.5px">상황 인지</span></td><td>접속 즉시 후문 전반의 안전 상태를 직관적으로 파악할 수 있도록 핵심 지도를 중앙에 배치</td></tr>
+      <tr><td><strong>Data-Driven Action</strong><br><span style="color:var(--muted);font-size:12.5px">데이터 기반 행동</span></td><td>단순 정보 출력이 아니라, AI가 분석한 위험도에 따라 운영자가 즉시 우선순위를 결정하고 명령을 내릴 수 있는 구조</td></tr>
+      <tr><td><strong>Integration</strong><br><span style="color:var(--muted);font-size:12.5px">통합성</span></td><td>단기 대응(순찰)과 장기 개선(정비) 데이터를 한 화면에 통합해 상호 보완적 운영을 유도</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="zone">
+    <div class="zone-head"><span class="zone-id">A</span><span class="zone-name">실시간 현황 관제</span><span class="zone-where">중앙 · 지도 기반</span></div>
+    <p class="zone-q">“지금 후문은 안전한가? 순찰대 경로를 어떻게 짜야 하는가?”</p>
+    <h4>지능형 위험 히트맵</h4>
+    <ul>
+      <li>후문 일대 디지털 트윈 지도 위에 YOLOv11로 수집된 실시간 지표를 가중 합산해 색상으로 오버레이</li>
+      <li><strong style="color:var(--danger)">Red(고위험)</strong> — TTC·PET가 설정한 안전 기준보다 낮아진 지역</li>
+      <li>교통 환경 변화가 있는 후문 삼거리 교차로 인근을 점선 테두리로 강조하는 화면 구성</li>
+    </ul>
+    <h4>순찰 자원 실시간 트래킹</h4>
+    <ul>
+      <li><strong style="color:var(--patrol)">파란 아이콘</strong> — 현재 근무 중인 순찰 대원의 GPS 위치</li>
+      <li><strong style="color:var(--patrol)">파란 실선</strong> — 해당 대원의 최근 이동 경로</li>
+      <li><strong>점선 경로</strong> — PPO 알고리즘이 현재 위험 분포를 반영해 실시간 계산한 최적 경로. 대원이 이 경로를 따라 이동하도록 전용 앱으로 전송됩니다.</li>
+    </ul>
+  </div>
+
+  <div class="zone">
+    <div class="zone-head"><span class="zone-id">B</span><span class="zone-name">정비 요청 패널</span><span class="zone-where">우측 · 리스트</span></div>
+    <p class="zone-q">“학생들의 불편 사항은 무엇이고, 어떤 시설 개선이 가장 시급한가?”</p>
+    <h4>AI 분류 기반 정비 제보 리스트</h4>
+    <ul>
+      <li>학생 전용 앱으로 접수된 사진 제보가 실시간 로딩</li>
+      <li>컴퓨터 비전 모델이 사진을 분석해 <code>썸네일 | 위험 유형(조명 고장·포트홀·PM 방치) | AI 판정 위험도(상/중/하) | 제보 위치</code>로 자동 분류</li>
+    </ul>
+    <h4>즉시 정비 필요 고위험 시설물 Top 5</h4>
+    <ul>
+      <li>제보 리스트와 누적 위험 로그(Hazard Log)를 함께 분석해 장기적 개선이 필요한 시설물의 우선순위 산출</li>
+      <li>단순 제보 건수가 아니라 <strong>해당 지역의 사고 발생 가능성을 종합</strong>해 순위를 결정<br><span style="color:var(--muted);font-size:13.5px">예: #1 A골목 가로등 파손 — 주변 조도 저하 및 PM 통행량 많음으로 1순위</span></li>
+    </ul>
+  </div>
+
+  <div class="zone">
+    <div class="zone-head"><span class="zone-id">C</span><span class="zone-name">운영 통계</span><span class="zone-where">하단 · 분석</span></div>
+    <p class="zone-q">“도입 후 캠퍼스는 실제로 안전해졌는가? 운영 효율은 얼마나 향상되었는가?”</p>
+    <ul>
+      <li><strong>주간 평균 위험 지수 추이</strong> — 꺾은선 그래프. X축 주차, Y축 평균 위험 지수</li>
+      <li><strong>자원 배분 최적화 전후 대응 시간 비교</strong> — 막대그래프로 기존 정적 순찰과 AI 최적화 순찰을 대조. 보상 함수의 <code>ΔSafety</code>와 <code>Response_Time</code>을 검증 후 비교할 지표로 배치</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7 -->
+<section id="s7">
+  <div class="sec-head"><span class="sec-num">07</span><h2>검증 계획 — 디지털 트윈</h2></div>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:22%">항목</th><th>내용</th></tr></thead>
+    <tbody>
+      <tr><td><strong>환경</strong></td><td>SUMO(Simulation of Urban MObility)에 후문 도로와 보행 흐름을 반영한 비교 환경을 구축할 계획. 실제 관측값과의 보정 필요</td></tr>
+      <tr><td><strong>대조군</strong></td><td>기존 고정 노선 순찰 방식</td></tr>
+      <tr><td><strong>실험군</strong></td><td>제안하는 AI 기반 동적 순찰 방식</td></tr>
+      <tr><td><strong>측정 지표</strong></td><td>① 사고 발생 예측 지점 도달 시간<br>② 구간별 보행자 위험 노출 시간 총합<br>③ 단위 시간당 순찰 인력의 안전 커버리지 면적</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note point">
+    <span class="note-label">검증 설계의 이유와 한계</span>
+    <p>현장에서 위험한 상황을 의도적으로 만들지 않고, 같은 유동인구·교통 조건에서 순찰 정책만 바꿔 비교하려는 계획입니다. SUMO 실행 결과나 위험 감소율은 아직 제시하지 않았습니다. 시뮬레이션을 수행하더라도 실제 사고 감소 효과와는 구분해야 합니다.</p>
+  </div>
+</section>
+
+<!-- 8 -->
+<section id="s8">
+  <div class="sec-head"><span class="sec-num">08</span><h2>구현·검증을 위한 후속 로드맵</h2></div>
+
+  <div class="tw"><table class="compact">
+    <tbody>
+      <tr><td class="num">1단계</td><td>후문 일대 현장 조사, 구간별 보행 흐름 데이터 수집</td></tr>
+      <tr><td class="num">2단계</td><td>객체 인식 모델 학습, 위험 지수 산정 로직 구현</td></tr>
+      <tr><td class="num">3단계</td><td>강화학습 기반 순찰 경로 최적화 알고리즘 개발</td></tr>
+      <tr><td class="num">4단계</td><td>SUMO 디지털 트윈 환경에서 시스템 성능 검증</td></tr>
+      <tr><td class="num">5단계</td><td>관리자 대시보드 프로토타입 설계 및 최종 보고서 완성</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><strong>실현 가능성 전략</strong> — 처음부터 전면 도입하는 대신, 후문 특정 골목 2~3곳을 <strong>스마트 안전 구역</strong>으로 지정해 시범 운영한 뒤 확산하는 단계적 시나리오를 제시했습니다.</p>
+</section>
+
+<!-- 9 -->
+<section id="s9">
+  <div class="sec-head"><span class="sec-num">09</span><h2>설계 결과와 검증 범위</h2></div>
+  <p>완료한 산출물은 <strong>순찰·정비 이중 트랙, 상태·행동·보상 정의, 수집–분석–실행 아키텍처, 관제 화면 구성, SUMO 비교 계획</strong>입니다. 실제 배치나 학습 성능을 입증한 단계는 아닙니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th>산출물</th><th>후속 검증 대상</th><th>현재 상태</th></tr></thead>
+    <tbody>
+      <tr><td>인하대 후문 디지털 트윈</td><td>실제 지역의 도로·시설 맥락을 반영할 대조군·실험군 비교</td><td>개념 설계 완료 · 환경 구축·실험 실행 전</td></tr>
+      <tr><td>PPO 자원 배분 로직</td><td>위험 감소량·대응 시간·투입 비용의 다목적 비교</td><td>상태·행동·보상 개념 설계 완료</td></tr>
+      <tr><td>관제 대시보드</td><td>순찰 재배치와 정비 Top 5를 한 화면에서 판단</td><td>UI·데이터 흐름 설계 완료</td></tr>
+    </tbody>
+  </table></div>
+  <p>제안서와 대시보드 설계는 <strong>상태 데이터 → 의사결정 → 현장 조치 → 피드백</strong>을 하나의 흐름으로 연결합니다. 아래는 설계안이 실제로 유효한지 확인하기 위해 남은 질문입니다.</p>
+  <div class="tw"><table>
+    <thead><tr><th style="width:24%">판단할 질문</th><th>다음 검증에 필요한 근거</th></tr></thead>
+    <tbody>
+      <tr><td><strong>동적 배분이 더 나은가</strong></td><td>같은 교통·보행 시나리오에서 고정 순찰과 비교한 도달 시간, 위험 노출 시간, 안전 커버리지</td></tr>
+      <tr><td><strong>위험 점수가 현실을 반영하는가</strong></td><td>TTC·PET, 조도, 제보의 실측 보정과 시간대별 오탐·누락 검토. 상황 가중치는 현재 제안값</td></tr>
+      <tr><td><strong>현장에서 실행할 수 있는가</strong></td><td>순찰 인력·정비 예산 제약, PM 사업자 연동 가능성, 운영자 승인 기준, 개인정보 처리 및 장애 대응 검토</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note point">
+    <span class="note-label">성과 수치의 범위</span>
+    <p>대시보드의 대응 시간이나 위험도 예시값은 화면 구성용입니다. 검증된 성과로 사용하지 않았으며, 사고 감소·비용 절감은 후속 실험에서 확인해야 할 목표입니다.</p>
+  </div>
+</section>
+
+<!-- 9-1 -->
+<section id="s9-reflection">
+  <div class="sec-head"><span class="sec-num">09A</span><h2>회고</h2><span class="mine">팀장으로서 배운 점</span></div>
+
+  <p>팀장 역할에서 가장 크게 배운 것은 기술 스택을 많이 제시하는 것보다 <strong>서로 다른 전공의 판단 기준을 하나의 의사결정 언어로 번역하는 일</strong>이 중요하다는 점입니다. 처음에는 모든 위험 신호와 기능을 넣으려 했지만, 실제 사용자가 지금 답해야 하는 질문을 기준으로 단기 순찰과 장기 정비를 분리하면서 팀의 논의가 빨라졌습니다.</p>
+  <p>다음 버전에서는 SUMO 비교 환경을 구축하고 실험을 실행해 예시값을 실제 수치로 교체하고, 안전 개선 효과뿐 아니라 개인정보·운영 비용·장애 시 기본 정책까지 함께 비교하겠습니다. “AI가 최적이라고 말했다”가 아니라, 팀이 합의한 기준과 데이터로 왜 그 배치를 선택했는지 설명할 수 있는 시스템을 만드는 것이 남은 목표입니다.</p>
+</section>
+
+<footer>
+  <p>인하대학교 교내 경진대회 제출본을 포트폴리오 활용 목적으로 재구성한 자료입니다.</p>
+  <ul>
+    <li><a href="https://www.inhapress.com/news/articleView.html?idxno=10571">인하프레스 · articleView 10571</a></li>
+    <li><a href="https://www.inhapress.com/news/articleView.html?idxno=8187">인하프레스 · articleView 8187</a></li>
+    <li><a href="https://www.kihoilbo.co.kr/news/articleView.html?idxno=834897">기호일보 · articleView 834897</a></li>
+  </ul>
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.toc a'));
+  if(!links.length) return;
+  var targets = links.map(function(a){ return document.getElementById(a.getAttribute('href').slice(1)); });
+  function sync(){
+    var y = window.scrollY + 120, current = 0;
+    targets.forEach(function(t,i){ if(t && t.offsetTop <= y) current = i; });
+    links.forEach(function(a,i){ a.classList.toggle('on', i === current); });
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function(){
+    if(ticking) return;
+    ticking = true;
+    window.requestAnimationFrame(function(){ sync(); ticking = false; });
+  }, {passive:true});
+  sync();
+})();
+</script>
+<script src="../../recruiter-clean.js"></script>
+</body>
+</html>
