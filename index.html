@@ -152,25 +152,25 @@
 
     /* ---------- HOW I WORK ---------- */
     #how .sec-title em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .pr {
       position: relative; overflow: hidden; isolation: isolate;
-      display: grid; grid-template-columns: 1fr auto; gap: 6px 20px;
-      border-radius: 24px; padding: 26px 26px 22px; background: #fff; border: 1px solid var(--line-2);
+      display: grid; grid-template-columns: 1fr auto; gap: 4px 16px;
+      border-radius: 18px; padding: 18px 20px 16px; background: #fff; border: 1px solid var(--line-2);
       transition: transform .2s, box-shadow .2s, border-color .2s;
     }
     .pr::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--grad); }
     .pr:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -30px rgba(80, 30, 20, .45); border-color: #e9c3b3; }
     .pr .idx { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; }
-    .pr .idx .no { font: 700 13px/1 var(--mono); color: var(--orange); }
-    .pr .idx .ie { font: 700 12px/1 var(--sans); color: var(--wine); background: var(--pink); padding: 6px 9px; border-radius: 999px; }
-    .pr h3 { grid-column: 1; margin: 8px 0 6px; font-size: 21px; line-height: 1.4; letter-spacing: -.5px; }
-    .pr p { grid-column: 1; margin: 0; font-size: 15px; color: var(--ink-2); line-height: 1.65; }
-    .pr .metric { grid-column: 2; grid-row: 2 / span 2; align-self: center; text-align: right; min-width: 128px; }
-    .pr .metric .v { font-size: 38px; font-weight: 800; line-height: 1.05; letter-spacing: -1.2px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+    .pr .idx .no { font: 700 12px/1 var(--mono); color: var(--orange); }
+    .pr .idx .ie { font: 700 11.5px/1 var(--sans); color: var(--wine); background: var(--pink); padding: 5px 8px; border-radius: 999px; }
+    .pr h3 { grid-column: 1; margin: 6px 0 4px; font-size: 17.5px; line-height: 1.4; letter-spacing: -.5px; }
+    .pr p { grid-column: 1; margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.6; }
+    .pr .metric { grid-column: 2; grid-row: 2 / span 2; align-self: center; text-align: right; min-width: 110px; }
+    .pr .metric .v { font-size: 29px; font-weight: 800; line-height: 1.05; letter-spacing: -1.2px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
     .pr .metric .v.word { font-size: 25px; letter-spacing: -.6px; }
-    .pr .metric .k { display: block; font-size: 12.5px; color: var(--ink-3); line-height: 1.45; margin-top: 6px; max-width: 150px; margin-left: auto; }
-    .pr .ev { grid-column: 1 / -1; margin-top: 14px; font-size: 13.5px; color: var(--ink-3); line-height: 1.6; background: var(--bg-soft); border-radius: 12px; padding: 11px 13px; }
+    .pr .metric .k { display: block; font-size: 11.5px; color: var(--ink-3); line-height: 1.4; margin-top: 4px; max-width: 140px; margin-left: auto; }
+    .pr .ev { grid-column: 1 / -1; margin-top: 10px; font-size: 12.5px; color: var(--ink-3); line-height: 1.55; background: var(--bg-soft); border-radius: 10px; padding: 8px 11px; }
     .pr .ev::before { content: "↳ "; color: var(--orange); font-family: var(--mono); }
     .pr .ev b { color: var(--ink-2); }
 
@@ -366,6 +366,7 @@
           <a class="btn primary arrow" href="#projects"><span lang="ko">프로젝트 보기</span><span lang="en">See projects</span> <i class="fa-solid fa-arrow-down circle" aria-hidden="true"></i></a>
           <a class="btn" href="#contact"><i class="fa-regular fa-envelope" aria-hidden="true"></i><span lang="ko">연락하기</span><span lang="en">Contact</span></a>
           <a class="btn" href="https://github.com/13JVV" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a>
+          <a class="btn" href="assets/cv/CV_Jaewoo_Shin.pdf" target="_blank" rel="noopener"><i class="fa-regular fa-file-lines" aria-hidden="true"></i>CV</a>
         </div>
       </div>
       <div class="photo-card">
@@ -544,7 +545,7 @@
           <h3 lang="ko">MVP로 먼저 내고, 반응을 보고 고칩니다</h3><h3 lang="en">Ship an MVP, then fix what users show me</h3>
           <p lang="ko"><span class="s"><span class="u">핵심 기능 하나로 출시한 뒤</span> <span class="u">사용자 피드백과 스토어 심사 의견을 다음 기능의 우선순위로 바꿉니다.</span></span></p>
           <p lang="en">I launch with one core feature, then turn user feedback and store review notes into the next priorities.</p>
-          <div class="metric"><span class="v">2<small style="font-size:20px">개</small></span><span class="k" lang="ko">스토어에 직접 출시한 앱</span><span class="k" lang="en">apps I shipped to stores</span></div>
+          <div class="metric"><span class="v">2<small style="font-size:16px">개</small></span><span class="k" lang="ko">스토어에 직접 출시한 앱</span><span class="k" lang="en">apps I shipped to stores</span></div>
           <div class="ev"><b>It's me</b> <span lang="ko">명함 생성과 QR 공유로 출시 → 심사 반려 3건과 지인 피드백 반영 → 명함 인식, 지갑 추가, 세로 명함과 4개 탭으로 재구성</span><span lang="en">launched with card creation and QR sharing → fixed 3 store rejections and feedback → added card scan, wallet, and a 4-tab layout</span></div>
         </article>
         <article class="pr reveal">
@@ -585,19 +586,6 @@
       </div>
 
       <div class="pj-grid">
-        <a class="pj reveal" href="projects/jinggeomdari/" data-peek="assets/img/shots/jg-01-teacher.webp|assets/img/shots/jg-02-student.webp|assets/img/shots/jg-03-class.webp" data-peek-kind="wide">
-          <div class="pj-media wide">
-            <span class="badge"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span lang="ko">우수상</span><span lang="en">Award</span></span>
-            <img src="assets/img/shots/jg-01-teacher.webp" alt="징검다리 교사 대시보드" loading="lazy" width="1200" height="750" />
-          </div>
-          <div class="pj-body">
-            <h3><span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span></h3>
-            <p class="desc" lang="ko">수업 전에 학생이 막힌 개념을 찾아 주는 AI 교사 지원 서비스</p>
-            <p class="desc" lang="en">AI teacher support that finds where students are stuck before class</p>
-            <p class="aw"><i class="fa-solid fa-award" aria-hidden="true"></i><span lang="ko">2026 INHA AX-EDU HACKATHON 우수상</span><span lang="en">Excellence Award, 2026 INHA AX-EDU Hackathon</span></p>
-          </div>
-        </a>
-
         <a class="pj reveal" href="projects/crowdsense/" data-peek="assets/img/shots/cs-03-dashboard.webp|assets/img/shots/cs-04-ai-directive.webp" data-peek-kind="wide">
           <div class="pj-media wide">
             <span class="badge"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span lang="ko">최우수상</span><span lang="en">Grand Award</span></span>
@@ -608,6 +596,19 @@
             <p class="desc" lang="ko">인파 경보 이후의 조치, 전파, 보고를 한 화면에서 준비하는 AI 관제 서비스</p>
             <p class="desc" lang="en">AI crowd monitoring that prepares actions, notices and reports after an alert</p>
             <p class="aw"><i class="fa-solid fa-award" aria-hidden="true"></i><span lang="ko">재난안전데이터 활용 창업경진대회 최우수상 (행정안전부 장관상)</span><span lang="en">Excellence Award (Minister of the Interior and Safety)</span></p>
+          </div>
+        </a>
+
+        <a class="pj reveal" href="projects/jinggeomdari/" data-peek="assets/img/shots/jg-01-teacher.webp|assets/img/shots/jg-02-student.webp|assets/img/shots/jg-03-class.webp" data-peek-kind="wide">
+          <div class="pj-media wide">
+            <span class="badge"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span lang="ko">우수상</span><span lang="en">Award</span></span>
+            <img src="assets/img/shots/jg-01-teacher.webp" alt="징검다리 교사 대시보드" loading="lazy" width="1200" height="750" />
+          </div>
+          <div class="pj-body">
+            <h3><span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span></h3>
+            <p class="desc" lang="ko">수업 전에 학생이 막힌 개념을 찾아 주는 AI 교사 지원 서비스</p>
+            <p class="desc" lang="en">AI teacher support that finds where students are stuck before class</p>
+            <p class="aw"><i class="fa-solid fa-award" aria-hidden="true"></i><span lang="ko">2026 INHA AX-EDU HACKATHON 우수상</span><span lang="en">Excellence Award, 2026 INHA AX-EDU Hackathon</span></p>
           </div>
         </a>
 
@@ -735,8 +736,8 @@
           <div class="sm" lang="ko">2021.03 ~ 2027.02 졸업 예정</div>
           <div class="sm" lang="en">2021.03 ~ 2027.02 (expected)</div>
           <ul style="margin-top:10px">
-            <li lang="ko">데이터베이스, 강화학습 및 알고리즘, 산업공학실험, 시스템 시뮬레이션</li>
-            <li lang="en">Databases, Reinforcement Learning and Algorithms, Industrial Engineering Lab, System Simulation</li>
+            <li lang="ko">데이터베이스, 자료구조&amp;알고리즘, 강화학습 및 알고리즘, 산업공학실험, 시스템 시뮬레이션, 신기술시장분석, 산업공학종합설계(캡스톤)</li>
+            <li lang="en">Databases, Data Structures &amp; Algorithms, Reinforcement Learning and Algorithms, Industrial Engineering Lab, System Simulation, New Technology Market Analysis, Industrial Engineering Capstone Design</li>
           </ul>
         </div>
         <div class="pcard reveal">
@@ -775,6 +776,7 @@
         <div class="cta">
           <button class="btn light" type="button" data-copy-mail><i class="fa-regular fa-copy" aria-hidden="true"></i><span data-mail-text>sjwtlswodn [at] gmail.com</span></button>
           <a class="btn" href="https://github.com/13JVV" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a>
+          <a class="btn" href="assets/cv/CV_Jaewoo_Shin.pdf" target="_blank" rel="noopener"><i class="fa-regular fa-file-lines" aria-hidden="true"></i>CV</a>
         </div>
         <div class="copied" aria-live="polite" data-copied></div>
       </div>
