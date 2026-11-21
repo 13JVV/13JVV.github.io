@@ -235,7 +235,7 @@
                   <h3>설치한 뒤, 앱 하단 ‘스캔’ 탭으로 제 명함 QR을 찍습니다</h3>
                   <p><span class="s"><span class="u">앱에 들어 있는 스캐너가 It's me 명함 링크를 읽고</span> <span class="u">받은 명함 카드를 띄웁니다.</span></span><span class="s">‘지갑에 저장’을 누르면 제 명함이 지갑에 들어갑니다.</span></p>
                   <div class="meta">
-                    <a class="direct" data-card-link href="https://persona-772ab.web.app/card/s?n=%EC%8B%A0%EC%9E%AC%EC%9A%B0&amp;o=%EC%9D%B8%ED%95%98%EB%8C%80%ED%95%99%EA%B5%90%20%EC%82%B0%EC%97%85%EA%B2%BD%EC%98%81%EA%B3%B5%ED%95%99%EA%B3%BC&amp;r=AI%C2%B7IT%20%EC%84%9C%EB%B9%84%EC%8A%A4%20%EA%B8%B0%ED%9A%8D" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>QR을 찍기 어려우면 바로 열기</a>
+                    <a class="direct" data-card-link href="https://persona-772ab.web.app/card/s?n=%EC%8B%A0%EC%9E%AC%EC%9A%B0&amp;o=%EC%9D%B8%ED%95%98%EB%8C%80%ED%95%99%EA%B5%90&amp;r=%EB%8C%80%ED%95%99%EA%B5%90%204%ED%95%99%EB%85%84" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>QR을 찍기 어려우면 바로 열기</a>
                   </div>
                 </div>
                 <figure class="qr">
@@ -246,19 +246,19 @@
               <li>
                 <div>
                   <h3>지갑에서 받은 명함을 열어 봅니다</h3>
-                  <p><span class="s">이름, 학과, 역할, 메일이 명함 한 장에 담겨 있습니다.</span><span class="s">언제 받았는지도 함께 남습니다.</span></p>
-                  <div class="fields" aria-label="QR에 담긴 항목"><span>이름</span><span>학과</span><span>역할</span><span>메일</span></div>
+                  <p><span class="s"><span class="u">제 앱 명함의 이름, 소속, 직함, 연락처가</span> <span class="u">한 장에 담겨 저장됩니다.</span></span><span class="s"><span class="u">제가 명함을 고치면</span> <span class="u">지갑의 명함도 자동으로 최신화되고, 언제 받았는지도 남습니다.</span></span></p>
+                  <div class="fields" aria-label="QR에 담긴 항목"><span>이름</span><span>소속</span><span>직함</span><span>연락처</span></div>
                 </div>
               </li>
             </ol>
 
             <div class="try-actions">
-              <a class="btn sm" data-card-link href="https://persona-772ab.web.app/card/s?n=%EC%8B%A0%EC%9E%AC%EC%9A%B0&amp;o=%EC%9D%B8%ED%95%98%EB%8C%80%ED%95%99%EA%B5%90%20%EC%82%B0%EC%97%85%EA%B2%BD%EC%98%81%EA%B3%B5%ED%95%99%EA%B3%BC&amp;r=AI%C2%B7IT%20%EC%84%9C%EB%B9%84%EC%8A%A4%20%EA%B8%B0%ED%9A%8D" target="_blank" rel="noopener"><i class="fa-regular fa-id-card" aria-hidden="true"></i>앱 없이 웹 명함으로 보기</a>
+              <a class="btn sm" data-card-link href="https://persona-772ab.web.app/card/s?n=%EC%8B%A0%EC%9E%AC%EC%9A%B0&amp;o=%EC%9D%B8%ED%95%98%EB%8C%80%ED%95%99%EA%B5%90&amp;r=%EB%8C%80%ED%95%99%EA%B5%90%204%ED%95%99%EB%85%84" target="_blank" rel="noopener"><i class="fa-regular fa-id-card" aria-hidden="true"></i>앱 없이 웹 명함으로 보기</a>
             </div>
 
             <div class="try-notes">
               <p><i class="fa-solid fa-circle-info" aria-hidden="true"></i><span class="s"><span class="u">앱이 이미 있으면 기본 카메라로 명함 QR을 찍어도</span> <span class="u">앱이 열려 지갑에 저장되고,</span></span><span class="s">앱이 없으면 웹 명함 페이지가 열립니다.</span></p>
-              <p><i class="fa-solid fa-link" aria-hidden="true"></i><span class="s"><span class="u">명함 그림에는 GitHub와 포트폴리오도 보이지만,</span> <span class="u">이 QR에는 이름, 학과, 역할, 메일만 담았습니다.</span></span><span class="s">GitHub, 포트폴리오 링크는 앱에서 만든 실제 명함에 함께 담겨 공유됩니다.</span></p>
+              <p><i class="fa-solid fa-link" aria-hidden="true"></i><span class="s"><span class="u">명함 그림은 학과, 메일, GitHub, 포트폴리오까지 담을 수 있다는 걸 보여 주는 예시입니다.</span> <span class="u">QR은 제가 앱에서 실제로 공유하는 대표 명함입니다.</span></span></p>
             </div>
           </div>
         </div>
@@ -583,8 +583,9 @@
       document.querySelectorAll('[data-mail-text]').forEach(function (el) { el.textContent = mail; });
       document.querySelectorAll('[data-mail-link]').forEach(function (el) { el.setAttribute('href', 'mailto:' + mail); });
 
-      // 웹 명함 링크: 앱의 cardLink 규칙(n, o, r, e 순서, 값마다 encodeURIComponent)과 같게 만들어, QR과 같은 주소가 되게 합니다.
-      var fields = [['n', '신재우'], ['o', '인하대학교 산업경영공학과'], ['r', 'AI·IT 서비스 기획'], ['e', mail]];
+      // 웹 명함 링크: 제 앱 공유 화면의 QR과 같은 주소(앱의 cardLink 규칙)로 만듭니다.
+      var fields = [['n', '신재우'], ['p', ['010', '8698', '1392'].join('-')], ['o', '인하대학교'], ['r', '대학교 4학년'],
+        ['oid', 'naver:Q76svXtY8UwaULN-dAeH2FrTW3jP2t229CB1FGP23oQ'], ['cid', '1793069978825']];
       var url = 'https://persona-772ab.web.app/card/s?' + fields.map(function (f) { return f[0] + '=' + encodeURIComponent(f[1]); }).join('&');
       document.querySelectorAll('[data-card-link]').forEach(function (el) { el.setAttribute('href', url); });
     })();

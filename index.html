@@ -141,16 +141,14 @@
     .survey .mini-facts > span > span { display: block; }
     .survey img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); background: #fff; }
 
-    .lead-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .lead-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .lead-card { display: flex; flex-direction: column; }
+    .lead-card p { margin: 0; font-size: 14px; color: var(--ink-2); line-height: 1.65; }
+    .lead-card .more { margin-top: auto; padding-top: 12px; }
     .lead-card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
-    .lead-card .when { font: 500 11.5px/1 var(--mono); color: var(--ink-3); }
-    .lead-card h4 { margin: 8px 0 4px; font-size: 17px; letter-spacing: -.3px; }
-    .lead-card .team { font-size: 13px; color: var(--ink-3); margin: 0 0 14px; }
-    .lead-card ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: mo; }
-    .lead-card li { counter-increment: mo; position: relative; padding-left: 34px; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
-    .lead-card li::before { content: counter(mo); position: absolute; left: 0; top: 1px; width: 22px; height: 22px; border-radius: 7px; background: var(--peach); color: var(--wine); font: 700 12px/22px var(--mono); text-align: center; }
-    .lead-card li b { display: block; color: var(--ink); font-size: 15px; }
-    .lead-card .more { display: inline-block; margin-top: 14px; font-size: 13.5px; font-weight: 700; }
+    .lead-card .when { font: 600 12px/1.3 var(--sans); color: var(--ink-3); }
+    .lead-card h4 { margin: 8px 0 10px; font-size: 16.5px; letter-spacing: -.3px; line-height: 1.4; }
+    .lead-card .more { font-size: 13.5px; font-weight: 700; }
 
     /* ---------- HOW I WORK ---------- */
     #how .sec-title em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -278,6 +276,7 @@
       .stats { grid-template-columns: repeat(2, 1fr); }
       .pj-grid { grid-template-columns: repeat(2, 1fr); }
       .svc-grid { grid-template-columns: repeat(3, 1fr); }
+      .lead-grid { grid-template-columns: 1fr 1fr; }
       .principles { grid-template-columns: 1fr; }
       .oth-grid { grid-template-columns: repeat(2, 1fr); }
       .award-pair img { height: 420px; }
@@ -296,7 +295,7 @@
       .stat .lbl { font-size: 13px; }
       .stat-panel { padding: 18px 14px; border-radius: 18px; }
       .svc-grid { grid-template-columns: repeat(2, 1fr); }
-      .award-pair, .survey, .lead-pair { grid-template-columns: 1fr; }
+      .award-pair, .survey, .lead-grid { grid-template-columns: 1fr; }
       .award-pair img { height: auto; max-height: 520px; }
       .pr { grid-template-columns: 1fr; padding: 22px 20px 18px; }
       .pr .metric { grid-column: 1; grid-row: auto; text-align: left; margin-top: 10px; }
@@ -393,9 +392,9 @@
         <span class="open"><span lang="ko">결과 보기</span><span lang="en">Show</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
       </button>
       <button class="stat" type="button" aria-expanded="false" aria-controls="panel-lead">
-        <div class="num"><span lang="ko">팀장 2회</span><span lang="en">2× lead</span></div>
-        <div class="lbl"><span lang="ko">교내 AI 경진대회, 빅콘테스트</span><span lang="en">Campus AI contest, BigContest</span></div>
-        <span class="open"><span lang="ko">순간 보기</span><span lang="en">Show</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+        <div class="num"><span lang="ko">팀장 4회</span><span lang="en">4× lead</span></div>
+        <div class="lbl"><span lang="ko">빅콘테스트, 교내 AI 경진대회, 수업 팀 프로젝트 2건</span><span lang="en">BigContest, campus AI contest, two course projects</span></div>
+        <span class="open"><span lang="ko">역할 보기</span><span lang="en">Show</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
       </button>
     </div>
 
@@ -492,46 +491,40 @@
       </div>
     </div>
 
-    <!-- 04 팀장 2회 -->
+    <!-- 04 팀장 4회 -->
     <div class="stat-panel" id="panel-lead" hidden>
       <div class="panel-head">
-        <h3 lang="ko">팀장으로 보여 준 순간들</h3><h3 lang="en">Moments as team lead</h3>
-        <p lang="ko">두 프로젝트 모두 전공과 역할이 다른 팀이었습니다.</p><p lang="en">Both were teams with different majors and roles.</p>
+        <h3 lang="ko">팀장으로 맡은 역할</h3><h3 lang="en">What I did as team lead</h3>
+        <p lang="ko">네 팀 모두 전공이나 역할이 서로 달랐습니다.</p><p lang="en">Each team mixed different majors or roles.</p>
       </div>
-      <div class="lead-pair">
+      <div class="lead-grid">
         <article class="lead-card">
-          <span class="when">2026.03</span>
+          <span class="when">2026.09 ~ 10 · <span lang="ko">4인</span><span lang="en">team of 4</span></span>
+          <h4 lang="ko">빅콘테스트 AI데이터활용 캡스톤</h4><h4 lang="en">BigContest AI Data Capstone</h4>
+          <p lang="ko"><span class="s"><span class="u">브랜치, 리뷰, 데이터 보호 규칙을 먼저 세우고</span> <span class="u">의사결정 로그로 팀이 같은 근거를 보게 했습니다.</span></span><span class="s"><span class="u">문제 정의와 분석 설계,</span> <span class="u">AI 에이전트 구현을 맡았습니다.</span></span></p>
+          <p lang="en">Set branch, review and data-protection rules first and kept a decision log; owned problem framing, analysis design and the AI agent build.</p>
+          <a class="more" href="https://github.com/13JVV/capstone-overview" target="_blank" rel="noopener"><span lang="ko">프로젝트 소개</span><span lang="en">Overview</span> ↗</a>
+        </article>
+        <article class="lead-card">
+          <span class="when">2026.03 · <span lang="ko">5인</span><span lang="en">team of 5</span></span>
           <h4 lang="ko">교내 AI 문제해결 경진대회</h4><h4 lang="en">Campus AI Problem-Solving Contest</h4>
-          <p class="team" lang="ko">5인, 경영학·아태물류학·전기전자공학·산업경영공학</p><p class="team" lang="en">Team of 5 from four majors</p>
-          <ol lang="ko">
-            <li><b>공통 문제부터 정했습니다</b><span class="s"><span class="u">네 전공이 서로 다른 말로 안전을 볼 때,</span> <span class="u">‘한정된 순찰 인력과 정비 예산을 어디에 먼저 쓸까’라는 자원 배분 문제로 다시 정의했습니다.</span></span></li>
-            <li><b>산출물을 한 흐름으로 묶었습니다</b><span class="s"><span class="u">위험 정량화, 디지털 트윈, 정책, 물류, 엣지 인프라로 나누되</span> <span class="u">모두 상태, 행동, 결과의 흐름에 연결되게 조율했습니다.</span></span></li>
-            <li><b>제 안을 내려놓았습니다</b><span class="s"><span class="u">전공별 제안이 부딪히자 두 대시보드 안을 직접 만들어 비교했고,</span> <span class="u">팀원 전문성이 더 드러나는 안을 채택해 제 초기 안을 고쳤습니다.</span></span></li>
-          </ol>
-          <ol lang="en">
-            <li><b>Set one shared problem</b>I reframed campus safety as a resource allocation question: where to send limited patrol staff and repair budget first.</li>
-            <li><b>Tied every output into one flow</b>Roles were split by major, but every output had to connect to one state, action, result flow.</li>
-            <li><b>Let go of my own draft</b>When proposals clashed, I built two dashboard options, compared them, and adopted the one that showed my teammates' expertise better.</li>
-          </ol>
+          <p lang="ko"><span class="s"><span class="u">네 전공이 다르게 보던 안전 문제를</span> <span class="u">‘인력과 예산을 어디에 먼저 쓸까’라는 한 질문으로 묶었습니다.</span></span><span class="s"><span class="u">두 화면안을 만들어 비교한 뒤</span> <span class="u">팀원 안을 채택하고 제 안을 고쳤습니다.</span></span></p>
+          <p lang="en">Turned four majors' views into one question, where to spend staff and budget first; built two dashboard options and adopted a teammate's.</p>
           <a class="more" href="projects/campus/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
         </article>
         <article class="lead-card">
-          <span class="when">2026.09 ~ 2026.10</span>
-          <h4 lang="ko">빅콘테스트 AI데이터활용 캡스톤</h4><h4 lang="en">BigContest AI Data Capstone</h4>
-          <p class="team" lang="ko">4인, 산업경영공학과 · 사회적 고립 예방 AI 에이전트</p><p class="team" lang="en">Team of 4 · AI agent for preventing social isolation</p>
-          <ol lang="ko">
-            <li><b>일하는 규칙부터 세웠습니다</b><span class="s"><span class="u">main 직접 푸시를 막고,</span> <span class="u">기능별 브랜치와 팀원 확인 뒤 병합하는 규칙을 정했습니다.</span></span></li>
-            <li><b>데이터가 새지 않게 막았습니다</b><span class="s"><span class="u">공모전 원본 데이터와 API 키는</span> <span class="u">커밋 단계의 훅으로 저장소에 올라가지 않게 했습니다.</span></span></li>
-            <li><b>같은 근거로 판단하게 했습니다</b><span class="s"><span class="u">ERD, 회의 정리, 의사결정 로그를 문서로 남겨</span> <span class="u">팀원이 같은 자료를 보고 결정하게 했습니다.</span></span></li>
-            <li><b>가장 무거운 부분을 맡았습니다</b><span class="s"><span class="u">문제 정의와 분석 설계, 데이터 파이프라인,</span> <span class="u">위험도 모형, 에이전트, 정수계획 최적화를 구현했습니다.</span></span></li>
-          </ol>
-          <ol lang="en">
-            <li><b>Set working rules first</b>No direct pushes to main; feature branches merged after a teammate's review.</li>
-            <li><b>Kept data from leaking</b>Commit hooks blocked raw contest data and API keys from the repository.</li>
-            <li><b>Made decisions on shared evidence</b>An ERD, meeting notes and a decision log kept everyone on the same page.</li>
-            <li><b>Took the heaviest part</b>I built the problem framing, pipeline, risk model, agent and integer-programming allocation.</li>
-          </ol>
-          <a class="more" href="https://github.com/13JVV/capstone-overview" target="_blank" rel="noopener"><span lang="ko">프로젝트 소개</span><span lang="en">Overview</span> ↗</a>
+          <span class="when">2026 1<span lang="ko">학기 · 4인</span><span lang="en">st semester · team of 4</span></span>
+          <h4 lang="ko">생성형 AI 구독 모델 분석</h4><h4 lang="en">Generative AI Subscription Study</h4>
+          <p lang="ko"><span class="s"><span class="u">설문 설계를 이끌다 초안에서 모든 속성이 앞서는 선택지를 발견해,</span> <span class="u">일정을 늦추더라도 다시 설계하자고 결정했습니다.</span></span><span class="s">유효 응답 113명을 모았습니다.</span></p>
+          <p lang="en">Led survey design; when the draft had options that beat others on every attribute, I chose to delay and redesign. Collected 113 valid responses.</p>
+          <a class="more" href="projects/subscription/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+        </article>
+        <article class="lead-card">
+          <span class="when"><span lang="ko">수업 프로젝트 · 3인</span><span lang="en">Course project · team of 3</span></span>
+          <h4 lang="ko">강화학습 PPO</h4><h4 lang="en">Reinforcement Learning (PPO)</h4>
+          <p lang="ko"><span class="s"><span class="u">10개 설정을 3개 시드로 돌리는 실험을 맡고,</span> <span class="u">평균뿐 아니라 시드 간 편차까지 보는 기준으로 최종 설정을 골랐습니다.</span></span></p>
+          <p lang="en">Ran 10 settings across 3 seeds and picked the final setting by spread across seeds, not the mean alone.</p>
+          <a class="more" href="projects/lunar/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
         </article>
       </div>
     </div>
@@ -540,43 +533,43 @@
     <section class="sec" id="how">
       <div class="sec-head reveal">
         <p class="sec-kicker">How I work</p>
-        <h2 class="sec-title" lang="ko"><span class="u">산업경영공학으로 배운 방식으로</span> <span class="u"><em>기획합니다</em></span></h2>
-        <h2 class="sec-title" lang="en">I plan the way <em>industrial engineering</em> taught me</h2>
-        <p class="sec-desc" lang="ko">작게 검증하고, 숫자로 고르고, 제약 안에서 배분하고, 결과를 시험합니다.</p>
-        <p class="sec-desc" lang="en">Validate small, choose with numbers, allocate under constraints, and test the result.</p>
+        <h2 class="sec-title" lang="ko"><span class="u">사용자 문제를</span> <span class="u"><em>서비스로 만드는</em> 네 가지 방식</span></h2>
+        <h2 class="sec-title" lang="en">Four ways I turn user problems <em>into services</em></h2>
+        <p class="sec-desc" lang="ko"><span class="s"><span class="u">IT, AI 서비스를 기획하고 출시하며 지켜 온 습관입니다.</span> <span class="u">산업경영공학에서 배운 실험 설계와 데이터 분석은 결정의 근거로 사용합니다.</span></span></p>
+        <p class="sec-desc" lang="en">Habits I kept while planning and shipping IT and AI services. What I learned in industrial engineering, experiment design and data analysis, backs my decisions.</p>
       </div>
       <div class="principles">
         <article class="pr reveal">
-          <div class="idx"><span class="no">01</span><span class="ie">MVP</span></div>
-          <h3 lang="ko">MVP로 먼저 검증합니다</h3><h3 lang="en">Validate with an MVP first</h3>
-          <p lang="ko"><span class="s"><span class="u">핵심 가설 하나만 담은 MVP를 먼저 내고,</span> <span class="u">실제 사용 흐름과 심사 의견을 본 뒤 기능을 붙입니다.</span></span></p>
-          <p lang="en">I ship an MVP that tests one core hypothesis, then add features after seeing real usage and store review notes.</p>
+          <div class="idx"><span class="no">01</span><span class="ie" lang="ko">MVP · 출시 후 개선</span><span class="ie" lang="en">MVP · iterate after launch</span></div>
+          <h3 lang="ko">MVP로 먼저 내고, 반응을 보고 고칩니다</h3><h3 lang="en">Ship an MVP, then fix what users show me</h3>
+          <p lang="ko"><span class="s"><span class="u">핵심 기능 하나로 출시한 뒤</span> <span class="u">사용자 피드백과 스토어 심사 의견을 다음 기능의 우선순위로 바꿉니다.</span></span></p>
+          <p lang="en">I launch with one core feature, then turn user feedback and store review notes into the next priorities.</p>
           <div class="metric"><span class="v">2<small style="font-size:20px">개</small></span><span class="k" lang="ko">스토어에 직접 출시한 앱</span><span class="k" lang="en">apps I shipped to stores</span></div>
-          <div class="ev"><b>It's me</b> <span lang="ko">명함 생성과 QR 공유로 MVP 출시 → 반려 3건과 피드백 반영 → 명함 인식, 지갑 추가</span><span lang="en">MVP with card creation and QR sharing → fixed 3 store rejections and feedback → added card scan and wallet</span></div>
+          <div class="ev"><b>It's me</b> <span lang="ko">명함 생성과 QR 공유로 출시 → 심사 반려 3건과 지인 피드백 반영 → 명함 인식, 지갑 추가, 세로 명함과 4개 탭으로 재구성</span><span lang="en">launched with card creation and QR sharing → fixed 3 store rejections and feedback → added card scan, wallet, and a 4-tab layout</span></div>
         </article>
         <article class="pr reveal">
-          <div class="idx"><span class="no">02</span><span class="ie" lang="ko">실험계획 · 선택모형</span><span class="ie" lang="en">Experiment design · choice model</span></div>
-          <h3 lang="ko">사용자 선호는 숫자로 측정합니다</h3><h3 lang="en">Measure preference in numbers</h3>
-          <p lang="ko"><span class="s"><span class="u">“다 중요하다”로 끝나는 평점 대신</span> <span class="u">사용자가 무엇을 포기하고 고르는지 선택 실험으로 재고 우선순위를 정합니다.</span></span></p>
-          <p lang="en">Instead of ratings where everything is "important", I measure trade-offs with choice experiments and set priorities from them.</p>
-          <div class="metric"><span class="v">26.4%</span><span class="k" lang="ko">전문성의 상대적 중요도 (정확도 16.4%)</span><span class="k" lang="en">importance of expertise (accuracy 16.4%)</span></div>
-          <div class="ev"><b lang="ko">구독 모델 분석</b><b lang="en">Subscription study</b> <span lang="ko">113명 이산선택실험, ‘정확도가 1순위’라는 가설이 데이터로 지지되지 않음</span><span lang="en">113 respondents; the "accuracy first" hypothesis was not supported</span></div>
+          <div class="idx"><span class="no">02</span><span class="ie" lang="ko">사용자 리서치 · 우선순위</span><span class="ie" lang="en">User research · priorities</span></div>
+          <h3 lang="ko">기능 우선순위는 사용자의 선택으로 정합니다</h3><h3 lang="en">Users' choices set feature priorities</h3>
+          <p lang="ko"><span class="s"><span class="u">“다 중요하다”는 답 대신,</span> <span class="u">사용자가 무엇을 포기하고 무엇을 고르는지 실험으로 확인합니다.</span></span><span class="s">팀의 가정이 틀렸다면 데이터를 따릅니다.</span></p>
+          <p lang="en">Instead of "everything matters", I test what users give up and what they pick. When our assumption is wrong, I follow the data.</p>
+          <div class="metric"><span class="v">26.4%</span><span class="k" lang="ko">1순위는 정확도가 아니라 전문성 (113명)</span><span class="k" lang="en">top factor was expertise, not accuracy (113 people)</span></div>
+          <div class="ev"><b lang="ko">생성형 AI 구독 분석</b><b lang="en">AI subscription study</b> <span lang="ko">‘정확도가 가장 중요하다’는 팀 가설이 선택 실험에서 지지되지 않아, 기능 우선순위를 다시 검토할 근거로 정리</span><span lang="en">the "accuracy first" hypothesis was not supported, giving us grounds to revisit feature priorities</span></div>
         </article>
         <article class="pr reveal">
-          <div class="idx"><span class="no">03</span><span class="ie" lang="ko">수리최적화 · 시뮬레이션</span><span class="ie" lang="en">Optimization · simulation</span></div>
-          <h3 lang="ko">한정된 자원은 최적화로 나눕니다</h3><h3 lang="en">Allocate scarce resources by optimization</h3>
-          <p lang="ko"><span class="s"><span class="u">인력과 예산이 모자랄 때 어디에 먼저 쓸지를</span> <span class="u">목적함수와 제약식으로 풀고, 바꾸기 전에 시뮬레이션으로 비교합니다.</span></span></p>
-          <p lang="en">When people and budget run short, I solve where to spend first with an objective and constraints, and compare options in simulation before changing anything.</p>
-          <div class="metric"><span class="v word" lang="ko">정수계획</span><span class="v word" lang="en">Integer programming</span><span class="k" lang="ko">복지 인력시간 배분 + 민감도 분석</span><span class="k" lang="en">welfare staff-hour allocation + sensitivity</span></div>
-          <div class="ev"><b lang="ko">빅콘테스트, 교내 경진대회, 생산공정</b><b lang="en">BigContest, campus contest, production line</b> <span lang="ko">정수계획 배분, 순찰과 정비의 순차 의사결정(PPO) 설계, Arena 공정 개선안 비교</span><span lang="en">integer-programming allocation, PPO patrol and repair design, Arena process comparison</span></div>
-        </article>
-        <article class="pr reveal">
-          <div class="idx"><span class="no">04</span><span class="ie" lang="ko">검증 설계</span><span class="ie" lang="en">Validation design</span></div>
-          <h3 lang="ko">AI 결과에는 검증 기준을 붙입니다</h3><h3 lang="en">Attach a test to every AI result</h3>
-          <p lang="ko"><span class="s"><span class="u">AI가 만든 결과는 정답을 아는 데이터로 시험하고,</span> <span class="u">틀릴 수 있는 지점에는 사람이 확인하는 단계를 넣습니다.</span></span></p>
-          <p lang="en">I test AI output against data with known answers, and put a human check where it can go wrong.</p>
+          <div class="idx"><span class="no">03</span><span class="ie" lang="ko">AI 서비스 설계</span><span class="ie" lang="en">AI service design</span></div>
+          <h3 lang="ko">AI 기능에는 검증과 사람의 확인을 붙입니다</h3><h3 lang="en">AI features come with tests and a human check</h3>
+          <p lang="ko"><span class="s"><span class="u">AI가 만든 결과는 출시 전에 정답을 아는 데이터로 시험하고,</span> <span class="u">틀릴 수 있는 지점에는 사용자가 확인하는 단계를 화면에 넣습니다.</span></span></p>
+          <p lang="en">Before launch I test AI output against data with known answers, and put a review step on screen where it can go wrong.</p>
           <div class="metric"><span class="v">90.6%</span><span class="k" lang="ko">CrowdSense 혼잡 등급 상승 1,877건 중 사전 예고 (백테스트)</span><span class="k" lang="en">of 1,877 crowd surges flagged ahead (backtest)</span></div>
-          <div class="ev"><b>J-Verdict, <span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span></b> <span lang="ko">합성데이터 판정 2,400회에서 없는 효과를 있다고 한 비율 2.4%, AI 분석은 교사가 승인한 것만 학생에게</span><span lang="en">2.4% false "effect" calls over 2,400 synthetic runs; only teacher-approved AI output reaches students</span></div>
+          <div class="ev"><b>It's me, <span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span>, J-Verdict</b> <span lang="ko">AI가 읽은 명함은 저장 전에 사용자가 확인, AI 분석은 교사가 승인한 것만 학생에게, 합성데이터 판정 2,400회로 오판율 확인</span><span lang="en">users confirm AI-read cards before saving, only teacher-approved output reaches students, 2,400 synthetic runs to measure false calls</span></div>
+        </article>
+        <article class="pr reveal">
+          <div class="idx"><span class="no">04</span><span class="ie" lang="ko">신뢰를 주는 UX</span><span class="ie" lang="en">Trustworthy UX</span></div>
+          <h3 lang="ko">모르는 것은 모른다고 화면에 보여 줍니다</h3><h3 lang="en">Show users what the service doesn't know</h3>
+          <p lang="ko"><span class="s"><span class="u">데이터가 없거나 모호하면 그럴듯하게 채우지 않고</span> <span class="u">‘확인 필요’, ‘판정 불가’처럼 그 상태를 그대로 알려 줍니다.</span></span></p>
+          <p lang="en">When data is missing or unclear, I don't fill the gap with a guess; the screen says "check needed" or "cannot judge".</p>
+          <div class="metric"><span class="v">1.3%</span><span class="k" lang="ko">동반 조건을 읽을 수 있던 시설 (48,786건 중 626건)</span><span class="k" lang="en">venues with readable pet rules (626 of 48,786)</span></div>
+          <div class="ev"><b><span lang="ko">반갑꼬리</span><span lang="en">Bangapkkori</span>, CrowdSense</b> <span lang="ko">조건이 없는 시설은 ‘가능’이 아니라 ‘확인 필요’로, 오차가 신호보다 큰 데이터는 경보 대신 ‘판정 불가’로 표시</span><span lang="en">venues without rules show "check needed", and data noisier than the signal shows "cannot judge" instead of an alert</span></div>
         </article>
       </div>
     </section>
@@ -716,20 +709,13 @@
           </div>
         </div>
         <div class="oth" tabindex="0">
-          <div class="oth-top"><span class="when"><span lang="ko">수업 프로젝트</span><span lang="en">Course project</span></span><h3><span lang="ko">강화학습 PPO</span><span lang="en">Reinforcement Learning (PPO)</span></h3></div>
+          <div class="oth-top"><span class="when"><span lang="ko">수업 프로젝트</span><span lang="en">Course project</span></span><h3><span lang="ko">강화학습 PPO</span><span lang="en">Reinforcement Learning (PPO)</span><span class="lead-tag" lang="ko">팀장</span><span class="lead-tag" lang="en">Lead</span></h3></div>
           <div class="oth-pop">
             <p lang="ko">LunarLander에서 PPO 설정별 학습 로그를 비교했습니다.</p>
             <p lang="en">Compared training logs across PPO settings in LunarLander.</p>
             <a href="projects/lunar/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
           </div>
         </div>
-        <div class="oth" tabindex="0">
-          <div class="oth-top"><span class="when">2026.07</span><h3><span lang="ko">관광데이터 활용 공모전</span><span lang="en">Tourism Data Contest</span></h3></div>
-          <div class="oth-pop">
-            <p lang="ko">반갑꼬리로 공모전에 제출하고 발표를 마쳤습니다.</p>
-            <p lang="en">Submitted and presented Bangapkkori.</p>
-            <a href="projects/pet/"><span lang="ko">반갑꼬리 보기</span><span lang="en">See Bangapkkori</span> →</a>
-          </div>
         </div>
       </div>
     </section>
