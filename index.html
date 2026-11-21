@@ -89,16 +89,17 @@
     .stat {
       appearance: none; text-align: left; font: inherit; color: inherit; cursor: pointer;
       position: relative; counter-increment: stat;
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;
       padding: 20px 20px 16px; border: 1px solid var(--line); border-radius: var(--r); background: #fff;
       transition: transform .2s, box-shadow .2s, border-color .2s, background .2s;
     }
     .stat::after { content: counter(stat, decimal-leading-zero); position: absolute; top: 14px; right: 16px; font: 500 11px/1 var(--mono); color: #c9bdb4; }
     .stat:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--line-2); }
     .stat[aria-expanded="true"] { border-color: var(--wine); background: linear-gradient(160deg, #fff 40%, var(--peach)); box-shadow: 0 14px 30px -18px rgba(142, 31, 43, .55); }
-    .stat .num { font-size: 27px; font-weight: 800; letter-spacing: -.6px; line-height: 1.15; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+    .stat .num { font-size: 27px; font-weight: 800; letter-spacing: -.6px; line-height: 1.15; height: 1.15em; white-space: nowrap; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
     .stat .num small { font-size: 15px; font-weight: 700; margin: 0 1px; }
-    .stat .lbl { font-size: 13.5px; color: var(--ink-3); margin-top: 8px; line-height: 1.5; }
-    .stat .open { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12.5px; font-weight: 700; color: var(--wine); }
+    .stat .lbl { font-size: 13.5px; color: var(--ink-3); margin-top: 8px; line-height: 1.5; min-height: 3em; }
+    .stat .open { display: inline-flex; align-items: center; gap: 6px; margin-top: auto; padding-top: 12px; font-size: 12.5px; font-weight: 700; color: var(--wine); }
     .stat .open i { font-size: 11px; transition: transform .2s; }
     .stat[aria-expanded="true"] .open i { transform: rotate(180deg); }
 
