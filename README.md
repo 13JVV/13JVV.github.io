@@ -21,7 +21,7 @@
 | **CrowdSense** | AI 인파안전 관제 지원 서비스 | 기획 · 설계 · 개발 · 배포 (개인) | 재난안전데이터 활용 창업경진대회 최우수상 (행정안전부 장관상) | [소개](https://github.com/13JVV/crowdsense-overview) · [서비스](https://crowdsense-jvv1.vercel.app) · [사례](https://13jvv.github.io/projects/crowdsense/) |
 | **반갑꼬리** | 반려동물 동반여행 출입 조건 판별 앱 | 프론트엔드, 기능 · DB 설계, 배포 | App Store 출시 · 관광데이터 활용 공모전 출품 | [소개](https://github.com/13JVV/bangapkkori-overview) · [App Store](https://apps.apple.com/kr/app/%EB%B0%98%EA%B0%91%EA%BC%AC%EB%A6%AC/id6810158091) · [사례](https://13jvv.github.io/projects/pet/) |
 | **사회적 고립 예방 AI 에이전트** | 통신 · 카드 집계 데이터로 고립 위험을 찾고 복지 인력 배분을 제안하는 AI 에이전트 | 팀장 | 2026 빅콘테스트 AI데이터활용 분야 출품 | [소개](https://github.com/13JVV/capstone-overview) |
-| **정책 판정관 J-Verdict** | 정책 효과를 스스로 검증 · 판정하는 인과추론 AI Agent | 기획 · 개발 (개인) | 제주 AI·빅데이터 AI Agent 챌린지 출품 | [저장소](https://github.com/13JVV/jverdict) · [데모](https://jverdict.streamlit.app) |
+| **정책 판정관 J-Verdict** | 정책 효과를 스스로 검증 · 판정하는 인과추론 AI Agent | 기획 · 개발 (개인) | 제주 AI·빅데이터 AI Agent 챌린지 출품 | [저장소](https://github.com/13JVV/jverdict) · [데모](https://jverdict.streamlit.app) · [사례](https://13jvv.github.io/projects/jverdict/) |
 
 ## 사이트 구성
 

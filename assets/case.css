@@ -1,0 +1,143 @@
+/* 프로젝트 상세 페이지 공통 스타일 (base.css 다음에 불러옵니다) */
+.case-page main { padding-bottom: 20px; }
+
+/* ---------- 머리 ---------- */
+.back { display: inline-flex; align-items: center; gap: 8px; margin: 34px 0 0; font-size: 14px; font-weight: 700; color: var(--ink-3); }
+.back:hover { color: var(--wine); }
+.case-hero { position: relative; isolation: isolate; padding: 26px 0 8px; }
+.case-hero::before {
+  content: ""; position: absolute; z-index: -1; inset: 0 -24px;
+  background-image: radial-gradient(circle, #e7d8cd 1px, transparent 1.4px); background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 80% at 85% 30%, #000 0%, transparent 70%);
+  mask-image: radial-gradient(ellipse 60% 80% at 85% 30%, #000 0%, transparent 70%);
+}
+.case-kicker { font: 600 12.5px/1 var(--mono); color: var(--orange); margin: 0 0 14px; }
+.case-kicker::before { content: "// "; color: #e9b28f; }
+.case-hero h1 { font-size: 42px; line-height: 1.25; letter-spacing: -1.3px; font-weight: 800; margin: 0 0 10px; }
+.case-hero h1 em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.case-hero .lede { font-size: 18px; color: var(--ink-2); margin: 0 0 18px; max-width: 760px; }
+.case-hero .award-line { display: inline-block; margin: 0 0 16px; }
+.case-hero .chips { margin: 0 0 20px; }
+
+/* ---------- 대표 이미지 ---------- */
+.shots {
+  margin: 30px 0 0; padding: 26px; border-radius: 24px; background: var(--bg-soft); border: 1px solid var(--line);
+  display: flex; justify-content: center; align-items: flex-start; gap: 18px; flex-wrap: wrap;
+}
+.shots figure { margin: 0; flex: 0 1 auto; text-align: center; }
+.shots img { display: block; border-radius: 14px; border: 1px solid var(--line); background: #fff; box-shadow: 0 14px 30px -18px rgba(60, 30, 20, .35); }
+.shots.phones img { width: 200px; height: auto; }
+.shots.wide img { width: 100%; max-width: 980px; height: auto; }
+.shots.two figure { flex: 1 1 420px; max-width: 500px; }
+.shots.two img { width: 100%; height: auto; }
+.shots figcaption { font-size: 13px; color: var(--ink-3); margin-top: 9px; }
+
+/* ---------- 숫자 ---------- */
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 22px 0 0; }
+.fact { padding: 18px 18px 16px; border: 1px solid var(--line); border-radius: var(--r); background: #fff; }
+.fact .n { font-size: 26px; font-weight: 800; letter-spacing: -.6px; line-height: 1.15; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+.fact .n small { font-size: 14px; }
+.fact .l { font-size: 13.5px; color: var(--ink-3); margin-top: 6px; line-height: 1.5; }
+
+/* ---------- 본문 ---------- */
+.case-page .sec { padding-top: 80px; }
+.prose { color: var(--ink-2); max-width: 820px; }
+.prose p { margin: 0 0 14px; }
+.prose b, .prose strong { color: var(--ink); }
+
+.pdr { margin: 0; display: grid; grid-template-columns: 78px 1fr; gap: 0 14px; font-size: 15.5px; max-width: 880px; }
+.pdr dt { position: relative; padding: 2px 0 16px; font: 700 13.5px/1.75 var(--sans); color: var(--wine); }
+.pdr dt::after { content: ""; position: absolute; top: 7px; right: -9px; width: 8px; height: 8px; border-radius: 50%; background: #fff; border: 2px solid var(--orange); z-index: 1; }
+.pdr dd { margin: 0 0 0 -6px; color: var(--ink-2); line-height: 1.7; border-left: 2px dashed var(--line-2); padding: 0 0 16px 18px; }
+.pdr dd:last-of-type { border-left-color: transparent; padding-bottom: 0; }
+.pdr dt:last-of-type::after { background: var(--orange); }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+
+/* 결정 카드 */
+.decisions { display: grid; gap: 14px; counter-reset: dc; }
+.dc { counter-increment: dc; position: relative; border: 1px solid var(--line); border-radius: var(--r); background: #fff; padding: 22px 24px 20px 74px; }
+.dc::before {
+  content: counter(dc, decimal-leading-zero); position: absolute; left: 22px; top: 22px;
+  width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center;
+  font: 700 13px/1 var(--mono); color: var(--wine); background: var(--peach);
+}
+.dc h3 { font-size: 18px; margin: 0 0 8px; letter-spacing: -.3px; line-height: 1.45; }
+.dc p { margin: 0 0 10px; color: var(--ink-2); font-size: 15px; }
+.dc .ev { font-size: 13.5px; color: var(--ink-3); background: var(--bg-soft); border-radius: 10px; padding: 10px 12px; margin-top: 4px; }
+.dc .ev::before { content: "↳ "; color: var(--orange); font-family: var(--mono); }
+.dc .ev b { color: var(--ink-2); }
+
+/* 카드 */
+.card { border: 1px solid var(--line); border-radius: var(--r); background: #fff; padding: 20px 22px; }
+.card h3 { font-size: 16.5px; margin: 0 0 8px; letter-spacing: -.2px; }
+.card p { margin: 0; color: var(--ink-2); font-size: 14.5px; }
+.card .tag { display: inline-block; font: 600 11.5px/1 var(--mono); color: var(--orange); margin-bottom: 10px; }
+
+/* 표 */
+.tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: #fff; }
+.tbl table { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 560px; }
+.tbl th, .tbl td { text-align: left; padding: 11px 15px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tbl thead th { font-size: 12.5px; font-weight: 700; color: var(--ink-3); background: var(--bg-soft); }
+.tbl tbody tr:last-child td { border-bottom: 0; }
+.tbl td.num { font-variant-numeric: tabular-nums; font-weight: 700; color: var(--ink); white-space: nowrap; }
+
+/* 그림 */
+.fig { margin: 0; }
+.fig img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); background: var(--bg-soft); }
+.fig figcaption { font-size: 13px; color: var(--ink-3); margin-top: 8px; }
+
+/* 한계, 주의 */
+.note { border-left: 3px solid var(--orange); background: var(--peach); border-radius: 0 12px 12px 0; padding: 14px 16px; color: var(--ink-2); font-size: 14.5px; max-width: 880px; }
+.note b { color: var(--wine); }
+
+/* ---------- 직접 써 보기 ---------- */
+.demo {
+  position: relative; border-radius: 26px; padding: 30px; background: #fff;
+  border: 1px solid transparent;
+  background-image: linear-gradient(#fff, #fff), var(--grad); background-origin: border-box; background-clip: padding-box, border-box;
+  box-shadow: 0 24px 60px -36px rgba(142, 31, 43, .55);
+}
+.demo-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 10px 20px; margin-bottom: 20px; }
+.demo-head .tag { display: inline-flex; align-items: center; gap: 8px; font: 700 12px/1 var(--mono); color: #fff; background: var(--grad); padding: 7px 11px; border-radius: 999px; margin-bottom: 10px; }
+.demo-head h2 { margin: 0; font-size: 24px; letter-spacing: -.6px; }
+.demo-head p { margin: 4px 0 0; color: var(--ink-3); font-size: 14.5px; }
+.demo-foot { margin-top: 14px; font-size: 12.5px; color: var(--ink-3); }
+.field { display: grid; gap: 6px; font-size: 13.5px; font-weight: 700; color: var(--ink-2); }
+.field input, .field select {
+  font: 500 15px/1.2 var(--sans); padding: 11px 12px; border-radius: 10px; border: 1px solid var(--line-2); background: #fff; color: var(--ink);
+}
+.field input:focus, .field select:focus { outline: 2px solid var(--orange); outline-offset: 1px; border-color: transparent; }
+.seg { display: inline-flex; flex-wrap: wrap; gap: 6px; }
+.seg button { appearance: none; cursor: pointer; font: 700 13.5px/1 var(--sans); padding: 10px 13px; border-radius: 999px; border: 1px solid var(--line-2); background: #fff; color: var(--ink-2); transition: background .15s, color .15s, border-color .15s; }
+.seg button:hover { border-color: var(--wine); color: var(--wine); }
+.seg button[aria-pressed="true"] { background: var(--wine); border-color: var(--wine); color: #fff; }
+
+/* ---------- 다른 프로젝트 ---------- */
+.others { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+.other { display: flex; flex-direction: column; gap: 6px; padding: 14px; border: 1px solid var(--line); border-radius: 14px; background: #fff; color: var(--ink); transition: transform .15s, box-shadow .15s, border-color .15s; }
+.other:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--line-2); }
+.other img { width: 34px; height: 34px; border-radius: 9px; }
+.other b { font-size: 14.5px; }
+.other span { font-size: 12.5px; color: var(--ink-3); line-height: 1.45; }
+
+@media (max-width: 960px) {
+  .facts { grid-template-columns: repeat(2, 1fr); }
+  .grid3 { grid-template-columns: 1fr 1fr; }
+  .others { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 720px) {
+  .case-hero::before { inset: 0; }
+  .case-hero h1 { font-size: 30px; letter-spacing: -.8px; }
+  .case-hero .lede { font-size: 16.5px; }
+  .shots { padding: 16px; gap: 12px; }
+  .shots.phones img { width: 128px; }
+  .grid2, .grid3 { grid-template-columns: 1fr; }
+  .dc { padding: 18px 18px 16px 18px; }
+  .dc::before { position: static; margin-bottom: 10px; }
+  .pdr { grid-template-columns: 62px 1fr; }
+  .demo { padding: 20px 16px; border-radius: 20px; }
+  .others { grid-template-columns: 1fr 1fr; }
+  .case-page .sec { padding-top: 60px; }
+}

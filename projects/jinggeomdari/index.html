@@ -3,278 +3,318 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="징검다리. 2026 INHA AX-EDU HACKATHON 우수상. 교육 도메인을 모르던 상태에서 예비교사, 교육 전문가, 슈퍼스쿨 기획팀과 개발팀과 함께 약 5시간 만에 기획부터 배포까지 마친 서비스 기획 사례입니다." />
   <title>징검다리 | 신재우</title>
+  <meta name="description" content="징검다리: 플립러닝 수업 전에 학생이 막힌 개념을 찾아 주는 AI 교사 지원 서비스. 2026 INHA AX-EDU HACKATHON 우수상 (인하대학교 사범대학장상)." />
+  <meta property="og:title" content="징검다리 | 신재우 포트폴리오" />
+  <meta property="og:image" content="https://13jvv.github.io/assets/img/shots/jg-01-teacher.webp" />
   <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-  <link rel="stylesheet" href="../../project-navigation.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&display=swap" />
+  <link rel="stylesheet" href="../../assets/base.css" />
+  <link rel="stylesheet" href="../../assets/case.css" />
   <style>
-    :root {
-      --bg: #ffffff;
-      --bg-soft: #fbf7f3;
-      --ink: #1d1b1a;
-      --ink-2: #3b3735;
-      --ink-3: #6b6461;
-      --line: #ece6e1;
-      --wine: #8e1f2b;
-      --orange: #e2702c;
-      --peach: #fdf0e6;
-      --pink: #fbe8e6;
-      --butter: #fdf6dc;
-      --sky: #e9f1fb;
-      --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+    /* 직접 써 보기: 세 화면으로 가는 링크 카드 */
+    .try-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .try-card {
+      display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 18px; background: #fff; color: var(--ink);
+      overflow: hidden; transition: transform .18s, box-shadow .18s, border-color .18s;
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0; background: var(--bg); color: var(--ink);
-      font-family: var(--sans); font-size: 16.5px; line-height: 1.75;
-      word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased;
+    .try-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--line-2); }
+    .try-card:hover .try-go { color: var(--wine); }
+    .try-card:hover .try-go i { transform: translate(2px, -2px); }
+    .try-thumb { position: relative; aspect-ratio: 16 / 10.4; background: var(--bg-soft); border-bottom: 1px solid var(--line); }
+    .try-thumb img { position: absolute; inset: 12px; width: calc(100% - 24px); height: calc(100% - 24px); object-fit: contain; }
+    .try-body { display: flex; flex-direction: column; gap: 8px; padding: 16px 18px 18px; flex: 1; }
+    .try-where { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .try-where b { font-size: 17px; letter-spacing: -.3px; }
+    .try-where code { font: 600 12px/1 var(--mono); color: var(--ink-3); background: var(--bg-soft); border: 1px solid var(--line); padding: 5px 7px; border-radius: 6px; }
+    .try-sub { font-size: 13.5px; color: var(--ink-3); margin: -4px 0 0; }
+    .try-todo { font-size: 14px; color: var(--ink-2); background: var(--peach); border-radius: 10px; padding: 10px 12px; margin: 2px 0 0; line-height: 1.6; }
+    .try-todo em { font-style: normal; display: block; font-size: 12px; font-weight: 800; color: var(--orange); margin-bottom: 2px; }
+    .try-go { margin-top: auto; padding-top: 4px; font-size: 14px; font-weight: 700; color: var(--ink-2); display: inline-flex; align-items: center; gap: 7px; transition: color .15s; }
+    .try-go i { font-size: 12px; transition: transform .15s; }
+    kbd { font: 600 11.5px/1 var(--mono); padding: 3px 6px; border-radius: 5px; border: 1px solid var(--line-2); border-bottom-width: 2px; background: #fff; color: var(--ink-2); }
+
+    /* 처음 받은 요청 */
+    .ask { position: relative; margin: 6px 0 20px; padding: 18px 22px 18px 58px; border-radius: 16px; background: var(--bg-soft); border: 1px solid var(--line); max-width: 820px; color: var(--ink); font-size: 16.5px; font-weight: 600; }
+    .ask::before { content: "\201C"; position: absolute; left: 18px; top: 4px; font: 800 46px/1 Georgia, serif; color: var(--orange); }
+    .ask small { display: block; margin-top: 6px; font-size: 13px; font-weight: 500; color: var(--ink-3); }
+
+    /* 만든 것 */
+    .feat .card { position: relative; }
+    .feat .mine { position: absolute; top: 16px; right: 16px; font-size: 11.5px; font-weight: 800; color: var(--wine); background: var(--pink); padding: 4px 8px; border-radius: 6px; }
+
+    @media (max-width: 960px) {
+      .try-cards { grid-template-columns: 1fr 1fr; }
     }
-    a { color: var(--wine); }
-    .s { display: block; }
-    .u { display: inline-block; }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 0 24px; }
-
-    header { padding: 40px 0 8px; }
-    .kicker { font-size: 13px; font-weight: 800; letter-spacing: 2px; color: var(--orange); text-transform: uppercase; margin: 0 0 10px; }
-    h1 { font-size: 44px; line-height: 1.2; letter-spacing: -1px; font-weight: 800; margin: 0 0 10px; }
-    .sub { font-size: 19px; color: var(--ink-2); margin: 0 0 18px; }
-    .award { display: inline-flex; flex-direction: column; gap: 2px; border-left: 3px solid var(--wine); padding: 4px 0 4px 14px; margin: 0 0 20px; }
-    .award b { font-size: 16px; color: var(--wine); }
-    .award span { font-size: 14px; color: var(--ink-3); }
-    .meta { display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: 16px; background: var(--bg-soft); }
-    .meta div { padding: 14px 16px; border-left: 1px solid var(--line); }
-    .meta div:first-child { border-left: 0; }
-    .meta dt { font-size: 12.5px; font-weight: 800; color: var(--orange); letter-spacing: .5px; }
-    .meta dd { margin: 2px 0 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
-    .links { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 0; }
-    .btn { display: inline-flex; align-items: center; gap: 6px; font-weight: 700; font-size: 14px; padding: 10px 16px; border-radius: 999px; border: 1px solid #e3d9d1; color: var(--ink); text-decoration: none; background: #fff; transition: border-color .15s, color .15s; }
-    .btn:hover { border-color: var(--wine); color: var(--wine); }
-    .btn.primary:hover { color: #fff; background: #a8323f; }
-    .btn.primary { background: var(--wine); border-color: var(--wine); color: #fff; }
-    .btn:hover { text-decoration: none; box-shadow: 0 6px 18px rgba(80, 30, 20, .08); }
-
-    figure { margin: 28px 0 0; }
-    figure img { display: block; width: 100%; height: auto; border-radius: 16px; border: 1px solid var(--line); }
-    figcaption { font-size: 13.5px; color: var(--ink-3); margin-top: 8px; }
-    .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 28px; }
-    .shots figure { margin: 0; }
-
-    section { padding: 56px 0 0; }
-    h2 { font-size: 26px; letter-spacing: -.5px; line-height: 1.35; margin: 0 0 6px; }
-    .lead { color: var(--ink-3); margin: 0 0 20px; }
-    p { margin: 0 0 12px; color: var(--ink-2); }
-    h3 { font-size: 18px; margin: 22px 0 6px; letter-spacing: -.3px; }
-
-    .tbl { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; }
-    table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 15px; }
-    th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-bottom: 1px solid var(--line); line-height: 1.6; }
-    th { background: var(--bg-soft); font-size: 13.5px; font-weight: 800; color: var(--ink-2); white-space: nowrap; }
-    tr:last-child td { border-bottom: 0; }
-    td:first-child { color: var(--ink-3); }
-    td b { color: var(--ink); }
-
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .card { border-radius: 16px; padding: 18px; background: var(--peach); }
-    .card:nth-child(2) { background: var(--pink); }
-    .card:nth-child(3) { background: var(--sky); }
-    .card .n { font-size: 13px; font-weight: 800; color: var(--wine); letter-spacing: 1px; }
-    .card h3 { margin: 6px 0 6px; font-size: 17px; }
-    .card p { font-size: 14.5px; margin: 0; }
-
-    ul.list { margin: 0; padding-left: 1.2em; color: var(--ink-2); }
-    ul.list li { margin: 4px 0; }
-    .mine { display: inline-block; font-size: 12px; font-weight: 800; color: var(--wine); background: var(--pink); padding: 1px 7px; border-radius: 6px; margin-left: 6px; vertical-align: 2px; }
-
-    .num-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
-    .num { border: 1px solid var(--line); border-radius: 14px; padding: 16px; background: var(--bg-soft); }
-    .num b { display: block; font-size: 28px; font-weight: 800; color: var(--wine); line-height: 1.2; letter-spacing: -.5px; }
-    .num span { font-size: 14px; color: var(--ink-3); }
-    .note { font-size: 14px; color: var(--ink-3); }
-
-    .quote { border-left: 3px solid var(--orange); background: var(--peach); padding: 14px 18px; border-radius: 0 12px 12px 0; margin: 14px 0; }
-    .quote p { margin: 0; color: var(--ink); }
-
-    footer { padding: 64px 0 48px; color: var(--ink-3); font-size: 13.5px; }
-
     @media (max-width: 720px) {
-      body { font-size: 16px; }
-      .wrap { padding: 0 16px; }
-      h1 { font-size: 34px; }
-      .sub { font-size: 17px; }
-      .meta { grid-template-columns: 1fr 1fr; }
-      .meta div:nth-child(3) { border-left: 0; }
-      .meta div:nth-child(n+3) { border-top: 1px solid var(--line); }
-      .shots, .cards, .num-row { grid-template-columns: 1fr; }
-      h2 { font-size: 22px; }
-      section { padding-top: 44px; }
+      .try-cards { grid-template-columns: 1fr; }
+      .ask { padding: 16px 16px 16px 46px; font-size: 15.5px; }
+      .ask::before { left: 12px; font-size: 38px; }
     }
   </style>
 </head>
-<body>
-  <div class="portfolio-return" role="navigation" aria-label="포트폴리오"><a href="../../#projects">← 프로젝트 목록</a></div>
+<body class="case-page">
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="../../">
+        <span class="logo" aria-hidden="true">JW</span>신재우
+        <span class="role">서비스 기획</span>
+      </a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="../../#how">일하는 방식</a>
+          <a href="../../#projects" class="active">프로젝트</a>
+          <a href="../../#more">그 밖의 활동</a>
+          <a href="../../#contact">연락</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
   <main class="wrap">
-    <header>
-      <p class="kicker">Case study</p>
+    <a class="back" href="../../#projects"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>프로젝트 목록</a>
+
+    <header class="case-hero">
+      <p class="case-kicker">Project · AI 교사 지원</p>
       <h1>징검다리</h1>
-      <p class="sub">플립러닝 사전학습 결손을 수업 전에 찾아 메우는 교사 지원 서비스</p>
-      <div class="award">
-        <b>2026 INHA AX-EDU HACKATHON 우수상</b>
-        <span>인하대학교 사범대학장상, 2026년 11월</span>
+      <p class="lede">
+        <span class="s"><span class="u">플립러닝 수업 전에 학생이 막힌 개념을 찾아,</span> <span class="u">반 전체가 같은 출발선에서 수업을 시작하게 돕는</span> <span class="u">AI 교사 지원 서비스입니다.</span></span>
+      </p>
+      <p class="award-line"><i class="fa-solid fa-award" aria-hidden="true"></i>2026 INHA AX-EDU HACKATHON 우수상 (인하대학교 사범대학장상)</p>
+      <div class="chips">
+        <span class="chip role">서비스 기획, 프론트엔드</span>
+        <span class="chip">팀 다이버 4인</span>
+        <span class="chip">2026.11.14 해커톤</span>
+        <span class="chip">기획부터 배포까지 약 5시간</span>
+        <span class="chip">Next.js</span><span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span><span class="chip">Claude API</span>
       </div>
-      <dl class="meta">
-        <div><dt>팀</dt><dd>4인<br>사범대 예비교사 2명, 산업경영공학과 2명</dd></div>
-        <div><dt>내 역할</dt><dd>서비스 기획<br>프론트엔드, 라이브 시연</dd></div>
-        <div><dt>기간</dt><dd>해커톤 당일<br>기획부터 배포까지 약 5시간</dd></div>
-        <div><dt>기술</dt><dd>Next.js, TypeScript<br>LLM 분석, Vercel</dd></div>
-      </dl>
-      <div class="links">
-        <a class="btn primary" href="https://hackathon-app-omega-two.vercel.app/" target="_blank" rel="noopener">결과물 보기 ↗</a>
-        <a class="btn" href="https://hackathon-app-omega-two.vercel.app/teacher" target="_blank" rel="noopener">교사 화면 ↗</a>
-        <a class="btn" href="https://hackathon-app-omega-two.vercel.app/student" target="_blank" rel="noopener">학생 화면 ↗</a>
+      <div class="cta">
+        <a class="btn primary" href="https://hackathon-app-omega-two.vercel.app/" target="_blank" rel="noopener">서비스 열기 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <a class="btn" href="#try"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i>세 화면 직접 써 보기</a>
+        <a class="btn" href="https://github.com/13JVV/hackathon-app" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i>저장소</a>
       </div>
-      <figure>
-        <img src="../../assets/img/jinggeom-class.webp" alt="교실 화면. 반 전체가 놓은 징검돌이 다리가 되고, 구간 상태는 날씨로만 보여 줍니다." />
-        <figcaption>교실 화면. 반 전체가 놓은 돌이 다리가 되고, 누가 안 했는지는 보이지 않게 구간 상태를 날씨로만 보여 줍니다.</figcaption>
-      </figure>
+
+      <div class="shots wide">
+        <figure><img src="../../assets/img/shots/jg-01-teacher.webp" alt="징검다리 교사 화면: 오늘의 수업 예보" data-zoom width="1200" height="750" /><figcaption>교사 화면, 오늘의 수업 예보. 사진을 누르면 크게 볼 수 있습니다.</figcaption></figure>
+      </div>
+
+      <div class="facts">
+        <div class="fact"><div class="n">약 5<small>시간</small></div><div class="l">해커톤 당일, 기획부터 배포까지</div></div>
+        <div class="fact"><div class="n">29<small>/30</small></div><div class="l">AI 오개념 탐지와 예비교사 라벨 일치 (가상 학생 답 30개)</div></div>
+        <div class="fact"><div class="n">14<small>개</small></div><div class="l">도메인을 모르는 상태에서 요구를 좁힌 질문</div></div>
+        <div class="fact"><div class="n">3<small>개 화면</small></div><div class="l">교사, 학생, 교실이 하나의 수업 사이클로</div></div>
+      </div>
     </header>
 
-    <section>
-      <h2>상황: 모르는 분야의 요구를 받았습니다</h2>
-      <p class="lead">예비교사와 예비개발자가 한 팀이 되는 해커톤이었습니다.</p>
-      <p>
-        <span class="s"><span class="u">사범대 팀원 두 명이 주제와 자료를 넘겨주면,</span> <span class="u">저와 동기가 이해하고 서비스로 만드는 구조였습니다.</span></span>
-        <span class="s">처음 받은 요청은 이랬습니다.</span>
-      </p>
-      <div class="quote"><p>
-        <span class="s"><span class="u">"얼굴 인식으로 학생이 수업 영상을 실제로 보는지 기록하고,</span> <span class="u">의욕, 능력, 학습 환경으로 학생을 8유형으로 나눠 주세요."</span></span>
-      </p></div>
-      <p>
-        <span class="s">저희 둘은 교육 도메인 지식이 없었습니다.</span>
-        <span class="s"><span class="u">플립러닝이나 선수 개념 같은 말부터</span> <span class="u">처음에는 이해가 안 되는 부분이 많았습니다.</span></span>
-      </p>
-    </section>
-
-    <section>
-      <h2>모르는 걸 어떻게 좁혔나</h2>
-      <p class="lead">추측으로 기획하지 않고, 묻고 다시 정리해서 확인받았습니다.</p>
-      <div class="cards">
-        <div class="card">
-          <span class="n">01</span>
-          <h3>질문 14개로 요구 좁히기</h3>
-          <p>
-            <span class="s"><span class="u">"절대 빠지면 안 되는 한 가지는</span> <span class="u">무엇인가요?"부터 물었습니다.</span></span>
-            <span class="s"><span class="u">답은 '학생의 학습 과정 분석'이었고,</span> <span class="u">얼굴 인식은 보조 기능이어도 된다고 했습니다.</span></span>
-          </p>
+    <!-- 직접 써 보기 -->
+    <section class="sec" id="try">
+      <div class="demo reveal">
+        <div class="demo-head">
+          <div>
+            <span class="tag"><i class="fa-solid fa-play" aria-hidden="true"></i>LIVE · TRY IT</span>
+            <h2>배포된 세 화면을 직접 눌러 보세요</h2>
+            <p>해커톤에서 시연한 서비스가 지금도 그대로 열려 있습니다. 카드를 누르면 새 탭에서 열립니다.</p>
+          </div>
+          <a class="btn sm" href="https://hackathon-app-omega-two.vercel.app/" target="_blank" rel="noopener">첫 화면부터 보기 <i class="fa-solid fa-up-right-from-square" aria-hidden="true"></i></a>
         </div>
-        <div class="card">
-          <span class="n">02</span>
-          <h3>우리가 받은 교육에서 출발</h3>
-          <p>
-            <span class="s"><span class="u">저희도 교육을 받아 온 사람이라는 데서</span> <span class="u">시작했습니다.</span></span>
-            <span class="s"><span class="u">팀원들이 플립러닝, 태블릿 지급, 고교학점제처럼</span> <span class="u">예전과 달라진 점을 쉽게 설명해 줬습니다.</span></span>
-          </p>
+
+        <div class="try-cards">
+          <a class="try-card" href="https://hackathon-app-omega-two.vercel.app/teacher" target="_blank" rel="noopener">
+            <div class="try-thumb"><img src="../../assets/img/shots/jg-01-teacher.webp" alt="" loading="lazy" /></div>
+            <div class="try-body">
+              <div class="try-where"><b>교사 화면</b><code>/teacher</code></div>
+              <p class="try-sub">오늘의 수업 예보</p>
+              <p class="try-todo"><em>여기서 해 볼 것</em>막힌 개념 TOP 3를 보고, 8유형 공간을 돌려 본 뒤, 징검돌 문제 만들기로 AI 문제 초안을 받아 보세요.</p>
+              <span class="try-go">교사 화면 열기 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a class="try-card" href="https://hackathon-app-omega-two.vercel.app/student" target="_blank" rel="noopener">
+            <div class="try-thumb"><img src="../../assets/img/shots/jg-02-student.webp" alt="" loading="lazy" /></div>
+            <div class="try-body">
+              <div class="try-where"><b>학생 화면</b><code>/student</code></div>
+              <p class="try-sub">징검런</p>
+              <p class="try-todo"><em>여기서 해 볼 것</em>개념 보기, 글자 만들기 실험, 문제 풀이로 남은 징검돌을 하나 굳혀 보세요.</p>
+              <span class="try-go">학생 화면 열기 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+            </div>
+          </a>
+          <a class="try-card" href="https://hackathon-app-omega-two.vercel.app/class" target="_blank" rel="noopener">
+            <div class="try-thumb"><img src="../../assets/img/shots/jg-03-class.webp" alt="" loading="lazy" /></div>
+            <div class="try-body">
+              <div class="try-where"><b>교실 화면</b><code>/class</code></div>
+              <p class="try-sub">우리 반 다리</p>
+              <p class="try-todo"><em>여기서 해 볼 것</em>반 전체가 굳힌 돌로 이어진 다리와, 구간마다 날씨로만 보여 주는 진행 상태를 확인해 보세요.</p>
+              <span class="try-go">교실 화면 열기 <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+            </div>
+          </a>
         </div>
-        <div class="card">
-          <span class="n">03</span>
-          <h3>화면으로 다시 돌려주기</h3>
-          <p>
-            <span class="s"><span class="u">들은 내용을 개발 용어 대신</span> <span class="u">사용자 시나리오와 화면으로 정리해 보여 줬습니다.</span></span>
-            <span class="s"><span class="u">교육 전문가와 슈퍼스쿨 기획팀, 개발팀에게도</span> <span class="u">방향을 확인받았습니다.</span></span>
-          </p>
-        </div>
+
+        <p class="demo-foot">
+          <span class="s">학생 30명은 모두 시연용 가상 데이터이고, 얼굴 인증은 모의 동작이라 얼굴 정보를 받거나 저장하지 않습니다.</span>
+          <span class="s">시연 단축키: <kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> 학생, 교실, 교사 화면 전환, <kbd>N</kbd> 다음 단계, <kbd>T</kbd> 수업 시작, <kbd>Shift</kbd>+<kbd>R</kbd> 처음부터.</span>
+        </p>
       </div>
     </section>
 
-    <section>
-      <h2>처음 요청을 이렇게 바꿨습니다</h2>
-      <p class="lead">원하는 것은 살리고, 학생에게 꼬리표나 감시가 되는 부분은 바꿨습니다.</p>
-      <div class="tbl">
-        <table>
-          <thead><tr><th>처음 요청</th><th>바꾼 결정</th><th>이유</th></tr></thead>
-          <tbody>
-            <tr>
-              <td>얼굴 인식으로 학생의 영상 시청 확인</td>
-              <td><b>얼굴은 학생에게 쓰지 않고,</b> 학생 정보를 여는 교사 본인 확인에만 씁니다. 비밀번호로도 같은 효력입니다.</td>
-              <td>EU AI법은 교육기관에서 감정을 추론하는 AI를 금지하고, 학생에게는 감시로 읽힙니다. 사범대 쪽이 함께 원했던 교사 얼굴 인증 접근은 살렸습니다.</td>
-            </tr>
-            <tr>
-              <td>의욕, 능력, 학습 환경으로 8유형 분류</td>
-              <td>8유형은 그대로 두고 세 축을 <b>참여 신호, 선수 개념, 환경</b>으로 바꿨습니다. 참여 신호는 영상 미시작, 확인 질문 무응답, 말해보기 미제출처럼 관찰된 사건으로만 봅니다.</td>
-              <td>'의욕이 낮다'는 미성년자에게 꼬리표가 됩니다. 집에 기기가 없는 학생은 환경 문제부터 풀게 했습니다.</td>
-            </tr>
-            <tr>
-              <td>헷갈린 부분을 한 줄로 쓰게 하기</td>
-              <td><b>"오늘 배운 개념 말해보기"</b>로 바꾸고, AI가 이 답에서 막힌 개념을 찾습니다.</td>
-              <td>예비교사 팀원이 "쓰라고 하면 안 쓸 것 같다"고 답했습니다.</td>
-            </tr>
-            <tr>
-              <td>AI가 학생 유형과 대응을 판단</td>
-              <td><b>AI는 읽고, 규칙은 고르고, 선생님이 승인합니다.</b> 모든 AI 결과에 "교사 본인이 직접 확인하시길 바랍니다"를 띄웠습니다.</td>
-              <td>"유형까지는 AI가 제시하고, 교사는 판단하는 역할이면 좋겠다"는 팀원 의견을 그대로 구조로 옮겼습니다.</td>
-            </tr>
-          </tbody>
-        </table>
+    <!-- 문제 -->
+    <section class="sec" id="problem">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Problem</p>
+        <h2 class="sec-title">거꾸로 수업은 수업 전에 이미 갈립니다</h2>
+      </div>
+      <dl class="pdr reveal">
+        <dt>현재</dt>
+        <dd><span class="s"><span class="u">플립러닝에서는 사전 영상을 보지 않았거나</span> <span class="u">개념이 막힌 학생이 수업 활동에 끼지 못합니다.</span></span><span class="s">그렇게 생긴 결손은 다음 수업까지 계속 쌓입니다.</span></dd>
+        <dt>빈칸</dt>
+        <dd><span class="s"><span class="u">선생님은 수업이 시작돼야</span> <span class="u">누가 어디서 막혔는지 알 수 있습니다.</span></span><span class="s">학생마다 필요한 지원도 서로 다릅니다.</span></dd>
+        <dt>해결</dt>
+        <dd><span class="s"><span class="u">수업 전에 학생이 자기 말로 개념을 설명하게 하고,</span> <span class="u">AI가 그 답을 읽어 막힌 곳을 찾습니다.</span></span><span class="s"><span class="u">선생님이 승인한 규칙에 따라 학생마다 다른 개수의</span> <span class="u">징검돌(보충 학습)을 놓아,</span> <span class="u">반 전체가 같은 출발선에서 수업을 시작하게 합니다.</span></span></dd>
+      </dl>
+    </section>
+
+    <!-- 상황, 기획 -->
+    <section class="sec" id="planning">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Planning</p>
+        <h2 class="sec-title">모르는 분야의 요구를, 추측하지 않고 묻고 확인받으며 좁혔습니다</h2>
+        <p class="sec-desc">예비교사와 예비개발자가 한 팀이 되는 해커톤이었습니다.</p>
+      </div>
+      <div class="prose reveal">
+        <p><span class="s"><span class="u">사범대 예비교사 팀원 두 명이 주제와 자료를 넘겨주면,</span> <span class="u">저와 동기가 이해하고 서비스로 만드는 구조였습니다.</span></span><span class="s">처음 받은 요청은 이랬습니다.</span></p>
+      </div>
+      <blockquote class="ask reveal">
+        <span class="s"><span class="u">얼굴 인식으로 학생이 수업 영상을 실제로 보는지 기록하고,</span> <span class="u">의욕, 능력, 학습 환경으로 학생을 8유형으로 나눠 주세요.</span></span>
+        <small>처음 받은 요청</small>
+      </blockquote>
+      <div class="prose reveal">
+        <p><span class="s">저희 둘은 교육 도메인 지식이 없었습니다.</span><span class="s"><span class="u">플립러닝이나 선수 개념 같은 말부터</span> <span class="u">처음에는 이해가 안 되는 부분이 많았습니다.</span></span></p>
+      </div>
+      <div class="grid3 reveal" style="margin-top:22px">
+        <div class="card"><span class="tag">01 · 질문</span><h3>질문 14개로 요구 좁히기</h3><p><span class="s"><span class="u">“절대 빠지면 안 되는 한 가지는 무엇인가요?”부터</span> <span class="u">물었습니다.</span></span><span class="s"><span class="u">답은 ‘학생의 학습 과정 분석’이었고,</span> <span class="u">얼굴 인식은 보조 기능이어도 된다고 했습니다.</span></span></p></div>
+        <div class="card"><span class="tag">02 · 공감</span><h3>우리가 받은 교육에서 출발</h3><p><span class="s"><span class="u">저희도 교육을 받아 온 사람이라는 데서</span> <span class="u">시작했습니다.</span></span><span class="s"><span class="u">팀원들이 플립러닝, 태블릿 지급, 고교학점제처럼</span> <span class="u">예전과 달라진 점을 쉽게 설명해 줬습니다.</span></span></p></div>
+        <div class="card"><span class="tag">03 · 확인</span><h3>화면으로 다시 돌려주기</h3><p><span class="s"><span class="u">들은 내용을 개발 용어 대신</span> <span class="u">사용자 시나리오와 화면으로 정리해 보여 줬습니다.</span></span><span class="s"><span class="u">교육 전문가와 슈퍼스쿨 기획팀, 개발팀에게도</span> <span class="u">방향을 확인받았습니다.</span></span></p></div>
       </div>
     </section>
 
-    <section>
-      <h2>만든 것</h2>
-      <p class="lead">교사, 학생, 교실 세 화면이 하나의 수업 사이클로 이어집니다.</p>
-      <ul class="list">
-        <li><b>수업 예보</b>: AI가 학생 30명의 말해보기 답을 읽고 막힌 개념 TOP 3와 구간별 상태를 수업 전에 보여 줍니다.</li>
-        <li><b>8유형 공간</b>: 세 축으로 학생 위치를 3D로 보여 주고, 학생별 근거와 지도 방향을 제안합니다. <span class="mine">내 담당</span></li>
-        <li><b>징검런</b>: 학생은 선생님이 승인한 만큼의 징검돌을 개념 보기, 글자 만들기, 문제 풀이로 놓습니다. <span class="mine">내 담당</span></li>
-        <li><b>우리 반 다리</b>: 굳힌 돌이 반 다리가 되고, 비어 있는 구간은 수업 첫 8분에 함께 메웁니다. <span class="mine">내 담당</span></li>
-        <li><b>징검돌 문제 만들기</b>: 성취기준과 차시를 고르면 AI가 문제 초안을 만들고, 교사가 검토한 것만 학생에게 갑니다.</li>
-        <li><b>학생 정보 보호</b>: 학생이 드러나는 정보는 교사 재인증 뒤에만 열리고, 외부 AI에는 가명 처리한 답만 보냅니다.</li>
-      </ul>
-      <div class="shots">
-        <figure>
-          <img src="../../assets/img/jinggeom-teacher.webp" alt="교사 수업 예보 화면" loading="lazy" />
-          <figcaption>교사 화면. 막힌 지점과 구간 상태, AI 결과 확인 안내</figcaption>
-        </figure>
-        <figure>
-          <img src="../../assets/img/jinggeom-student.webp" alt="학생 징검런 화면" loading="lazy" />
-          <figcaption>학생 화면. 지금 할 일 하나와 내 징검돌</figcaption>
-        </figure>
+    <!-- 결정 -->
+    <section class="sec" id="decisions">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Decisions</p>
+        <h2 class="sec-title">원하는 것은 살리고, 꼬리표나 감시가 되는 부분은 바꿨습니다</h2>
+        <p class="sec-desc">사용자가 미성년자라서, 같은 기능도 학생에게 어떻게 읽힐지를 먼저 봤습니다.</p>
       </div>
-      <p class="note" style="margin-top:14px">
-        <span class="s">AI 호출과 분석 API는 백엔드 담당 동기가 맡았습니다.</span>
-        <span class="s">학생 30명은 모두 시연용 가상 데이터입니다.</span>
-      </p>
-    </section>
-
-    <section>
-      <h2>결과</h2>
-      <div class="num-row">
-        <div class="num"><b>약 5시간</b><span>기획부터 배포까지</span></div>
-        <div class="num"><b>29/30</b><span>AI 오개념 탐지와 예비교사 판단 일치<br>(키워드만 썼을 때 20/30)</span></div>
-        <div class="num"><b>우수상</b><span>인하대학교 사범대학장상</span></div>
+      <div class="decisions">
+        <article class="dc reveal">
+          <h3>얼굴 인식은 학생이 아니라 교사 본인 확인에만 사용했습니다</h3>
+          <p><span class="s"><span class="u">EU AI법은 교육기관에서 감정을 추론하는 AI를 금지하고,</span> <span class="u">학생에게 얼굴 인식은 감시로 읽힙니다.</span></span><span class="s"><span class="u">그래서 얼굴은 학생 정보를 여는 교사 본인 확인에만 사용하고,</span> <span class="u">비밀번호로도 같은 효력을 갖게 했습니다.</span></span><span class="s">사범대 쪽이 함께 원했던 교사 얼굴 인증 접근은 그대로 살렸습니다.</span></p>
+          <div class="ev"><b>전후</b> 학생 영상 시청 확인 → 학생 정보를 열 때 교사 재인증 (얼굴 또는 비밀번호)</div>
+        </article>
+        <article class="dc reveal">
+          <h3>8유형은 그대로 두고, 세 축을 관찰할 수 있는 것으로 바꿨습니다</h3>
+          <p><span class="s"><span class="u">‘의욕이 낮다’는 판단은</span> <span class="u">미성년자에게 꼬리표가 됩니다.</span></span><span class="s"><span class="u">참여 신호는 영상 미시작, 확인 질문 무응답, 말해보기 미제출처럼</span> <span class="u">관찰된 사건으로만 보게 했습니다.</span></span><span class="s">집에 기기가 없는 학생은 환경 문제부터 풀게 했습니다.</span></p>
+          <div class="ev"><b>축</b> 의욕, 능력, 학습 환경 → 참여 신호, 선수 개념, 환경</div>
+        </article>
+        <article class="dc reveal">
+          <h3>“헷갈린 부분 쓰기”를 “오늘 배운 개념 말해보기”로 바꿨습니다</h3>
+          <p><span class="s"><span class="u">처음 구상은 헷갈린 부분을 한 줄로 쓰게 하는 것이었습니다.</span> <span class="u">예비교사 팀원은 “쓰라고 하면 안 쓸 것 같다”고 답했습니다.</span></span><span class="s"><span class="u">대신 배운 개념을 자기 말로 설명하게 하고,</span> <span class="u">AI가 그 답에서 막힌 개념을 찾게 했습니다.</span></span></p>
+          <div class="ev"><b>근거</b> 예비교사 팀원 답변, 학생이 실제로 쓸지를 기준으로 입력 방식을 정함</div>
+        </article>
+        <article class="dc reveal">
+          <h3>AI는 읽고, 규칙은 고르고, 선생님이 승인하게 했습니다</h3>
+          <p><span class="s"><span class="u">“유형까지는 AI가 제시하고,</span> <span class="u">교사는 판단하는 역할이면 좋겠다”는 팀원 의견을</span> <span class="u">그대로 구조로 옮겼습니다.</span></span><span class="s"><span class="u">모든 AI 결과에</span> <span class="u">“교사 본인이 직접 확인하시길 바랍니다”를 띄웠습니다.</span></span><span class="s"><span class="u">화면에는 학생 순위가 없고,</span> <span class="u">기록은 성적에 반영되지 않습니다.</span></span></p>
+          <div class="ev"><b>흐름</b> AI가 학생 답 분석 → 규칙이 징검돌 선택 → 교사 승인 → 학생에게 전달</div>
+        </article>
       </div>
-      <p>
-        <span class="s"><span class="u">29/30은 가상 답 30개에</span> <span class="u">예비교사가 단 정답과 비교한 값입니다.</span></span>
-        <span class="s">실제 학생 답에서의 정확도는 파일럿에서 다시 재야 하는 숫자입니다.</span>
+    </section>
+
+    <!-- 만든 것 -->
+    <section class="sec" id="screens">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Build</p>
+        <h2 class="sec-title">교사, 학생, 교실 세 화면이 하나의 수업 사이클로 이어집니다</h2>
+        <p class="sec-desc">시연 단원은 중학교 2학년 국어 「국어의 문자 체계」 (훈민정음 제자 원리)입니다.</p>
+      </div>
+      <div class="grid3 feat reveal">
+        <div class="card"><span class="tag">교사 화면</span><h3>수업 예보</h3><p>AI가 학생 30명의 말해보기 답을 읽고 막힌 개념 TOP 3와 구간별 상태를 수업 전에 보여 줍니다.</p></div>
+        <div class="card"><span class="mine">내 담당</span><span class="tag">교사 화면</span><h3>8유형 공간</h3><p>세 축으로 학생 위치를 3D로 보여 주고, 학생별 근거와 지도 방향, 문항 유형 비율을 제안합니다.</p></div>
+        <div class="card"><span class="tag">교사 화면</span><h3>징검돌 문제 만들기</h3><p>성취기준과 차시를 고르면 AI가 문제 초안을 만들고, 교사가 검토한 것만 학생에게 갑니다.</p></div>
+        <div class="card"><span class="mine">내 담당</span><span class="tag">학생 화면</span><h3>징검런</h3><p>선생님이 승인한 만큼의 징검돌을 개념 보기, 글자 만들기, 문제 풀이로 놓고, 도착 관문에서 자기 말로 설명합니다.</p></div>
+        <div class="card"><span class="mine">내 담당</span><span class="tag">교실 화면</span><h3>우리 반 다리</h3><p>굳힌 돌이 반 전체의 다리가 되고, 비어 있는 구간은 수업 첫 8분에 함께 메웁니다.</p></div>
+        <div class="card"><span class="tag">공통</span><h3>학생 정보 보호</h3><p>학생이 드러나는 정보는 교사 재인증 뒤에만 열리고, 외부 AI에는 가명 처리한 답만 보냅니다.</p></div>
+      </div>
+      <div class="shots two reveal">
+        <figure><img src="../../assets/img/shots/jg-02-student.webp" alt="학생 화면: 징검런" data-zoom loading="lazy" width="1100" height="765" /><figcaption>학생 화면, 징검런. 지금 할 일 하나와 내 징검돌만 보여 줍니다.</figcaption></figure>
+        <figure><img src="../../assets/img/shots/jg-03-class.webp" alt="교실 화면: 우리 반 다리" data-zoom loading="lazy" width="1200" height="677" /><figcaption>교실 화면, 우리 반 다리. 누가 안 했는지는 드러나지 않게 구간 상태를 날씨로만 보여 줍니다.</figcaption></figure>
+      </div>
+      <p class="note reveal" style="margin-top:18px">
+        <span class="s">AI 호출과 분석 API는 백엔드를 맡은 동기가 만들었습니다.</span>
+        <span class="s"><span class="u">한글 실험실은 팀원이 만든 저작물을</span> <span class="u">사용 동의를 받아 사용했습니다.</span></span>
       </p>
     </section>
 
-    <section>
-      <h2>배운 것, 다음</h2>
-      <p>
-        <span class="s"><span class="u">지식이 부족한 쪽이 있는 협업에서 중요한 건</span> <span class="u">서로의 말을 번역하는 일이었습니다.</span></span>
-        <span class="s"><span class="u">팀원들은 요즘 교실을 쉽게 설명해 줬고,</span> <span class="u">저는 그걸 화면과 흐름으로 바꿔 다시 확인받았습니다.</span></span>
-        <span class="s"><span class="u">서로 이해하고 공감하는 시간을 먼저 가졌기 때문에</span> <span class="u">짧은 시간에도 원하는 서비스를 끝까지 만들 수 있었습니다.</span></span>
-      </p>
-      <p>
-        <span class="s"><span class="u">이 경험으로 교육과 AI를 묶은 서비스를</span> <span class="u">기획하고 개발해 사업화까지 해 볼 계획입니다.</span></span>
+    <!-- 결과 -->
+    <section class="sec" id="verify">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Result</p>
+        <h2 class="sec-title">AI가 찾은 막힌 개념이 예비교사의 판단과 맞는지 확인했습니다</h2>
+        <p class="sec-desc">가상 학생 답 30개에 예비교사가 단 오개념 라벨을 정답으로 두고 비교했습니다.</p>
+      </div>
+      <div class="facts reveal" style="margin-top:0">
+        <div class="fact"><div class="n">29<small>/30</small></div><div class="l">AI 오개념 탐지와 예비교사 라벨 일치</div></div>
+        <div class="fact"><div class="n">20<small>/30</small></div><div class="l">키워드 방식만 사용했을 때 일치</div></div>
+        <div class="fact"><div class="n">약 5<small>시간</small></div><div class="l">기획부터 배포까지</div></div>
+        <div class="fact"><div class="n">우수상</div><div class="l">인하대학교 사범대학장상</div></div>
+      </div>
+      <p class="note reveal" style="margin-top:16px">
+        <span class="s"><span class="u"><b>읽는 법</b> 29/30은 시연용 가상 답 30개에서 나온 값입니다.</span></span>
+        <span class="s"><span class="u">실제 학생 답에서의 정확도는</span> <span class="u">파일럿에서 다시 재야 하는 숫자입니다.</span></span>
       </p>
     </section>
 
-    <footer>
-      <a href="../../#projects">← 프로젝트 목록으로</a>
-    </footer>
+    <!-- 팀, 기술 -->
+    <section class="sec" id="stack">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Team · Stack</p>
+        <h2 class="sec-title">역할을 나누고, 서로의 말을 번역했습니다</h2>
+      </div>
+      <div class="grid3 reveal">
+        <div class="card"><span class="tag">예비교사 팀원 2명</span><p>주제와 수업 자료, 요즘 교실에 대한 설명, 오개념 판단 라벨</p></div>
+        <div class="card"><span class="tag">동기 1명</span><p>백엔드, AI 호출과 분석 API</p></div>
+        <div class="card"><span class="tag">제 역할</span><p>서비스 기획, 프론트엔드 (8유형 공간, 징검런, 우리 반 다리), 라이브 시연</p></div>
+      </div>
+      <div class="grid2 reveal" style="margin-top:14px">
+        <div class="card"><span class="tag">Stack</span><p>Next.js, TypeScript, Tailwind CSS, Vercel</p></div>
+        <div class="card"><span class="tag">AI</span><p>Claude API (안뇽GPT BAZE API Gateway 경유)</p></div>
+      </div>
+    </section>
+
+    <!-- 배운 것 -->
+    <section class="sec" id="next">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Next</p>
+        <h2 class="sec-title">배운 것, 다음</h2>
+      </div>
+      <div class="prose reveal">
+        <p><span class="s"><span class="u">지식이 부족한 쪽이 있는 협업에서 중요한 건</span> <span class="u">서로의 말을 번역하는 일이었습니다.</span></span><span class="s"><span class="u">팀원들은 요즘 교실을 쉽게 설명해 줬고,</span> <span class="u">저는 그걸 화면과 흐름으로 바꿔 다시 확인받았습니다.</span></span><span class="s"><span class="u">서로 이해하고 공감하는 시간을 먼저 가졌기 때문에</span> <span class="u">짧은 시간에도 원하는 서비스를 끝까지 만들 수 있었습니다.</span></span></p>
+        <p><span class="s"><span class="u">이 경험으로 교육과 AI를 묶은 서비스를</span> <span class="u">기획하고 개발해 사업화까지 해 볼 계획입니다.</span></span></p>
+      </div>
+    </section>
+
+    <section class="sec" id="others">
+      <div class="sec-head reveal"><p class="sec-kicker">More projects</p><h2 class="sec-title">다른 프로젝트</h2></div>
+      <div class="others reveal">
+        <a class="other" href="../crowdsense/"><img src="../../assets/img/icons/crowdsense.svg" alt="" /><b>CrowdSense</b><span>AI 인파안전 관제, 행정안전부 장관상</span></a>
+        <a class="other" href="../itsme/"><img src="../../assets/img/icons/itsme.webp" alt="" /><b>It's me</b><span>디지털 명함 앱</span></a>
+        <a class="other" href="../pet/"><img src="../../assets/img/icons/pet.webp" alt="" /><b>반갑꼬리</b><span>반려동물 동반여행 앱</span></a>
+        <a class="other" href="../jverdict/"><img src="../../assets/img/icons/jverdict.svg" alt="" /><b>J-Verdict</b><span>정책 효과 판정 AI Agent</span></a>
+        <a class="other" href="../subscription/"><img src="../../assets/img/icons/subscription.svg" alt="" /><b>구독 모델 분석</b><span>선택 실험 113명</span></a>
+      </div>
+    </section>
   </main>
+
+  <footer>© 2026 신재우 · <a href="../../">13jvv.github.io</a></footer>
+  <script src="../../assets/site.js"></script>
 </body>
 </html>

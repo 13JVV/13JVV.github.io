@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-title-ko="신재우 | 서비스 기획" data-title-en="Jaewoo Shin | Service Planner">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -33,86 +33,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&display=swap" />
+  <link rel="stylesheet" href="assets/base.css" />
 
   <style>
-    :root {
-      --bg: #ffffff;
-      --bg-soft: #fbf8f5;
-      --ink: #1c1a19;
-      --ink-2: #3a3634;
-      --ink-3: #6e6763;
-      --line: #eee7e1;
-      --line-2: #e3d9d1;
-      --wine: #8e1f2b;
-      --wine-2: #a8323f;
-      --orange: #e2702c;
-      --peach: #fdf0e6;
-      --pink: #fbe8e6;
-      --butter: #fdf6dc;
-      --sky: #e9f1fb;
-      --grad: linear-gradient(120deg, #8e1f2b 0%, #c2452f 55%, #e2702c 100%);
-      --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-      --mono: "JetBrains Mono", "Pretendard Variable", Pretendard, ui-monospace, SFMono-Regular, Menlo, monospace;
-      --maxw: 1080px;
-      --r: 18px;
-      --shadow: 0 1px 2px rgba(60, 25, 15, .04), 0 10px 30px -14px rgba(60, 25, 15, .18);
-    }
-
-    /* 언어 전환: 고르지 않은 언어는 숨깁니다. JS가 없으면 한글이 보입니다. */
-    html[data-lang="en"] body [lang="ko"],
-    html:not([data-lang="en"]) body [lang="en"] { display: none !important; }
-
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0; background: var(--bg); color: var(--ink);
-      font-family: var(--sans); font-size: 16.5px; line-height: 1.7;
-      word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased;
-      overflow-x: clip;
-    }
-    a { color: var(--wine); text-decoration: none; }
-    strong { font-weight: 700; color: var(--ink); }
-    img { max-width: 100%; }
-    ::selection { background: var(--peach); color: var(--wine); }
-
-    /* 한 문장 한 줄. 긴 문장은 .u 단위에서만 줄이 바뀝니다. */
-    .s { display: block; }
-    .u { display: inline-block; }
-
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
-    section { scroll-margin-top: 76px; }
-
-    /* ---------- NAV ---------- */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(255, 255, 255, .82);
-      backdrop-filter: saturate(180%) blur(12px); -webkit-backdrop-filter: saturate(180%) blur(12px);
-      border-bottom: 1px solid var(--line);
-    }
-    .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 11px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .brand { display: flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 800; font-size: 16.5px; }
-    .brand .logo {
-      width: 30px; height: 30px; border-radius: 9px; background: var(--grad);
-      display: grid; place-items: center; color: #fff;
-      font: 700 11.5px/1 var(--mono); letter-spacing: -.3px;
-      box-shadow: 0 4px 12px -4px rgba(142, 31, 43, .55);
-    }
-    .brand .role { font: 600 12px/1 var(--sans); color: var(--ink-3); background: var(--bg-soft); border: 1px solid var(--line); padding: 5px 8px; border-radius: 6px; }
-    .nav-right { display: flex; align-items: center; gap: 22px; }
-    .nav-links { display: flex; gap: 4px; font-size: 14.5px; }
-    .nav-links a { color: var(--ink-2); font-weight: 600; padding: 7px 11px; border-radius: 8px; transition: background .15s, color .15s; }
-    .nav-links a:hover, .nav-links a.active { background: var(--peach); color: var(--wine); }
-
-    .lang-toggle { position: relative; display: inline-flex; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 10px; padding: 3px; }
-    .lang-toggle button {
-      appearance: none; border: 0; background: transparent; cursor: pointer;
-      font: 600 11.5px/1 var(--mono); letter-spacing: .6px; color: var(--ink-3);
-      padding: 7px 10px; border-radius: 7px; transition: background .15s, color .15s, box-shadow .15s;
-    }
-    .lang-toggle button:hover { color: var(--wine); }
-    .lang-toggle button[aria-pressed="true"] { background: #fff; color: var(--wine); box-shadow: 0 1px 3px rgba(60, 25, 15, .12); }
-    .lang-toggle button:focus-visible, .btn:focus-visible, .case-link:focus-visible, .nav-links a:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
-
     /* ---------- HERO ---------- */
     .hero {
       position: relative; isolation: isolate;
@@ -140,18 +63,9 @@
     .hero .name { font-size: 17px; font-weight: 700; margin: 0 0 14px; color: var(--ink); }
     .hero .name .alt { color: var(--ink-3); font-weight: 500; margin-left: 8px; }
     .hero .lead { color: var(--ink-2); margin: 0 0 28px; }
-    .cta { display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn {
-      display: inline-flex; align-items: center; gap: 9px; cursor: pointer;
-      font: 700 14.5px/1 var(--sans); padding: 12px 18px; border-radius: 999px;
-      border: 1px solid var(--line-2); background: #fff; color: var(--ink);
-      transition: transform .15s, box-shadow .15s, background .15s, border-color .15s, color .15s;
-    }
-    .btn:hover { transform: translateY(-1px); border-color: var(--wine); color: var(--wine); box-shadow: var(--shadow); }
-    .btn.primary { background: var(--wine); border-color: var(--wine); color: #fff; padding-right: 8px; box-shadow: 0 8px 20px -10px rgba(142, 31, 43, .7); }
-    .btn.primary:hover { background: var(--wine-2); color: #fff; }
-    .btn.primary i { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .18); font-size: 12px; transition: transform .2s; }
-    .btn.primary:hover i { transform: translateY(2px); }
+    .btn.primary.arrow { padding-right: 8px; }
+    .btn.primary i.circle { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 255, 255, .18); font-size: 12px; transition: transform .2s; }
+    .btn.primary:hover i.circle { transform: translateY(2px); }
 
     .photo-card { position: relative; }
     .photo-card::before {
@@ -170,121 +84,150 @@
     }
     .photo-card .tag i { color: var(--orange); margin-right: 6px; }
 
-    /* ---------- STATS ---------- */
+    /* ---------- STATS (누르면 아래에 내용이 열리고, 다시 누르면 닫힘) ---------- */
     .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; counter-reset: stat; }
     .stat {
+      appearance: none; text-align: left; font: inherit; color: inherit; cursor: pointer;
       position: relative; counter-increment: stat;
-      padding: 20px 20px 18px; border: 1px solid var(--line); border-radius: var(--r); background: #fff;
-      transition: transform .2s, box-shadow .2s, border-color .2s;
+      padding: 20px 20px 16px; border: 1px solid var(--line); border-radius: var(--r); background: #fff;
+      transition: transform .2s, box-shadow .2s, border-color .2s, background .2s;
     }
     .stat::after { content: counter(stat, decimal-leading-zero); position: absolute; top: 14px; right: 16px; font: 500 11px/1 var(--mono); color: #c9bdb4; }
     .stat:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--line-2); }
+    .stat[aria-expanded="true"] { border-color: var(--wine); background: linear-gradient(160deg, #fff 40%, var(--peach)); box-shadow: 0 14px 30px -18px rgba(142, 31, 43, .55); }
     .stat .num { font-size: 27px; font-weight: 800; letter-spacing: -.6px; line-height: 1.15; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
-    .stat .num small { font-size: 15px; font-weight: 700; margin-left: 2px; }
+    .stat .num small { font-size: 15px; font-weight: 700; margin: 0 1px; }
     .stat .lbl { font-size: 13.5px; color: var(--ink-3); margin-top: 8px; line-height: 1.5; }
+    .stat .open { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 12.5px; font-weight: 700; color: var(--wine); }
+    .stat .open i { font-size: 11px; transition: transform .2s; }
+    .stat[aria-expanded="true"] .open i { transform: rotate(180deg); }
 
-    /* ---------- SECTION HEAD ---------- */
-    .sec { padding: 96px 0 0; }
-    .sec-head { margin-bottom: 30px; }
-    .sec-kicker { font: 600 12.5px/1 var(--mono); color: var(--orange); margin: 0 0 12px; letter-spacing: .2px; }
-    .sec-kicker::before { content: "// "; color: #e9b28f; }
-    .sec-title { font-size: 29px; font-weight: 800; letter-spacing: -.8px; margin: 0 0 8px; line-height: 1.35; }
-    .sec-desc { color: var(--ink-3); margin: 0; }
+    .stat-panel {
+      margin-top: 12px; border: 1px solid var(--line-2); border-radius: 22px; background: var(--bg-soft);
+      padding: 26px; animation: panelIn .28s ease;
+    }
+    .stat-panel[hidden] { display: none; }
+    @keyframes panelIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+    .panel-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 6px 16px; margin-bottom: 18px; }
+    .panel-head h3 { margin: 0; font-size: 19px; letter-spacing: -.4px; }
+    .panel-head p { margin: 0; font-size: 13.5px; color: var(--ink-3); }
 
-    /* ---------- PRINCIPLES ---------- */
-    .principles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .svc-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .svc {
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
+      padding: 20px 12px 16px; border-radius: 18px; background: #fff; border: 1px solid var(--line); color: var(--ink);
+      transition: transform .18s, box-shadow .18s, border-color .18s;
+    }
+    .svc:hover { transform: translateY(-3px); box-shadow: var(--shadow); border-color: var(--wine); }
+    .svc img { width: 64px; height: 64px; border-radius: 16px; box-shadow: 0 8px 18px -10px rgba(40, 20, 10, .5); }
+    .svc b { font-size: 15.5px; letter-spacing: -.2px; }
+    .svc .kind { font: 700 11.5px/1 var(--sans); color: var(--wine); background: var(--pink); padding: 5px 8px; border-radius: 999px; }
+    .svc .kind.web { color: #2d5f9a; background: var(--sky); }
+    .svc .go { font-size: 12.5px; color: var(--ink-3); }
+    .svc .go i { font-size: 10.5px; margin-left: 3px; }
+    .svc-extra { display: block; margin-top: 8px; font-size: 12.5px; font-weight: 700; text-align: center; }
+
+    .award-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .award-pair figure { margin: 0; background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 16px; text-align: center; }
+    .award-pair img { display: block; margin: 0 auto; width: auto; max-width: 100%; height: 520px; object-fit: contain; border-radius: 8px; }
+    .award-pair figcaption { margin-top: 12px; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+    .award-pair figcaption b { color: var(--wine); display: block; font-size: 15px; }
+
+    .survey { display: grid; grid-template-columns: 1fr 1.1fr; gap: 22px; align-items: center; }
+    .survey .txt p { margin: 0 0 10px; color: var(--ink-2); font-size: 15px; }
+    .survey .mini-facts { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 16px; }
+    .survey .mini-facts > span { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 11px; font-size: 13px; color: var(--ink-3); }
+    .survey .mini-facts b { display: block; font-size: 17px; color: var(--ink); }
+    .survey .mini-facts > span > span { display: block; }
+    .survey img { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); background: #fff; }
+
+    .lead-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .lead-card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px 22px; }
+    .lead-card .when { font: 500 11.5px/1 var(--mono); color: var(--ink-3); }
+    .lead-card h4 { margin: 8px 0 4px; font-size: 17px; letter-spacing: -.3px; }
+    .lead-card .team { font-size: 13px; color: var(--ink-3); margin: 0 0 14px; }
+    .lead-card ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: mo; }
+    .lead-card li { counter-increment: mo; position: relative; padding-left: 34px; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+    .lead-card li::before { content: counter(mo); position: absolute; left: 0; top: 1px; width: 22px; height: 22px; border-radius: 7px; background: var(--peach); color: var(--wine); font: 700 12px/22px var(--mono); text-align: center; }
+    .lead-card li b { display: block; color: var(--ink); font-size: 15px; }
+    .lead-card .more { display: inline-block; margin-top: 14px; font-size: 13.5px; font-weight: 700; }
+
+    /* ---------- HOW I WORK ---------- */
+    #how .sec-title em { font-style: normal; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .principles { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .pr {
-      position: relative; border-radius: var(--r); padding: 20px 20px 18px; background: #fff;
-      border: 1px solid var(--line); display: flex; flex-direction: column;
-      transition: transform .2s, box-shadow .2s;
+      position: relative; overflow: hidden; isolation: isolate;
+      display: grid; grid-template-columns: 1fr auto; gap: 6px 20px;
+      border-radius: 24px; padding: 26px 26px 22px; background: #fff; border: 1px solid var(--line-2);
+      transition: transform .2s, box-shadow .2s, border-color .2s;
     }
-    .pr:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
-    .pr .step { display: flex; align-items: center; justify-content: space-between; font: 500 11.5px/1 var(--mono); color: #b9aca2; }
-    .pr .step i { width: 38px; height: 38px; border-radius: 11px; display: grid; place-items: center; font-size: 16px; color: var(--wine); background: var(--peach); order: -1; }
-    .pr:nth-child(2) .step i { background: var(--pink); }
-    .pr:nth-child(3) .step i { background: var(--butter); color: #a06a08; }
-    .pr:nth-child(4) .step i { background: var(--sky); color: #2d5f9a; }
-    .pr h3 { font-size: 17.5px; margin: 16px 0 8px; line-height: 1.4; letter-spacing: -.3px; }
-    .pr p { margin: 0 0 14px; font-size: 14.5px; color: var(--ink-2); line-height: 1.65; }
-    .pr .ev { margin-top: auto; font-size: 13px; color: var(--ink-3); line-height: 1.55; background: var(--bg-soft); border-radius: 10px; padding: 10px 12px; }
+    .pr::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--grad); }
+    .pr:hover { transform: translateY(-3px); box-shadow: 0 24px 50px -30px rgba(80, 30, 20, .45); border-color: #e9c3b3; }
+    .pr .idx { grid-column: 1 / -1; display: flex; align-items: center; gap: 10px; }
+    .pr .idx .no { font: 700 13px/1 var(--mono); color: var(--orange); }
+    .pr .idx .ie { font: 700 12px/1 var(--sans); color: var(--wine); background: var(--pink); padding: 6px 9px; border-radius: 999px; }
+    .pr h3 { grid-column: 1; margin: 8px 0 6px; font-size: 21px; line-height: 1.4; letter-spacing: -.5px; }
+    .pr p { grid-column: 1; margin: 0; font-size: 15px; color: var(--ink-2); line-height: 1.65; }
+    .pr .metric { grid-column: 2; grid-row: 2 / span 2; align-self: center; text-align: right; min-width: 128px; }
+    .pr .metric .v { font-size: 38px; font-weight: 800; line-height: 1.05; letter-spacing: -1.2px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+    .pr .metric .v.word { font-size: 25px; letter-spacing: -.6px; }
+    .pr .metric .k { display: block; font-size: 12.5px; color: var(--ink-3); line-height: 1.45; margin-top: 6px; max-width: 150px; margin-left: auto; }
+    .pr .ev { grid-column: 1 / -1; margin-top: 14px; font-size: 13.5px; color: var(--ink-3); line-height: 1.6; background: var(--bg-soft); border-radius: 12px; padding: 11px 13px; }
     .pr .ev::before { content: "↳ "; color: var(--orange); font-family: var(--mono); }
-    .pr .ev b { color: var(--ink-2); font-weight: 700; }
+    .pr .ev b { color: var(--ink-2); }
 
-    /* ---------- CASES ---------- */
-    .cases { display: flex; flex-direction: column; gap: 20px; counter-reset: case; }
-    .case {
-      counter-increment: case;
-      display: grid; grid-template-columns: 320px 1fr;
-      border: 1px solid var(--line); border-radius: 24px; overflow: hidden; background: #fff;
-      transition: box-shadow .25s, transform .25s, border-color .25s;
+    /* ---------- PROJECTS (3 × 2) ---------- */
+    .pj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .pj {
+      display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 22px; overflow: hidden; background: #fff; color: var(--ink);
+      transition: transform .22s, box-shadow .22s, border-color .22s;
     }
-    .case:hover { box-shadow: 0 24px 50px -28px rgba(80, 30, 20, .35); border-color: var(--line-2); transform: translateY(-2px); }
-    .case-visual {
-      position: relative; background: var(--bg-soft); display: flex; align-items: flex-end; justify-content: center;
-      gap: 12px; padding: 30px 20px 0; overflow: hidden; min-height: 270px; margin: 10px; border-radius: 16px;
+    .pj:hover, .pj:focus-visible { transform: translateY(-4px); box-shadow: 0 26px 50px -30px rgba(80, 30, 20, .5); border-color: var(--line-2); }
+    .pj-media {
+      position: relative; margin: 10px 10px 0; border-radius: 15px; background: var(--bg-soft); aspect-ratio: 16 / 10;
+      display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; overflow: hidden;
     }
-    .case-visual .phone { width: 104px; border-radius: 14px; box-shadow: 0 12px 28px rgba(60, 30, 20, .18); align-self: flex-start; transition: transform .35s; }
-    .case-visual .phone + .phone { margin-top: 30px; }
-    .case:hover .case-visual .phone { transform: translateY(-4px); }
-    .case-visual.wide { padding: 0; align-items: stretch; }
-    .case-visual.wide img { width: 100%; height: 100%; object-fit: cover; object-position: left top; transition: transform .5s; }
-    .case:hover .case-visual.wide img { transform: scale(1.03); }
-    .case-visual.stat-visual { flex-direction: column; align-items: flex-start; justify-content: center; padding: 28px; background: linear-gradient(150deg, var(--peach), var(--pink)); }
-    .case-visual.stat-visual .big { font-size: 58px; font-weight: 800; line-height: 1; letter-spacing: -2px; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
-    .case-visual.stat-visual .cap { font-size: 14px; color: var(--ink-2); margin-top: 10px; line-height: 1.55; }
-    .case-visual .badge {
-      position: absolute; top: 12px; left: 12px; z-index: 1;
-      font: 600 11.5px/1 var(--mono); padding: 7px 10px; border-radius: 8px;
-      background: rgba(255, 255, 255, .92); color: var(--wine); border: 1px solid rgba(255, 255, 255, .6);
-      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); box-shadow: 0 4px 14px -6px rgba(60, 25, 15, .35);
+    .pj-media img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; border-radius: 8px; }
+    .pj-media.wide { padding: 10px; }
+    .pj-media.wide img { box-shadow: 0 10px 24px -16px rgba(40, 20, 10, .5); }
+    .pj-media.phones img { height: 100%; border-radius: 10px; box-shadow: 0 10px 22px -14px rgba(40, 20, 10, .55); }
+    .pj .badge {
+      position: absolute; top: 10px; left: 10px; z-index: 1;
+      font: 700 11.5px/1 var(--sans); padding: 7px 9px; border-radius: 8px;
+      background: rgba(255, 255, 255, .95); color: var(--wine); border: 1px solid var(--line);
+      box-shadow: 0 4px 14px -6px rgba(60, 25, 15, .35);
     }
-    .case-visual .badge i { margin-right: 6px; color: var(--orange); }
+    .pj .badge i { margin-right: 5px; color: var(--orange); }
+    .pj-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .pj-body h3 { margin: 0; font-size: 19px; letter-spacing: -.4px; }
+    .pj-body .desc { margin: 0; font-size: 14.5px; color: var(--ink-2); line-height: 1.6; }
+    .pj-body .aw { margin-top: auto; padding-top: 8px; font-size: 13px; font-weight: 700; color: var(--wine); line-height: 1.5; }
+    .pj-body .aw i { color: var(--orange); margin-right: 6px; }
+    .pj-body .aw.plain { color: var(--ink-3); font-weight: 600; }
+    .pj-hint { margin: 14px 0 0; font-size: 13px; color: var(--ink-3); }
 
-    .case-body { padding: 24px 28px 24px 18px; }
-    .case-body::before { content: "CASE " counter(case, decimal-leading-zero); display: block; font: 600 11.5px/1 var(--mono); color: var(--orange); margin-bottom: 10px; letter-spacing: .4px; }
-    .case-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 4px; }
-    .case-title { font-size: 23px; font-weight: 800; letter-spacing: -.6px; margin: 0; }
-    .case-sub { color: var(--ink-3); font-weight: 500; font-size: 15px; }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 14px; }
-    .chip { font: 600 12px/1 var(--sans); color: var(--ink-2); background: var(--bg-soft); border: 1px solid var(--line); padding: 6px 9px; border-radius: 6px; }
-    .chip.role { font-family: var(--sans); font-weight: 700; font-size: 12.5px; background: var(--pink); border-color: transparent; color: var(--wine); }
-    .award { font-size: 13.5px; font-weight: 700; color: var(--wine); margin: -2px 0 14px; padding: 8px 12px; background: linear-gradient(90deg, var(--peach), rgba(253, 240, 230, 0)); border-radius: 8px; }
-    .award i { color: var(--orange); margin-right: 7px; }
-
-    /* 문제 → 결정 → 결과를 한 줄 흐름으로 */
-    .pdr { margin: 0; display: grid; grid-template-columns: 78px 1fr; gap: 0 14px; font-size: 15px; }
-    .pdr dt { position: relative; padding: 2px 0 14px; }
-    .pdr dt { font: 700 13px/1.75 var(--sans); color: var(--wine); }
-    .pdr dt::after { content: ""; position: absolute; top: 7px; right: -9px; width: 8px; height: 8px; border-radius: 50%; background: #fff; border: 2px solid var(--orange); z-index: 1; }
-    .pdr dd { margin: 0; color: var(--ink-2); line-height: 1.65; border-left: 2px dashed var(--line-2); padding: 0 0 14px 18px; margin-left: -6px; }
-    .pdr dd:last-of-type { border-left-color: transparent; padding-bottom: 0; }
-    .pdr dt:last-of-type::after { background: var(--orange); }
-
-    .case-link {
-      display: inline-flex; align-items: center; gap: 7px; margin-top: 18px;
-      font-weight: 700; font-size: 13.5px; color: var(--wine);
-      padding: 8px 13px; border-radius: 999px; border: 1px solid #f0d3c6; background: #fff;
-      transition: background .15s, color .15s, border-color .15s;
+    /* ---------- MORE (날짜와 제목만, 호버하면 설명) ---------- */
+    .oth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .oth { position: relative; }
+    .oth-top {
+      display: flex; flex-direction: column; gap: 6px; height: 100%;
+      padding: 15px 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; cursor: default;
+      transition: border-color .15s, background .15s;
     }
-    .case-link:hover { background: var(--wine); border-color: var(--wine); color: #fff; }
-    .case-link i { font-size: 12px; transition: transform .15s; }
-    .case-link:hover i { transform: translateX(2px); }
-    .case-link + .case-link { margin-left: 6px; }
-
-    /* ---------- MORE ---------- */
-    .more-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-    .mini {
-      position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; padding: 18px 18px 16px;
-      background: #fff; display: flex; flex-direction: column; transition: transform .2s, box-shadow .2s;
+    .oth-top .when { font: 500 11.5px/1 var(--mono); color: var(--ink-3); }
+    .oth-top h3 { margin: 0; font-size: 15.5px; line-height: 1.4; }
+    .oth-top h3 .lead-tag { font-size: 11.5px; font-weight: 700; color: var(--wine); background: var(--pink); padding: 2px 7px; border-radius: 6px; margin-left: 6px; vertical-align: 2px; }
+    .oth:hover .oth-top, .oth:focus-within .oth-top { border-color: var(--wine); background: var(--bg-soft); }
+    .oth-pop {
+      position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 20;
+      padding: 14px 16px; border-radius: 14px; background: #fff; border: 1px solid var(--line-2); box-shadow: var(--shadow-lg);
+      font-size: 14px; color: var(--ink-2); line-height: 1.6;
+      opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .15s, transform .15s, visibility .15s;
     }
-    .mini::before { content: ""; position: absolute; left: 0; top: 0; right: 0; height: 3px; background: var(--grad); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
-    .mini:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-    .mini:hover::before { transform: scaleX(1); }
-    .mini .when { font: 500 11.5px/1 var(--mono); color: var(--ink-3); }
-    .mini h3 { font-size: 16px; margin: 8px 0 6px; line-height: 1.4; }
-    .mini h3 .lead-tag { font-size: 11.5px; font-weight: 700; color: var(--wine); background: var(--pink); padding: 2px 7px; border-radius: 6px; margin-left: 6px; vertical-align: 2px; }
-    .mini p { margin: 0 0 10px; font-size: 14px; color: var(--ink-2); line-height: 1.6; }
-    .mini a { margin-top: auto; font-size: 13.5px; font-weight: 700; }
+    .oth:hover .oth-pop, .oth:focus-within .oth-pop { opacity: 1; visibility: visible; transform: none; }
+    .oth-pop p { margin: 0 0 8px; }
+    .oth-pop a { font-size: 13.5px; font-weight: 700; }
+    .oth-pop .muted { font-size: 12.5px; color: var(--ink-3); }
 
     /* ---------- PROFILE ---------- */
     .profile-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 12px; }
@@ -296,6 +239,12 @@
     .pcard ul { list-style: none; margin: 0; padding: 0; }
     .pcard li { font-size: 14.5px; color: var(--ink-2); padding: 4px 0; }
     .pcard li b { color: var(--ink); margin-right: 6px; }
+    .cert { display: flex; align-items: center; gap: 10px; width: 100%; padding: 10px 12px; margin: 0 0 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg-soft); color: var(--ink); font: inherit; text-align: left; cursor: zoom-in; transition: border-color .15s, background .15s; }
+    .cert:hover, .cert:focus-visible { border-color: var(--wine); background: #fff; }
+    .cert img { width: 34px; height: 46px; object-fit: contain; border-radius: 4px; border: 1px solid var(--line); background: #fff; }
+    .cert b { font-size: 15px; }
+    .cert .sm { display: block; }
+    .cert .eye { margin-left: auto; color: var(--ink-3); font-size: 13px; }
 
     /* ---------- CONTACT ---------- */
     .contact {
@@ -316,57 +265,48 @@
     .contact .btn.light:hover { background: var(--wine-2); }
     .copied { font-size: 13px; color: var(--ink-3); margin-top: 8px; min-height: 1.2em; }
 
-    footer { max-width: var(--maxw); margin: 0 auto; padding: 32px 24px 48px; color: var(--ink-3); font: 500 12px/1.6 var(--mono); text-align: center; }
-
-    /* ---------- MOTION ---------- */
-    .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
-    .reveal.in { opacity: 1; transform: none; }
     @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-      html { scroll-behavior: auto; }
-      .btn, .case, .stat, .pr, .mini, .case-visual img, .case-visual .phone { transition: none; }
+      .btn, .stat, .pr, .pj, .svc { transition: none; }
       .eyebrow .pulse::after { animation: none; }
+      .stat-panel { animation: none; }
     }
 
     /* ---------- RESPONSIVE ---------- */
     @media (max-width: 960px) {
-      .principles { grid-template-columns: repeat(2, 1fr); }
-      .more-grid { grid-template-columns: repeat(2, 1fr); }
       .profile-grid { grid-template-columns: 1fr 1fr; }
       .profile-grid .pcard:last-child { grid-column: 1 / -1; }
-      .case { grid-template-columns: 250px 1fr; }
       .stats { grid-template-columns: repeat(2, 1fr); }
+      .pj-grid { grid-template-columns: repeat(2, 1fr); }
+      .svc-grid { grid-template-columns: repeat(3, 1fr); }
+      .principles { grid-template-columns: 1fr; }
+      .oth-grid { grid-template-columns: repeat(2, 1fr); }
+      .award-pair img { height: 420px; }
     }
     @media (max-width: 720px) {
-      body { font-size: 16px; }
-      .wrap { padding: 0 16px; }
-      .nav-inner { padding: 10px 16px; }
-      .nav-links { display: none; }
-      .brand .role { display: none; }
       .hero { grid-template-columns: 1fr; gap: 28px; padding: 40px 0 36px; }
       .hero::before { inset: 0; }
-      .stats { gap: 10px; }
-      .stat .lbl { font-size: 13px; }
-      .pr .ev { overflow-wrap: anywhere; }
       .photo-card { order: -1; justify-self: start; }
       .photo-card img { width: 128px; border-radius: 18px; }
       .photo-card::before { inset: 8px -8px -8px 8px; border-radius: 20px; }
       .photo-card .tag { left: 140px; bottom: 10px; }
       .hero h1 { font-size: 30px; letter-spacing: -.8px; }
+      .stats { gap: 10px; }
       .stat { padding: 16px; }
-      .stat .num { font-size: 23px; }
-      .sec { padding-top: 68px; }
-      .sec-title { font-size: 23px; }
-      .principles, .more-grid, .profile-grid { grid-template-columns: 1fr; }
-      .case { grid-template-columns: 1fr; }
-      .case-visual { min-height: 210px; max-height: 230px; }
-      .case-visual.wide { height: 200px; min-height: 0; }
-      .case-body { padding: 8px 18px 22px; }
-      .case-title { font-size: 20px; }
-      .pdr { grid-template-columns: 64px 1fr; }
+      .stat .num { font-size: 22px; }
+      .stat .lbl { font-size: 13px; }
+      .stat-panel { padding: 18px 14px; border-radius: 18px; }
+      .svc-grid { grid-template-columns: repeat(2, 1fr); }
+      .award-pair, .survey, .lead-pair { grid-template-columns: 1fr; }
+      .award-pair img { height: auto; max-height: 520px; }
+      .pr { grid-template-columns: 1fr; padding: 22px 20px 18px; }
+      .pr .metric { grid-column: 1; grid-row: auto; text-align: left; margin-top: 10px; }
+      .pr .metric .k { margin-left: 0; max-width: none; }
+      .pr h3 { font-size: 19px; }
+      .pj-grid, .oth-grid, .profile-grid { grid-template-columns: 1fr; }
+      .oth-pop { position: static; margin-top: 6px; display: none; opacity: 1; visibility: visible; transform: none; box-shadow: none; }
+      .oth:focus-within .oth-pop, .oth:hover .oth-pop { display: block; }
       .contact { padding: 30px 22px; margin-top: 68px; }
       .contact h2 { font-size: 22px; }
-      footer { padding: 28px 16px 40px; }
     }
   </style>
 </head>
@@ -424,7 +364,7 @@
           <span class="s">After launch, I go back to user feedback and store review notes and fix what they point to.</span>
         </p>
         <div class="cta">
-          <a class="btn primary" href="#projects"><span lang="ko">프로젝트 보기</span><span lang="en">See projects</span> <i class="fa-solid fa-arrow-down" aria-hidden="true"></i></a>
+          <a class="btn primary arrow" href="#projects"><span lang="ko">프로젝트 보기</span><span lang="en">See projects</span> <i class="fa-solid fa-arrow-down circle" aria-hidden="true"></i></a>
           <a class="btn" href="#contact"><i class="fa-regular fa-envelope" aria-hidden="true"></i><span lang="ko">연락하기</span><span lang="en">Contact</span></a>
           <a class="btn" href="https://github.com/13JVV" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i>GitHub</a>
         </div>
@@ -436,22 +376,163 @@
     </header>
 
     <!-- ============ STATS ============ -->
-    <div class="stats reveal" role="list">
-      <div class="stat" role="listitem">
-        <div class="num">2<small lang="ko">개</small></div>
-        <div class="lbl"><span lang="ko">직접 스토어에 공개한 앱</span><span lang="en">Apps I shipped to app stores</span></div>
-      </div>
-      <div class="stat" role="listitem">
+    <div class="stats reveal">
+      <button class="stat" type="button" aria-expanded="false" aria-controls="panel-launch">
+        <div class="num"><span lang="ko">앱 2<small>·</small>웹 3</span><span lang="en">2 apps · 3 webs</span></div>
+        <div class="lbl"><span lang="ko">직접 공개한 앱 2개, 웹 서비스 3개</span><span lang="en">Apps and web services I launched myself</span></div>
+        <span class="open"><span lang="ko">서비스 보기</span><span lang="en">Show</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+      </button>
+      <button class="stat" type="button" aria-expanded="false" aria-controls="panel-awards">
         <div class="num"><span lang="ko">수상 2회</span><span lang="en">2 awards</span></div>
         <div class="lbl"><span lang="ko">행정안전부 장관상, 인하대 사범대학장상</span><span lang="en">Minister of the Interior and Safety Award, Inha College of Education Dean's Award</span></div>
-      </div>
-      <div class="stat" role="listitem">
+        <span class="open"><span lang="ko">상장 보기</span><span lang="en">Show</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+      </button>
+      <button class="stat" type="button" aria-expanded="false" aria-controls="panel-survey">
         <div class="num">113<small lang="ko">명</small></div>
         <div class="lbl"><span lang="ko">선택 실험 유효 응답자</span><span lang="en">Valid respondents in a choice experiment</span></div>
-      </div>
-      <div class="stat" role="listitem">
+        <span class="open"><span lang="ko">결과 보기</span><span lang="en">Show</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+      </button>
+      <button class="stat" type="button" aria-expanded="false" aria-controls="panel-lead">
         <div class="num"><span lang="ko">팀장 2회</span><span lang="en">2× lead</span></div>
         <div class="lbl"><span lang="ko">교내 AI 경진대회, 빅콘테스트</span><span lang="en">Campus AI contest, BigContest</span></div>
+        <span class="open"><span lang="ko">순간 보기</span><span lang="en">Show</span><i class="fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+      </button>
+    </div>
+
+    <!-- 01 앱 2, 웹 3 -->
+    <div class="stat-panel" id="panel-launch" hidden>
+      <div class="panel-head">
+        <h3 lang="ko">직접 공개한 서비스</h3><h3 lang="en">Services I launched</h3>
+        <p lang="ko">아이콘을 누르면 스토어나 서비스로 바로 이동합니다.</p><p lang="en">Tap an icon to open the store page or the live service.</p>
+      </div>
+      <div class="svc-grid">
+        <div>
+          <a class="svc" href="https://apps.apple.com/kr/app/id6769245736" target="_blank" rel="noopener">
+            <img src="assets/img/icons/itsme.webp" alt="" />
+            <b>It's me</b>
+            <span class="kind">App Store</span>
+            <span class="go"><span lang="ko">디지털 명함</span><span lang="en">Digital business card</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+          </a>
+          <a class="svc-extra" href="https://play.google.com/store/apps/details?id=com.jaewoo.itsme" target="_blank" rel="noopener"><i class="fa-brands fa-google-play" aria-hidden="true"></i> Google Play</a>
+        </div>
+        <a class="svc" href="https://apps.apple.com/kr/app/%EB%B0%98%EA%B0%91%EA%BC%AC%EB%A6%AC/id6810158091" target="_blank" rel="noopener">
+          <img src="assets/img/icons/pet.webp" alt="" />
+          <b lang="ko">반갑꼬리</b><b lang="en">Bangapkkori</b>
+          <span class="kind">App Store</span>
+          <span class="go"><span lang="ko">반려동물 동반여행</span><span lang="en">Pet-friendly travel</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+        </a>
+        <a class="svc" href="https://crowdsense-jvv1.vercel.app" target="_blank" rel="noopener">
+          <img src="assets/img/icons/crowdsense.svg" alt="" />
+          <b>CrowdSense</b>
+          <span class="kind web">Web</span>
+          <span class="go"><span lang="ko">AI 인파 관제</span><span lang="en">AI crowd monitoring</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+        </a>
+        <a class="svc" href="https://hackathon-app-omega-two.vercel.app/" target="_blank" rel="noopener">
+          <img src="assets/img/icons/jinggeomdari.svg" alt="" />
+          <b lang="ko">징검다리</b><b lang="en">Jinggeomdari</b>
+          <span class="kind web">Web</span>
+          <span class="go"><span lang="ko">AI 교사 지원</span><span lang="en">AI teacher support</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+        </a>
+        <a class="svc" href="https://jverdict.streamlit.app" target="_blank" rel="noopener">
+          <img src="assets/img/icons/jverdict.svg" alt="" />
+          <b>J-Verdict</b>
+          <span class="kind web">Web</span>
+          <span class="go"><span lang="ko">정책 효과 판정</span><span lang="en">Policy effect verdicts</span><i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 02 수상 2회 -->
+    <div class="stat-panel" id="panel-awards" hidden>
+      <div class="panel-head">
+        <h3 lang="ko">상장 두 장</h3><h3 lang="en">Two award certificates</h3>
+        <p lang="ko">상장을 누르면 크게 볼 수 있습니다. 학번은 가렸습니다.</p><p lang="en">Click to enlarge. Student ID is masked.</p>
+      </div>
+      <div class="award-pair">
+        <figure>
+          <img src="assets/proof/award-crowdsense.jpg" alt="제4회 재난안전데이터 활용 창업경진대회 최우수상 상장" data-zoom width="659" height="900" />
+          <figcaption lang="ko"><b>최우수상 (행정안전부 장관상)</b>제4회 재난안전데이터 활용 창업경진대회 · 2026.07.27 · CrowdSense</figcaption>
+          <figcaption lang="en"><b>Excellence Award (Minister of the Interior and Safety)</b>4th Disaster Safety Data Startup Competition · Jul 2026 · CrowdSense</figcaption>
+        </figure>
+        <figure>
+          <img src="assets/proof/award-hackathon.jpg" alt="2026 INHA AX-EDU HACKATHON 우수상 상장" data-zoom width="618" height="900" />
+          <figcaption lang="ko"><b>우수상 (인하대학교 사범대학장상)</b>2026 INHA AX-EDU HACKATHON · 2026.11.14 · 징검다리</figcaption>
+          <figcaption lang="en"><b>Excellence Award (Dean's Award, Inha College of Education)</b>2026 INHA AX-EDU Hackathon · Nov 2026 · Jinggeomdari</figcaption>
+        </figure>
+      </div>
+    </div>
+
+    <!-- 03 113명 -->
+    <div class="stat-panel" id="panel-survey" hidden>
+      <div class="panel-head">
+        <h3 lang="ko">113명은 생성형 AI 구독 선택 실험의 유효 응답자입니다</h3>
+        <h3 lang="en">113 valid respondents in a generative AI subscription choice experiment</h3>
+        <p lang="ko">신기술 시장분석 · 4인 팀 · 2026년 1학기</p><p lang="en">New Technology Market Analysis · team of 4 · Spring 2026</p>
+      </div>
+      <div class="survey">
+        <div class="txt">
+          <div lang="ko">
+            <p><span class="s"><span class="u">가격, 정확도, 보안성, 개인화, 전문성 중</span> <span class="u">무엇이 구독 선택을 좌우하는지 이산선택실험으로 측정했습니다.</span></span></p>
+            <p><span class="s"><span class="u">팀장으로 설문 설계를 맡아</span> <span class="u">제시 순서를 바꾼 두 버전으로 배포했습니다.</span></span><span class="s"><span class="u">초안에서 모든 속성이 앞서는 선택지를 발견해</span> <span class="u">일정을 늦추고 속성 수준을 다시 정했습니다.</span></span></p>
+            <p><span class="s"><span class="u">예상과 달리 1순위는 정확도(16.4%)가 아니라</span> <span class="u">전문성(26.4%)이었습니다.</span></span></p>
+          </div>
+          <div lang="en">
+            <p>We measured which of price, accuracy, security, personalization and expertise drives a subscription choice, using a discrete choice experiment.</p>
+            <p>As team lead I designed the survey and shipped it in two question orders. When the draft had options that beat others on every attribute, I delayed the schedule and reset the attribute levels.</p>
+            <p>Against our hypothesis, the top attribute was expertise (26.4%), not accuracy (16.4%).</p>
+          </div>
+          <div class="mini-facts">
+            <span><b>113<small lang="ko">명</small></b><span lang="ko">버전1 54 + 버전2 59</span><span lang="en">54 + 59 respondents</span></span>
+            <span><b>2,034</b><span lang="ko">113명 × 6문항 × 3대안</span><span lang="en">rows (113 × 6 × 3)</span></span>
+            <span><b>26.4%</b><span lang="ko">전문성의 상대적 중요도</span><span lang="en">importance of expertise</span></span>
+          </div>
+          <a class="btn sm" href="projects/subscription/"><span lang="ko">분석 자세히 보기</span><span lang="en">Full analysis</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </div>
+        <img src="assets/img/shots/sub-importance.svg" alt="속성별 상대적 중요도: 전문성 26.4%, 보안성 20.7%, 개인화 19.7%, 가격 16.8%, 정확도 16.4%" data-zoom width="640" height="400" />
+      </div>
+    </div>
+
+    <!-- 04 팀장 2회 -->
+    <div class="stat-panel" id="panel-lead" hidden>
+      <div class="panel-head">
+        <h3 lang="ko">팀장으로 보여 준 순간들</h3><h3 lang="en">Moments as team lead</h3>
+        <p lang="ko">두 프로젝트 모두 전공과 역할이 다른 팀이었습니다.</p><p lang="en">Both were teams with different majors and roles.</p>
+      </div>
+      <div class="lead-pair">
+        <article class="lead-card">
+          <span class="when">2026.03</span>
+          <h4 lang="ko">교내 AI 문제해결 경진대회</h4><h4 lang="en">Campus AI Problem-Solving Contest</h4>
+          <p class="team" lang="ko">5인, 경영학·아태물류학·전기전자공학·산업경영공학</p><p class="team" lang="en">Team of 5 from four majors</p>
+          <ol lang="ko">
+            <li><b>공통 문제부터 정했습니다</b><span class="s"><span class="u">네 전공이 서로 다른 말로 안전을 볼 때,</span> <span class="u">‘한정된 순찰 인력과 정비 예산을 어디에 먼저 쓸까’라는 자원 배분 문제로 다시 정의했습니다.</span></span></li>
+            <li><b>산출물을 한 흐름으로 묶었습니다</b><span class="s"><span class="u">위험 정량화, 디지털 트윈, 정책, 물류, 엣지 인프라로 나누되</span> <span class="u">모두 상태, 행동, 결과의 흐름에 연결되게 조율했습니다.</span></span></li>
+            <li><b>제 안을 내려놓았습니다</b><span class="s"><span class="u">전공별 제안이 부딪히자 두 대시보드 안을 직접 만들어 비교했고,</span> <span class="u">팀원 전문성이 더 드러나는 안을 채택해 제 초기 안을 고쳤습니다.</span></span></li>
+          </ol>
+          <ol lang="en">
+            <li><b>Set one shared problem</b>I reframed campus safety as a resource allocation question: where to send limited patrol staff and repair budget first.</li>
+            <li><b>Tied every output into one flow</b>Roles were split by major, but every output had to connect to one state, action, result flow.</li>
+            <li><b>Let go of my own draft</b>When proposals clashed, I built two dashboard options, compared them, and adopted the one that showed my teammates' expertise better.</li>
+          </ol>
+          <a class="more" href="projects/campus/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+        </article>
+        <article class="lead-card">
+          <span class="when">2026.09 ~ 2026.10</span>
+          <h4 lang="ko">빅콘테스트 AI데이터활용 캡스톤</h4><h4 lang="en">BigContest AI Data Capstone</h4>
+          <p class="team" lang="ko">4인, 산업경영공학과 · 사회적 고립 예방 AI 에이전트</p><p class="team" lang="en">Team of 4 · AI agent for preventing social isolation</p>
+          <ol lang="ko">
+            <li><b>일하는 규칙부터 세웠습니다</b><span class="s"><span class="u">main 직접 푸시를 막고,</span> <span class="u">기능별 브랜치와 팀원 확인 뒤 병합하는 규칙을 정했습니다.</span></span></li>
+            <li><b>데이터가 새지 않게 막았습니다</b><span class="s"><span class="u">공모전 원본 데이터와 API 키는</span> <span class="u">커밋 단계의 훅으로 저장소에 올라가지 않게 했습니다.</span></span></li>
+            <li><b>같은 근거로 판단하게 했습니다</b><span class="s"><span class="u">ERD, 회의 정리, 의사결정 로그를 문서로 남겨</span> <span class="u">팀원이 같은 자료를 보고 결정하게 했습니다.</span></span></li>
+            <li><b>가장 무거운 부분을 맡았습니다</b><span class="s"><span class="u">문제 정의와 분석 설계, 데이터 파이프라인,</span> <span class="u">위험도 모형, 에이전트, 정수계획 최적화를 구현했습니다.</span></span></li>
+          </ol>
+          <ol lang="en">
+            <li><b>Set working rules first</b>No direct pushes to main; feature branches merged after a teammate's review.</li>
+            <li><b>Kept data from leaking</b>Commit hooks blocked raw contest data and API keys from the repository.</li>
+            <li><b>Made decisions on shared evidence</b>An ERD, meeting notes and a decision log kept everyone on the same page.</li>
+            <li><b>Took the heaviest part</b>I built the problem framing, pipeline, risk model, agent and integer-programming allocation.</li>
+          </ol>
+          <a class="more" href="https://github.com/13JVV/capstone-overview" target="_blank" rel="noopener"><span lang="ko">프로젝트 소개</span><span lang="en">Overview</span> ↗</a>
+        </article>
       </div>
     </div>
 
@@ -459,59 +540,43 @@
     <section class="sec" id="how">
       <div class="sec-head reveal">
         <p class="sec-kicker">How I work</p>
-        <h2 class="sec-title" lang="ko">이렇게 기획합니다</h2>
-        <h2 class="sec-title" lang="en">How I plan</h2>
-        <p class="sec-desc" lang="ko">프로젝트마다 반복해서 지켜 온 네 가지입니다.</p>
-        <p class="sec-desc" lang="en">Four habits I kept across every project.</p>
+        <h2 class="sec-title" lang="ko"><span class="u">산업경영공학으로 배운 방식으로</span> <span class="u"><em>기획합니다</em></span></h2>
+        <h2 class="sec-title" lang="en">I plan the way <em>industrial engineering</em> taught me</h2>
+        <p class="sec-desc" lang="ko">작게 검증하고, 숫자로 고르고, 제약 안에서 배분하고, 결과를 시험합니다.</p>
+        <p class="sec-desc" lang="en">Validate small, choose with numbers, allocate under constraints, and test the result.</p>
       </div>
       <div class="principles">
         <article class="pr reveal">
-          <span class="step"><i class="fa-solid fa-rocket" aria-hidden="true"></i>P-01</span>
-          <div lang="ko">
-            <h3>작게 먼저 출시합니다</h3>
-            <p><span class="s">핵심 기능 하나를 먼저 내놓고</span><span class="s">반응을 본 뒤에 범위를 넓힙니다.</span></p>
-          </div>
-          <div lang="en">
-            <h3>Ship small, first</h3>
-            <p>I release one core feature, watch the response, and only then widen the scope.</p>
-          </div>
-          <div class="ev"><b>It's me</b> <span lang="ko">명함 생성과 QR 공유 먼저 출시, 이후 OCR과 지갑 추가</span><span lang="en">Launched card creation and QR sharing first, then OCR and a wallet</span></div>
+          <div class="idx"><span class="no">01</span><span class="ie">MVP</span></div>
+          <h3 lang="ko">MVP로 먼저 검증합니다</h3><h3 lang="en">Validate with an MVP first</h3>
+          <p lang="ko"><span class="s"><span class="u">핵심 가설 하나만 담은 MVP를 먼저 내고,</span> <span class="u">실제 사용 흐름과 심사 의견을 본 뒤 기능을 붙입니다.</span></span></p>
+          <p lang="en">I ship an MVP that tests one core hypothesis, then add features after seeing real usage and store review notes.</p>
+          <div class="metric"><span class="v">2<small style="font-size:20px">개</small></span><span class="k" lang="ko">스토어에 직접 출시한 앱</span><span class="k" lang="en">apps I shipped to stores</span></div>
+          <div class="ev"><b>It's me</b> <span lang="ko">명함 생성과 QR 공유로 MVP 출시 → 반려 3건과 피드백 반영 → 명함 인식, 지갑 추가</span><span lang="en">MVP with card creation and QR sharing → fixed 3 store rejections and feedback → added card scan and wallet</span></div>
         </article>
         <article class="pr reveal">
-          <span class="step"><i class="fa-solid fa-user-check" aria-hidden="true"></i>P-02</span>
-          <div lang="ko">
-            <h3><span class="u">AI 결과는</span> <span class="u">사람이 확인하게 합니다</span></h3>
-            <p><span class="s">AI가 틀릴 수 있는 지점을 찾고</span><span class="s">확인하는 단계를 화면에 넣습니다.</span></p>
-          </div>
-          <div lang="en">
-            <h3>Keep a human check on AI</h3>
-            <p>I find where AI can go wrong and put a review step into the screen.</p>
-          </div>
-          <div class="ev"><b>It's me, <span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span></b> <span lang="ko">저장 전 사용자 수정, AI 분석은 교사가 승인한 것만 학생에게</span><span lang="en">User edits before saving, only teacher-approved AI results reach students</span></div>
+          <div class="idx"><span class="no">02</span><span class="ie" lang="ko">실험계획 · 선택모형</span><span class="ie" lang="en">Experiment design · choice model</span></div>
+          <h3 lang="ko">사용자 선호는 숫자로 측정합니다</h3><h3 lang="en">Measure preference in numbers</h3>
+          <p lang="ko"><span class="s"><span class="u">“다 중요하다”로 끝나는 평점 대신</span> <span class="u">사용자가 무엇을 포기하고 고르는지 선택 실험으로 재고 우선순위를 정합니다.</span></span></p>
+          <p lang="en">Instead of ratings where everything is "important", I measure trade-offs with choice experiments and set priorities from them.</p>
+          <div class="metric"><span class="v">26.4%</span><span class="k" lang="ko">전문성의 상대적 중요도 (정확도 16.4%)</span><span class="k" lang="en">importance of expertise (accuracy 16.4%)</span></div>
+          <div class="ev"><b lang="ko">구독 모델 분석</b><b lang="en">Subscription study</b> <span lang="ko">113명 이산선택실험, ‘정확도가 1순위’라는 가설이 데이터로 지지되지 않음</span><span lang="en">113 respondents; the "accuracy first" hypothesis was not supported</span></div>
         </article>
         <article class="pr reveal">
-          <span class="step"><i class="fa-solid fa-circle-question" aria-hidden="true"></i>P-03</span>
-          <div lang="ko">
-            <h3><span class="u">모르는 건</span> <span class="u">모른다고 보여줍니다</span></h3>
-            <p><span class="s">데이터가 없거나 모호하면</span><span class="s">단정하지 않고 그 상태를 드러냅니다.</span></p>
-          </div>
-          <div lang="en">
-            <h3>Show what we don't know</h3>
-            <p>When data is missing or unclear, I show that state instead of guessing.</p>
-          </div>
-          <div class="ev"><b>CrowdSense, <span lang="ko">반갑꼬리</span><span lang="en">Bangapkkori</span></b> <span lang="ko">판정 불가 상태 노출, 모호한 조건은 동반 가능으로 표시 안 함</span><span lang="en">"Cannot judge" state shown, unclear rules never marked pet-friendly</span></div>
+          <div class="idx"><span class="no">03</span><span class="ie" lang="ko">수리최적화 · 시뮬레이션</span><span class="ie" lang="en">Optimization · simulation</span></div>
+          <h3 lang="ko">한정된 자원은 최적화로 나눕니다</h3><h3 lang="en">Allocate scarce resources by optimization</h3>
+          <p lang="ko"><span class="s"><span class="u">인력과 예산이 모자랄 때 어디에 먼저 쓸지를</span> <span class="u">목적함수와 제약식으로 풀고, 바꾸기 전에 시뮬레이션으로 비교합니다.</span></span></p>
+          <p lang="en">When people and budget run short, I solve where to spend first with an objective and constraints, and compare options in simulation before changing anything.</p>
+          <div class="metric"><span class="v word" lang="ko">정수계획</span><span class="v word" lang="en">Integer programming</span><span class="k" lang="ko">복지 인력시간 배분 + 민감도 분석</span><span class="k" lang="en">welfare staff-hour allocation + sensitivity</span></div>
+          <div class="ev"><b lang="ko">빅콘테스트, 교내 경진대회, 생산공정</b><b lang="en">BigContest, campus contest, production line</b> <span lang="ko">정수계획 배분, 순찰과 정비의 순차 의사결정(PPO) 설계, Arena 공정 개선안 비교</span><span lang="en">integer-programming allocation, PPO patrol and repair design, Arena process comparison</span></div>
         </article>
         <article class="pr reveal">
-          <span class="step"><i class="fa-solid fa-code-compare" aria-hidden="true"></i>P-04</span>
-          <div lang="ko">
-            <h3><span class="u">말보다</span> <span class="u">만들어서 비교합니다</span></h3>
-            <p><span class="s">의견이 갈리면 두 안을 직접 구현해</span><span class="s">보고 나서 정합니다.</span></p>
-          </div>
-          <div lang="en">
-            <h3>Build it, then compare</h3>
-            <p>When opinions split, I build both options and decide after seeing them.</p>
-          </div>
-          <div class="ev"><b><span lang="ko">반갑꼬리</span><span lang="en">Bangapkkori</span></b> <span lang="ko">카드 정보량 두 화면안 비교 후 팀원 안 채택</span><span lang="en">Built two card layouts and chose my teammate's</span></div>
+          <div class="idx"><span class="no">04</span><span class="ie" lang="ko">검증 설계</span><span class="ie" lang="en">Validation design</span></div>
+          <h3 lang="ko">AI 결과에는 검증 기준을 붙입니다</h3><h3 lang="en">Attach a test to every AI result</h3>
+          <p lang="ko"><span class="s"><span class="u">AI가 만든 결과는 정답을 아는 데이터로 시험하고,</span> <span class="u">틀릴 수 있는 지점에는 사람이 확인하는 단계를 넣습니다.</span></span></p>
+          <p lang="en">I test AI output against data with known answers, and put a human check where it can go wrong.</p>
+          <div class="metric"><span class="v">90.6%</span><span class="k" lang="ko">CrowdSense 혼잡 등급 상승 1,877건 중 사전 예고 (백테스트)</span><span class="k" lang="en">of 1,877 crowd surges flagged ahead (backtest)</span></div>
+          <div class="ev"><b>J-Verdict, <span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span></b> <span lang="ko">합성데이터 판정 2,400회에서 없는 효과를 있다고 한 비율 2.4%, AI 분석은 교사가 승인한 것만 학생에게</span><span lang="en">2.4% false "effect" calls over 2,400 synthetic runs; only teacher-approved AI output reaches students</span></div>
         </article>
       </div>
     </section>
@@ -520,215 +585,90 @@
     <section class="sec" id="projects">
       <div class="sec-head reveal">
         <p class="sec-kicker">Projects</p>
-        <h2 class="sec-title" lang="ko">문제, 결정, 결과로 정리한 프로젝트</h2>
-        <h2 class="sec-title" lang="en">Projects as problem, decision, result</h2>
-        <p class="sec-desc" lang="ko">카드를 누르면 자세한 사례 기록으로 이동합니다.</p>
-        <p class="sec-desc" lang="en">Click a card for the full case record (in Korean).</p>
+        <h2 class="sec-title" lang="ko">프로젝트</h2>
+        <h2 class="sec-title" lang="en">Projects</h2>
+        <p class="sec-desc" lang="ko">카드를 누르면 자세한 사례와 직접 써 볼 수 있는 공간이 열립니다.</p>
+        <p class="sec-desc" lang="en">Open a card for the full case study and a small space to try it (case pages are in Korean).</p>
       </div>
 
-      <div class="cases">
-        <!-- 징검다리 -->
-        <article class="case reveal">
-          <a class="case-visual wide" href="projects/jinggeomdari/" aria-label="Jinggeomdari">
+      <div class="pj-grid">
+        <a class="pj reveal" href="projects/jinggeomdari/" data-peek="assets/img/shots/jg-01-teacher.webp|assets/img/shots/jg-02-student.webp|assets/img/shots/jg-03-class.webp" data-peek-kind="wide">
+          <div class="pj-media wide">
             <span class="badge"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span lang="ko">우수상</span><span lang="en">Award</span></span>
-            <img src="assets/img/jinggeom-class.webp" alt="" loading="lazy" />
-          </a>
-          <div class="case-body">
-            <div class="case-top">
-              <h3 class="case-title"><span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span></h3>
-              <span class="case-sub" lang="ko">AI 수업 전 결손 진단, 교사 지원 서비스</span>
-              <span class="case-sub" lang="en">AI pre-class gap check for teachers</span>
-            </div>
-            <div class="chips">
-              <span class="chip role" lang="ko">서비스 기획, 프론트엔드</span>
-              <span class="chip role" lang="en">Service planning, frontend</span>
-              <span class="chip" lang="ko">4인 팀, 사범대 협업</span><span class="chip" lang="en">Team of 4 with education majors</span>
-              <span class="chip">2026.11</span>
-              <span class="chip">Next.js</span><span class="chip" lang="ko">해커톤 5시간</span><span class="chip" lang="en">5-hour build</span>
-            </div>
-            <p class="award"><i class="fa-solid fa-award" aria-hidden="true"></i><span lang="ko">2026 INHA AX-EDU HACKATHON 우수상 (인하대학교 사범대학장상)</span><span lang="en">Excellence Award (Dean's Award, Inha College of Education), 2026 INHA AX-EDU Hackathon</span></p>
-            <dl class="pdr" lang="ko">
-              <dt>문제</dt>
-              <dd><span class="s"><span class="u">플립러닝에서 사전 영상을 안 보고 온 학생은</span> <span class="u">수업 활동에 끼지 못합니다.</span></span><span class="s"><span class="u">선생님은 수업이 시작돼야</span> <span class="u">누가 어디서 막혔는지 압니다.</span></span></dd>
-              <dt>결정</dt>
-              <dd><span class="s"><span class="u">교육 지식이 없어서</span> <span class="u">예비교사 팀원에게 질문 14개로 요구를 좁혔습니다.</span></span><span class="s"><span class="u">얼굴 인식은 학생 감시 대신</span> <span class="u">학생 정보를 여는 교사 본인 확인에만 쓰기로 했습니다.</span></span><span class="s"><span class="u">AI는 학생 답을 읽고,</span> <span class="u">선생님이 승인한 것만 학생에게 가게 했습니다.</span></span></dd>
-              <dt>결과</dt>
-              <dd><span class="s"><span class="u">교육 전문가와 슈퍼스쿨 기획팀, 개발팀에게 확인받으며</span> <span class="u">약 5시간 만에 기획부터 배포까지 마쳤습니다.</span></span></dd>
-            </dl>
-            <dl class="pdr" lang="en">
-              <dt>Problem</dt>
-              <dd>In flipped classes, students who skip the pre-class video can't join the activity, and teachers only find out who is stuck once class starts.</dd>
-              <dt>Decision</dt>
-              <dd>With no education background, I narrowed the request with 14 questions to our pre-service teachers. Face recognition is used only to verify the teacher opening student data, never to watch students. AI reads student answers; only what the teacher approves reaches students.</dd>
-              <dt>Result</dt>
-              <dd>Checked our direction with education experts and Superschool's planning and dev teams, and went from plan to deployed service in about five hours.</dd>
-            </dl>
-            <a class="case-link" href="projects/jinggeomdari/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-            <a class="case-link" href="https://hackathon-app-omega-two.vercel.app/" target="_blank" rel="noopener"><span lang="ko">결과물</span><span lang="en">Live demo</span> <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+            <img src="assets/img/shots/jg-01-teacher.webp" alt="징검다리 교사 대시보드" loading="lazy" width="1200" height="750" />
           </div>
-        </article>
+          <div class="pj-body">
+            <h3><span lang="ko">징검다리</span><span lang="en">Jinggeomdari</span></h3>
+            <p class="desc" lang="ko">수업 전에 학생이 막힌 개념을 찾아 주는 AI 교사 지원 서비스</p>
+            <p class="desc" lang="en">AI teacher support that finds where students are stuck before class</p>
+            <p class="aw"><i class="fa-solid fa-award" aria-hidden="true"></i><span lang="ko">2026 INHA AX-EDU HACKATHON 우수상</span><span lang="en">Excellence Award, 2026 INHA AX-EDU Hackathon</span></p>
+          </div>
+        </a>
 
-        <!-- It's me -->
-        <article class="case reveal">
-          <a class="case-visual" href="projects/itsme/" aria-label="It's me">
-            <span class="badge live"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>App Store, Google Play</span>
-            <img class="phone" src="assets/img/itsme-home.webp" alt="" loading="lazy" />
-            <img class="phone" src="assets/img/itsme-wallet.webp" alt="" loading="lazy" />
-          </a>
-          <div class="case-body">
-            <div class="case-top">
-              <h3 class="case-title">It's me</h3>
-              <span class="case-sub" lang="ko">디지털 명함, 관계 관리 앱</span>
-              <span class="case-sub" lang="en">Digital business card and relationship app</span>
-            </div>
-            <div class="chips">
-              <span class="chip role" lang="ko">기획, 디자인, 개발, 배포</span>
-              <span class="chip role" lang="en">Planning, design, build, launch</span>
-              <span class="chip" lang="ko">개인 프로젝트</span><span class="chip" lang="en">Solo</span>
-              <span class="chip">2026.03 ~</span>
-              <span class="chip">React Native</span><span class="chip">Claude API</span>
-            </div>
-            <dl class="pdr" lang="ko">
-              <dt>문제</dt>
-              <dd><span class="u">명함을 주고받은 뒤</span> <span class="u">연락처와 만난 맥락이 흩어집니다.</span></dd>
-              <dt>결정</dt>
-              <dd><span class="s">명함 생성과 QR 공유를 먼저 출시했습니다.</span><span class="s"><span class="u">AI로 인식한 명함은</span> <span class="u">저장 전에 사용자가 확인하고 고치도록 했습니다.</span></span></dd>
-              <dt>결과</dt>
-              <dd><span class="s"><span class="u">가족과 지인의 피드백,</span> <span class="u">스토어 반려 사유를 반영했습니다.</span></span><span class="s"><span class="u">iOS는 세로 명함과 4개 탭으로 다시 구성해</span> <span class="u">두 스토어에 공개했습니다.</span></span></dd>
-            </dl>
-            <dl class="pdr" lang="en">
-              <dt>Problem</dt>
-              <dd>After people swap business cards, contacts and the context of the meeting get scattered.</dd>
-              <dt>Decision</dt>
-              <dd>Shipped card creation and QR sharing first. Cards read by AI are checked and edited by the user before saving.</dd>
-              <dt>Result</dt>
-              <dd>Applied feedback from family and friends plus store rejection notes. Rebuilt iOS around a vertical card and four tabs, and launched on both stores.</dd>
-            </dl>
-            <a class="case-link" href="projects/itsme/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <a class="pj reveal" href="projects/crowdsense/" data-peek="assets/img/shots/cs-03-dashboard.webp|assets/img/shots/cs-04-ai-directive.webp" data-peek-kind="wide">
+          <div class="pj-media wide">
+            <span class="badge"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span lang="ko">최우수상</span><span lang="en">Grand Award</span></span>
+            <img src="assets/img/shots/cs-03-dashboard.webp" alt="CrowdSense 통합 관제 화면" loading="lazy" width="1200" height="750" />
           </div>
-        </article>
+          <div class="pj-body">
+            <h3>CrowdSense</h3>
+            <p class="desc" lang="ko">인파 경보 이후의 조치, 전파, 보고를 한 화면에서 준비하는 AI 관제 서비스</p>
+            <p class="desc" lang="en">AI crowd monitoring that prepares actions, notices and reports after an alert</p>
+            <p class="aw"><i class="fa-solid fa-award" aria-hidden="true"></i><span lang="ko">재난안전데이터 활용 창업경진대회 최우수상 (행정안전부 장관상)</span><span lang="en">Excellence Award (Minister of the Interior and Safety)</span></p>
+          </div>
+        </a>
 
-        <!-- CrowdSense -->
-        <article class="case reveal">
-          <a class="case-visual wide" href="projects/crowdsense/" aria-label="CrowdSense">
-            <span class="badge"><i class="fa-solid fa-trophy" aria-hidden="true"></i><span lang="ko">최우수상</span><span lang="en">Excellence Award</span></span>
-            <img src="assets/img/crowdsense-live.webp" alt="" loading="lazy" />
-          </a>
-          <div class="case-body">
-            <div class="case-top">
-              <h3 class="case-title">CrowdSense</h3>
-              <span class="case-sub" lang="ko">AI 인파 관제 지원 서비스</span>
-              <span class="case-sub" lang="en">AI crowd monitoring support service</span>
-            </div>
-            <div class="chips">
-              <span class="chip role" lang="ko">기획, 설계, 개발, 배포</span>
-              <span class="chip role" lang="en">Planning, design, build, launch</span>
-              <span class="chip" lang="ko">개인 프로젝트</span><span class="chip" lang="en">Solo</span>
-              <span class="chip">2026.07 ~</span>
-              <span class="chip">Claude API</span><span class="chip" lang="ko">구조화 출력</span><span class="chip" lang="en">Structured output</span>
-            </div>
-            <p class="award"><i class="fa-solid fa-award" aria-hidden="true"></i><span lang="ko">제4회 재난안전데이터 활용 창업경진대회 최우수상 (행정안전부 장관상)</span><span lang="en">Excellence Award (Minister of the Interior and Safety Award), 4th Disaster Safety Data Startup Competition</span></p>
-            <dl class="pdr" lang="ko">
-              <dt>문제</dt>
-              <dd><span class="u">인파 경보 뒤에 담당자가</span> <span class="u">조치와 전파, 보고를 따로 준비해야 합니다.</span></dd>
-              <dt>결정</dt>
-              <dd><span class="s"><span class="u">데이터 근거와 AI 대응 초안을</span> <span class="u">한 화면에 연결했습니다.</span></span><span class="s"><span class="u">시민 안내 후보와 현장 확인이 필요한 후보는</span> <span class="u">구조화 출력으로 나눴습니다.</span></span></dd>
-              <dt>결과</dt>
-              <dd><span class="u">관측 시각, 데이터 지연, 판정 불가 상태까지 보여주는</span> <span class="u">대시보드를 만들어 공개했습니다.</span></dd>
-            </dl>
-            <dl class="pdr" lang="en">
-              <dt>Problem</dt>
-              <dd>After a crowd alert, staff had to prepare actions, public notices, and reports separately.</dd>
-              <dt>Decision</dt>
-              <dd>Put the data evidence and an AI response draft on one screen. Used structured output to split public notice items from items that need an on-site check.</dd>
-              <dt>Result</dt>
-              <dd>Built and published a dashboard that also shows observation time, data delay, and a "cannot judge" state.</dd>
-            </dl>
-            <a class="case-link" href="projects/crowdsense/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
-            <a class="case-link" href="https://github.com/13JVV/crowdsense-overview" target="_blank" rel="noopener">GitHub <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+        <a class="pj reveal" href="projects/itsme/" data-peek="assets/img/shots/itsme-01-home.webp|assets/img/shots/itsme-02-share.webp|assets/img/shots/itsme-03-wallet.webp" data-peek-kind="phones">
+          <div class="pj-media phones">
+            <span class="badge"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>App Store · Google Play</span>
+            <img src="assets/img/shots/itsme-01-home.webp" alt="It's me 내 명함 화면" loading="lazy" width="480" height="1043" />
+            <img src="assets/img/shots/itsme-03-wallet.webp" alt="It's me 명함 지갑 화면" loading="lazy" width="480" height="1043" />
           </div>
-        </article>
+          <div class="pj-body">
+            <h3>It's me</h3>
+            <p class="desc" lang="ko">처음 건넨 명함이 다음 만남으로 이어지게 돕는 디지털 명함 앱</p>
+            <p class="desc" lang="en">A digital business card app that turns a first card into a next meeting</p>
+            <p class="aw plain"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i><span lang="ko">개인 프로젝트 · 두 스토어 출시</span><span lang="en">Solo · live on both stores</span></p>
+          </div>
+        </a>
 
-        <!-- 반갑꼬리 -->
-        <article class="case reveal">
-          <a class="case-visual" href="projects/pet/" aria-label="Bangapkkori">
-            <span class="badge live"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>App Store</span>
-            <img class="phone" src="assets/img/pet-home.webp" alt="" loading="lazy" />
-            <img class="phone" src="assets/img/pet-explore.webp" alt="" loading="lazy" />
-          </a>
-          <div class="case-body">
-            <div class="case-top">
-              <h3 class="case-title"><span lang="ko">반갑꼬리</span><span lang="en">Bangapkkori</span></h3>
-              <span class="case-sub" lang="ko">반려동물 동반여행 앱</span>
-              <span class="case-sub" lang="en">Pet-friendly travel app</span>
-            </div>
-            <div class="chips">
-              <span class="chip role" lang="ko">프론트엔드, 기능과 DB 설계, 배포</span>
-              <span class="chip role" lang="en">Frontend, feature and DB design, launch</span>
-              <span class="chip" lang="ko">3인 팀</span><span class="chip" lang="en">Team of 3</span>
-              <span class="chip">2026.07 ~</span>
-              <span class="chip" lang="ko">관광데이터 공모전</span><span class="chip" lang="en">Tourism Data Contest</span>
-            </div>
-            <dl class="pdr" lang="ko">
-              <dt>문제</dt>
-              <dd><span class="u">시설마다 몸무게, 품종, 이용 구역 조건이 달라</span> <span class="u">동반 가능 여부를 알기 어렵습니다.</span></dd>
-              <dt>결정</dt>
-              <dd><span class="s"><span class="u">조건을 반려동물 정보와 대조하는</span> <span class="u">흐름을 설계했습니다.</span></span><span class="s"><span class="u">조건이 없거나 모호하면</span> <span class="u">동반 가능으로 단정하지 않게 했습니다.</span></span></dd>
-              <dt>결과</dt>
-              <dd><span class="s"><span class="u">카드 정보량은 두 화면안을 구현해 비교한 뒤</span> <span class="u">팀원 안을 채택했습니다.</span></span><span class="s"><span class="u">실제 시설 ID로 끝까지 확인하며 연결 오류를 고치고</span> <span class="u">App Store에 공개했습니다.</span></span></dd>
-            </dl>
-            <dl class="pdr" lang="en">
-              <dt>Problem</dt>
-              <dd>Every venue has different weight, breed, and area rules, so it is hard to tell if a pet is allowed.</dd>
-              <dt>Decision</dt>
-              <dd>Designed a flow that checks those rules against the user's pet. Missing or unclear rules are never shown as pet-friendly.</dd>
-              <dt>Result</dt>
-              <dd>Built two card layouts, compared them, and went with my teammate's. Tested end to end with real venue IDs, fixed broken links, and launched on the App Store.</dd>
-            </dl>
-            <a class="case-link" href="projects/pet/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <a class="pj reveal" href="projects/pet/" data-peek="assets/img/shots/pet-02-check.webp|assets/img/shots/pet-03-pass.webp|assets/img/shots/pet-05-explore.webp" data-peek-kind="phones">
+          <div class="pj-media phones">
+            <span class="badge"><i class="fa-solid fa-circle-check" aria-hidden="true"></i>App Store</span>
+            <img src="assets/img/shots/pet-01-hero.webp" alt="반갑꼬리 첫 화면" loading="lazy" width="480" height="1043" />
+            <img src="assets/img/shots/pet-02-check.webp" alt="반갑꼬리 AI 출입 판별 화면" loading="lazy" width="480" height="1043" />
           </div>
-        </article>
+          <div class="pj-body">
+            <h3><span lang="ko">반갑꼬리</span><span lang="en">Bangapkkori</span></h3>
+            <p class="desc" lang="ko">몸무게와 품종으로 시설 출입 조건을 판별하는 반려동물 동반여행 앱</p>
+            <p class="desc" lang="en">A pet travel app that checks venue entry rules against your pet's weight and breed</p>
+            <p class="aw plain"><i class="fa-solid fa-mobile-screen" aria-hidden="true"></i><span lang="ko">3인 팀 · 관광데이터 활용 공모전 출품</span><span lang="en">Team of 3 · Tourism Data Contest</span></p>
+          </div>
+        </a>
 
-        <!-- 구독 분석 -->
-        <article class="case reveal">
-          <a class="case-visual stat-visual" href="projects/subscription/" aria-label="Generative AI subscription analysis">
-            <span class="big">26.4%</span>
-            <span class="cap" lang="ko"><span class="s">전문성의 상대적 중요도</span><span class="s">설정한 속성 중 가장 높음</span></span>
-            <span class="cap" lang="en"><span class="s">Relative importance of expertise</span><span class="s">Highest among the attributes tested</span></span>
-          </a>
-          <div class="case-body">
-            <div class="case-top">
-              <h3 class="case-title" lang="ko">생성형 AI 구독 모델 분석</h3>
-              <h3 class="case-title" lang="en">Generative AI Subscription Analysis</h3>
-              <span class="case-sub" lang="ko">사용자 선택 실험</span>
-              <span class="case-sub" lang="en">User choice experiment</span>
-            </div>
-            <div class="chips">
-              <span class="chip role" lang="ko">설문 설계 주도</span>
-              <span class="chip role" lang="en">Led survey design</span>
-              <span class="chip" lang="ko">4인 팀</span><span class="chip" lang="en">Team of 4</span>
-              <span class="chip" lang="ko">2026년 1학기</span><span class="chip" lang="en">Spring 2026</span>
-              <span class="chip">R</span><span class="chip">DCE</span>
-            </div>
-            <dl class="pdr" lang="ko">
-              <dt>질문</dt>
-              <dd><span class="u">사용자는 생성형 AI 구독에서</span> <span class="u">가격, 정확도, 보안, 개인화, 전문성 중 무엇을 더 중요하게 볼까요?</span></dd>
-              <dt>방법</dt>
-              <dd><span class="s">이산선택실험 설문을 설계했습니다.</span><span class="s"><span class="u">유효 응답자 113명의 데이터로</span> <span class="u">팀이 함께 모형을 추정했습니다.</span></span></dd>
-              <dt>결과</dt>
-              <dd><span class="s"><span class="u">전문성의 상대적 중요도가</span> <span class="u">26.4%로 가장 높았습니다.</span></span><span class="s"><span class="u">실제 구매나 전환율과는</span> <span class="u">구분해서 해석했습니다.</span></span></dd>
-            </dl>
-            <dl class="pdr" lang="en">
-              <dt>Question</dt>
-              <dd>In a generative AI subscription, what do users weigh most: price, accuracy, security, personalization, or expertise?</dd>
-              <dt>Method</dt>
-              <dd>Designed a discrete choice survey; the team estimated the model together with data from 113 valid respondents.</dd>
-              <dt>Result</dt>
-              <dd>Expertise had the highest relative importance at 26.4%. We kept this apart from real purchase or conversion rates.</dd>
-            </dl>
-            <a class="case-link" href="projects/subscription/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        <a class="pj reveal" href="projects/jverdict/" data-peek="assets/img/shots/jv-s04_verdictA_top.webp|assets/img/shots/jv-s19_accuracy.webp" data-peek-kind="wide">
+          <div class="pj-media wide">
+            <img src="assets/img/shots/jv-s04_verdictA_top.webp" alt="J-Verdict 판정서 화면" loading="lazy" width="1200" height="675" />
           </div>
-        </article>
+          <div class="pj-body">
+            <h3>J-Verdict</h3>
+            <p class="desc" lang="ko">정책이 정말 효과가 있었는지 스스로 설계하고 검증해 판정하는 AI Agent</p>
+            <p class="desc" lang="en">An AI agent that designs, checks and judges whether a policy really worked</p>
+            <p class="aw plain"><i class="fa-solid fa-flag" aria-hidden="true"></i><span lang="ko">제주 AI·빅데이터 AI Agent 챌린지 출품</span><span lang="en">Jeju AI Agent Challenge entry</span></p>
+          </div>
+        </a>
+
+        <a class="pj reveal" href="projects/subscription/" data-peek="assets/img/shots/sub-importance.svg" data-peek-kind="wide">
+          <div class="pj-media wide">
+            <img src="assets/img/shots/sub-importance.svg" alt="생성형 AI 구독 속성별 상대적 중요도" loading="lazy" width="640" height="400" />
+          </div>
+          <div class="pj-body">
+            <h3><span lang="ko">생성형 AI 구독 모델 분석</span><span lang="en">Generative AI Subscription Study</span></h3>
+            <p class="desc" lang="ko">사용자가 구독에서 무엇을 더 중요하게 보는지 선택 실험으로 측정</p>
+            <p class="desc" lang="en">A choice experiment on what users value most in an AI subscription</p>
+            <p class="aw plain"><i class="fa-solid fa-users" aria-hidden="true"></i><span lang="ko">4인 팀 · 유효 응답 113명</span><span lang="en">Team of 4 · 113 respondents</span></p>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -738,46 +678,58 @@
         <p class="sec-kicker">More</p>
         <h2 class="sec-title" lang="ko">그 밖의 프로젝트와 활동</h2>
         <h2 class="sec-title" lang="en">Other projects and activities</h2>
+        <p class="sec-desc" lang="ko">마우스를 올리면 짧은 설명과 링크가 나옵니다.</p>
+        <p class="sec-desc" lang="en">Hover for a short note and link.</p>
       </div>
-      <div class="more-grid">
-        <div class="mini reveal">
-          <span class="when">2026.10</span>
-          <h3><span lang="ko">빅콘테스트 AI데이터활용 캡스톤</span><span lang="en">BigContest AI Data Capstone</span><span class="lead-tag" lang="ko">팀장</span><span class="lead-tag" lang="en">Lead</span></h3>
-          <p lang="ko"><span class="s">팀장으로 사회적 고립 예방 AI 에이전트를 기획해</span><span class="s">빅콘테스트에 제출했습니다.</span></p>
-          <p lang="en">Led the team that planned and submitted an AI agent for preventing social isolation.</p>
+      <div class="oth-grid reveal">
+        <div class="oth" tabindex="0">
+          <div class="oth-top"><span class="when">2026.10</span><h3><span lang="ko">빅콘테스트 AI데이터활용 캡스톤</span><span lang="en">BigContest AI Data Capstone</span><span class="lead-tag" lang="ko">팀장</span><span class="lead-tag" lang="en">Lead</span></h3></div>
+          <div class="oth-pop">
+            <p lang="ko"><span class="u">통신, 카드 집계 데이터로 고립 위험 신호를 찾고</span> <span class="u">복지 인력 배분을 제안하는 AI 에이전트를 기획해 제출했습니다.</span></p>
+            <p lang="en">Led the team that built an AI agent spotting isolation risk in aggregated telecom and card data and proposing welfare staff allocation.</p>
+            <a href="https://github.com/13JVV/capstone-overview" target="_blank" rel="noopener"><span lang="ko">프로젝트 소개</span><span lang="en">Overview</span> ↗</a>
+          </div>
         </div>
-        <div class="mini reveal">
-          <span class="when">2026.03</span>
-          <h3><span lang="ko">교내 AI 문제해결 경진대회</span><span lang="en">Campus AI Problem-Solving Contest</span><span class="lead-tag" lang="ko">팀장</span><span class="lead-tag" lang="en">Lead</span></h3>
-          <p lang="ko"><span class="u">캠퍼스 안전 문제에 대해</span> <span class="u">순찰과 정비 의사결정 구조, 관제 흐름을 제안했습니다.</span></p>
-          <p lang="en">Proposed a patrol and maintenance decision structure and a monitoring flow for campus safety.</p>
-          <a href="projects/campus/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+        <div class="oth" tabindex="0">
+          <div class="oth-top"><span class="when">2026.03</span><h3><span lang="ko">교내 AI 문제해결 경진대회</span><span lang="en">Campus AI Problem-Solving Contest</span><span class="lead-tag" lang="ko">팀장</span><span class="lead-tag" lang="en">Lead</span></h3></div>
+          <div class="oth-pop">
+            <p lang="ko"><span class="u">캠퍼스 후문 안전 문제를 순찰과 정비의 자원 배분 문제로 정의하고</span> <span class="u">관제 흐름을 제안했습니다.</span></p>
+            <p lang="en">Reframed campus safety as patrol and repair resource allocation and proposed a monitoring flow.</p>
+            <a href="projects/campus/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+          </div>
         </div>
-        <div class="mini reveal">
-          <span class="when">2026.03 ~</span>
-          <h3>GoodGoodLawyer</h3>
-          <p lang="ko">부동산 법률정보 웹서비스를 혼자 기획하고 개발해 배포했습니다.</p>
-          <p lang="en">Planned, built, and deployed a real estate legal information web service on my own.</p>
+        <div class="oth" tabindex="0">
+          <div class="oth-top"><span class="when">2026.03 ~</span><h3>GoodGoodLawyer</h3></div>
+          <div class="oth-pop">
+            <p lang="ko">부동산 법률정보 웹서비스를 혼자 기획하고 개발해 배포했습니다.</p>
+            <p lang="en">Planned, built and deployed a real estate legal information site on my own.</p>
+            <span class="muted" lang="ko">의뢰인 자료가 있어 저장소와 주소는 공개하지 않습니다.</span>
+            <span class="muted" lang="en">Kept private because it holds client material.</span>
+          </div>
         </div>
-        <div class="mini reveal">
-          <span class="when"><span lang="ko">수업 프로젝트</span><span lang="en">Course project</span></span>
-          <h3><span lang="ko">생산공정 시뮬레이션</span><span lang="en">Production Process Simulation</span></h3>
-          <p lang="ko"><span class="u">Arena로 공정 개선안을 비교하고</span> <span class="u">시뮬레이션 결과와 실제 운영 효과를 구분했습니다.</span></p>
-          <p lang="en">Compared process improvements in Arena and kept simulation results apart from real operating effects.</p>
-          <a href="projects/factory/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+        <div class="oth" tabindex="0">
+          <div class="oth-top"><span class="when"><span lang="ko">수업 프로젝트</span><span lang="en">Course project</span></span><h3><span lang="ko">생산공정 시뮬레이션</span><span lang="en">Production Process Simulation</span></h3></div>
+          <div class="oth-pop">
+            <p lang="ko"><span class="u">Arena로 공정 개선안을 비교하고</span> <span class="u">시뮬레이션 결과와 실제 운영 효과를 구분했습니다.</span></p>
+            <p lang="en">Compared process improvements in Arena and kept simulation results apart from real operating effects.</p>
+            <a href="projects/factory/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+          </div>
         </div>
-        <div class="mini reveal">
-          <span class="when"><span lang="ko">수업 프로젝트</span><span lang="en">Course project</span></span>
-          <h3><span lang="ko">강화학습 PPO</span><span lang="en">Reinforcement Learning (PPO)</span></h3>
-          <p lang="ko">LunarLander에서 PPO 설정별 학습 로그를 비교했습니다.</p>
-          <p lang="en">Compared training logs across PPO settings in LunarLander.</p>
-          <a href="projects/lunar/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+        <div class="oth" tabindex="0">
+          <div class="oth-top"><span class="when"><span lang="ko">수업 프로젝트</span><span lang="en">Course project</span></span><h3><span lang="ko">강화학습 PPO</span><span lang="en">Reinforcement Learning (PPO)</span></h3></div>
+          <div class="oth-pop">
+            <p lang="ko">LunarLander에서 PPO 설정별 학습 로그를 비교했습니다.</p>
+            <p lang="en">Compared training logs across PPO settings in LunarLander.</p>
+            <a href="projects/lunar/"><span lang="ko">사례 보기</span><span lang="en">Case study</span> →</a>
+          </div>
         </div>
-        <div class="mini reveal">
-          <span class="when">2026.07</span>
-          <h3><span lang="ko">관광데이터 활용 공모전</span><span lang="en">Tourism Data Contest</span></h3>
-          <p lang="ko">반갑꼬리로 공모전에 제출하고 발표를 마쳤습니다.</p>
-          <p lang="en">Submitted and presented Bangapkkori.</p>
+        <div class="oth" tabindex="0">
+          <div class="oth-top"><span class="when">2026.07</span><h3><span lang="ko">관광데이터 활용 공모전</span><span lang="en">Tourism Data Contest</span></h3></div>
+          <div class="oth-pop">
+            <p lang="ko">반갑꼬리로 공모전에 제출하고 발표를 마쳤습니다.</p>
+            <p lang="en">Submitted and presented Bangapkkori.</p>
+            <a href="projects/pet/"><span lang="ko">반갑꼬리 보기</span><span lang="en">See Bangapkkori</span> →</a>
+          </div>
         </div>
       </div>
     </section>
@@ -803,16 +755,22 @@
         </div>
         <div class="pcard reveal">
           <h3>Certificates</h3>
-          <ul>
-            <li><b>SQLD</b> <span class="sm">2026.03</span></li>
-            <li><b>OPIc IH</b> <span class="sm">2026.01</span></li>
-          </ul>
+          <button class="cert" type="button" data-peek="assets/proof/sqld.jpg" data-peek-kind="doc" data-zoom="assets/proof/sqld.jpg" aria-label="SQLD 자격증 보기">
+            <img src="assets/proof/sqld.jpg" alt="" />
+            <span><b>SQLD</b><span class="sm"><span lang="ko">SQL 개발자 · 2026.03</span><span lang="en">SQL Developer · Mar 2026</span></span></span>
+            <i class="fa-regular fa-eye eye" aria-hidden="true"></i>
+          </button>
+          <button class="cert" type="button" data-peek="assets/proof/opic.jpg" data-peek-kind="doc" data-zoom="assets/proof/opic.jpg" aria-label="OPIc IH 성적표 보기">
+            <img src="assets/proof/opic.jpg" alt="" />
+            <span><b>OPIc IH</b><span class="sm"><span lang="ko">영어 · 2026.01</span><span lang="en">English · Jan 2026</span></span></span>
+            <i class="fa-regular fa-eye eye" aria-hidden="true"></i>
+          </button>
         </div>
         <div class="pcard reveal">
           <h3>Tools</h3>
           <ul>
             <li><b lang="ko">제품 구현</b><b lang="en">Product</b> TypeScript, React Native, Expo, Next.js, Firebase, Claude API</li>
-            <li><b lang="ko">데이터, 실험</b><b lang="en">Data</b> Python, R, SQL, Arena</li>
+            <li><b lang="ko">데이터, 실험</b><b lang="en">Data</b> Python, R, SQL, Streamlit, Arena</li>
             <li><b lang="ko">협업</b><b lang="en">Collaboration</b> Git, GitHub, Xcode, Claude Code, Codex</li>
           </ul>
         </div>
@@ -840,23 +798,29 @@
 
   <footer>© 2026 <span lang="ko">신재우</span><span lang="en">Jaewoo Shin</span></footer>
 
+  <script src="assets/site.js"></script>
   <script>
     (function () {
       var d = document.documentElement;
-      var buttons = document.querySelectorAll('[data-set-lang]');
-      function apply(lang, save) {
-        d.setAttribute('data-lang', lang);
-        d.lang = lang;
-        document.title = lang === 'en' ? 'Jaewoo Shin | Service Planner' : '신재우 | 서비스 기획';
-        buttons.forEach(function (b) {
-          b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang));
+
+      // 숫자 카드: 누르면 아래 내용이 열리고, 같은 카드를 다시 누르면 닫힙니다.
+      var stats = document.querySelectorAll('.stat[aria-controls]');
+      stats.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var open = btn.getAttribute('aria-expanded') === 'true';
+          stats.forEach(function (b) {
+            b.setAttribute('aria-expanded', 'false');
+            document.getElementById(b.getAttribute('aria-controls')).hidden = true;
+          });
+          if (!open) {
+            btn.setAttribute('aria-expanded', 'true');
+            var panel = document.getElementById(btn.getAttribute('aria-controls'));
+            panel.hidden = false;
+            var r = panel.getBoundingClientRect();
+            if (r.bottom > window.innerHeight) panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
         });
-        if (save) { try { localStorage.setItem('portfolio-lang', lang); } catch (e) {} }
-      }
-      buttons.forEach(function (b) {
-        b.addEventListener('click', function () { apply(b.getAttribute('data-set-lang'), true); });
       });
-      apply(d.getAttribute('data-lang') === 'en' ? 'en' : 'ko', false);
 
       // 이메일: HTML에는 [at] 형태로 두고, 화면에서만 실제 주소로 바꿉니다.
       var mail = ['sjwtlswodn', 'gmail.com'].join('@');
@@ -882,14 +846,6 @@
         }, { rootMargin: '-45% 0px -50% 0px' });
         ['how', 'projects', 'more', 'contact'].forEach(function (id) { var el = document.getElementById(id); if (el) navIo.observe(el); });
       }
-
-      // 스크롤하면 섹션이 부드럽게 나타납니다.
-      var items = document.querySelectorAll('.reveal');
-      if (!('IntersectionObserver' in window)) { items.forEach(function (el) { el.classList.add('in'); }); return; }
-      var io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-      }, { rootMargin: '0px 0px -8% 0px' });
-      items.forEach(function (el) { io.observe(el); });
     })();
   </script>
 

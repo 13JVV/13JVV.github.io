@@ -1,679 +1,705 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>반갑꼬리 개발 기록</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>반갑꼬리 | 신재우</title>
+  <meta name="description" content="반갑꼬리: 우리 아이의 몸무게와 품종으로 시설 출입 조건을 근거 원문과 함께 판별하는 반려동물 동반여행 앱. 2026 관광데이터 활용 공모전 출품작." />
+  <meta property="og:title" content="반갑꼬리 | 신재우 포트폴리오" />
+  <meta property="og:image" content="https://13jvv.github.io/assets/img/shots/pet-02-check.webp" />
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pretendard@1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;600;700&display=swap" />
+  <link rel="stylesheet" href="../../assets/base.css" />
+  <link rel="stylesheet" href="../../assets/case.css" />
+  <style>
+    /* 판별 상태 색 */
+    .case-page { --ok: #1f7a4d; --ok-bg: #e5f4ec; --cd: #8a5300; --cd-bg: #fdf1d6; --no: #8e1f2b; --no-bg: #fbe4e2; --ask: #3d5a80; --ask-bg: #e6eef8; }
+    .vd { display: inline-flex; align-items: center; gap: 6px; font: 700 12.5px/1 var(--sans); padding: 6px 10px; border-radius: 999px; white-space: nowrap; }
+    .vd i { font-size: 11px; }
+    .vd.ok { color: var(--ok); background: var(--ok-bg); }
+    .vd.cd { color: var(--cd); background: var(--cd-bg); }
+    .vd.no { color: var(--no); background: var(--no-bg); }
+    .vd.ask { color: var(--ask); background: var(--ask-bg); }
 
-<style>
-  :root {
-    --ground: #FFFFFF;
-    --surface: #FFF7FA;
-    --ink: #2A2530;
-    --muted: #857E8C;
-    --line: #F0E4EA;
-    --line-firm: #E4D3DC;
-    --accent: #E86397;
-    --accent-deep: #C4457A;
-    --accent-wash: #FDEFF5;
-    --good: #2E9E6B;
-    --warn: #C98A2E;
+    /* 직접 써 보기 */
+    .pk { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 20px; align-items: start; }
+    .pk-form { display: grid; gap: 14px; padding: 18px; border-radius: 16px; background: var(--bg-soft); border: 1px solid var(--line); position: sticky; top: 76px; }
+    .pk-form .field > span { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .pk-form .field small { font-weight: 500; font-size: 12px; color: var(--ink-3); }
+    .pk-form input, .pk-form select { width: 100%; min-width: 0; }
+    .pk-form .seg button { padding: 9px 12px; }
+    .pk-two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .kg { position: relative; }
+    .kg input { padding-right: 38px; }
+    .kg em { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font: 600 13px/1 var(--sans); color: var(--ink-3); font-style: normal; pointer-events: none; }
+    .pk-presets { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 12px; border-top: 1px dashed var(--line-2); }
+    .pk-presets b { width: 100%; font-size: 12.5px; color: var(--ink-3); }
+    .pk-presets button { appearance: none; cursor: pointer; font: 600 12.5px/1 var(--sans); padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line-2); background: #fff; color: var(--ink-2); }
+    .pk-presets button:hover { border-color: var(--wine); color: var(--wine); }
 
-    --sans: 'IBM Plex Sans KR', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', sans-serif;
-    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
+    .pk-sum { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; margin: 0 0 12px; font-size: 14px; color: var(--ink-2); }
+    .pk-sum b { margin-right: 4px; color: var(--ink); }
+    .pk-list { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+    .fac { border: 1px solid var(--line); border-radius: 14px; background: #fff; padding: 14px 16px; transition: border-color .2s; }
+    .fac.flash { animation: flash .5s ease; }
+    @keyframes flash { from { box-shadow: 0 0 0 3px rgba(226, 112, 44, .25); } to { box-shadow: 0 0 0 0 rgba(226, 112, 44, 0); } }
+    .fac-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .fac-head h3 { margin: 0; font-size: 15.5px; letter-spacing: -.2px; }
+    .fac-head .meta { display: block; font-size: 12.5px; color: var(--ink-3); font-weight: 500; margin-top: 2px; }
+    .src { margin: 0; padding: 10px 12px; border-radius: 10px; background: var(--bg-soft); display: grid; gap: 6px; font-size: 14px; line-height: 1.6; color: var(--ink-2); }
+    .src div { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 8px; }
+    .src dt { font-size: 12px; font-weight: 700; color: var(--ink-3); padding-top: 2px; }
+    .src dd { margin: 0; word-break: keep-all; overflow-wrap: anywhere; }
+    .src .none { color: var(--ink-3); font-style: italic; }
+    .src mark { border-radius: 4px; padding: 1px 2px; color: inherit; font-weight: 700; }
+    .src mark.ok { background: var(--ok-bg); color: var(--ok); }
+    .src mark.bad { background: var(--no-bg); color: var(--no); text-decoration: underline wavy rgba(142, 31, 43, .45); text-underline-offset: 3px; }
+    .src mark.cond { background: var(--cd-bg); color: var(--cd); }
+    .src mark.ask { background: var(--ask-bg); color: var(--ask); }
+    .why { margin: 10px 0 0; font-size: 14px; font-weight: 700; color: var(--ink); display: flex; gap: 8px; align-items: baseline; }
+    .why i { color: var(--orange); font-size: 12px; }
+    .det { margin: 4px 0 0 20px; font-size: 12.5px; color: var(--ink-3); }
+    .gear { display: flex; flex-wrap: wrap; gap: 5px; margin: 8px 0 0 20px; align-items: center; font-size: 12.5px; color: var(--ink-3); }
+    .gear span { font-weight: 700; color: var(--cd); background: var(--cd-bg); border-radius: 6px; padding: 3px 7px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 12px 0 0; font-size: 12.5px; color: var(--ink-3); }
+    .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+    .legend .l-ok::before { background: var(--ok-bg); border: 1px solid var(--ok); }
+    .legend .l-bad::before { background: var(--no-bg); border: 1px solid var(--no); }
+    .legend .l-cond::before { background: var(--cd-bg); border: 1px solid var(--cd); }
+    .legend .l-ask::before { background: var(--ask-bg); border: 1px solid var(--ask); }
 
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --ground: #15121A;
-      --surface: #1D1824;
-      --ink: #F3EEF5;
-      --muted: #A69EAE;
-      --line: #2E2637;
-      --line-firm: #3D3347;
-      --accent: #F07FAB;
-      --accent-deep: #F5A3C4;
-      --accent-wash: #2A1F28;
-      --good: #4FBF8B;
-      --warn: #E0A94F;
+    /* 판별 상태 정의 */
+    .states { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .states .card p { margin-top: 10px; }
+
+    /* 두 화면안 */
+    .two-plans .card.pick { border-color: var(--orange); box-shadow: 0 10px 26px -18px rgba(226, 112, 44, .7); }
+    .two-plans .card .tag.pick { color: #fff; background: var(--orange); padding: 5px 8px; border-radius: 6px; }
+
+    /* 화면 */
+    .phones-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 180px)); gap: 28px 48px; justify-content: center; }
+    .phones-grid .fig { max-width: 180px; width: 100%; }
+    .phones-grid .fig img { background: #fff; }
+
+    .case-page .card .tag { font-family: var(--sans); font-weight: 700; font-size: 12px; }
+    code { font: 500 .88em/1 var(--mono); background: var(--bg-soft); border: 1px solid var(--line); padding: 2px 5px; border-radius: 5px; overflow-wrap: anywhere; }
+
+    @media (max-width: 960px) {
+      .pk { grid-template-columns: 1fr; }
+      .pk-form { position: static; }
+      .states { grid-template-columns: 1fr 1fr; }
     }
-  }
-
-  :root[data-theme="dark"] {
-    --ground: #15121A;
-    --surface: #1D1824;
-    --ink: #F3EEF5;
-    --muted: #A69EAE;
-    --line: #2E2637;
-    --line-firm: #3D3347;
-    --accent: #F07FAB;
-    --accent-deep: #F5A3C4;
-    --accent-wash: #2A1F28;
-    --good: #4FBF8B;
-    --warn: #E0A94F;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    background: var(--ground);
-    color: var(--ink);
-    font-family: var(--sans);
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.75;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .page {
-    max-width: 840px;
-    margin: 0 auto;
-    padding: 64px 28px 96px;
-  }
-
-  /* ── 머리말 ─────────────────────────────── */
-  .eyebrow {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 18px;
-  }
-
-  h1 {
-    font-size: clamp(34px, 6vw, 50px);
-    font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
-    margin: 0 0 20px;
-    text-wrap: balance;
-  }
-
-  .lede {
-    font-size: 19px;
-    font-weight: 300;
-    line-height: 1.7;
-    color: var(--muted);
-    margin: 0 0 40px;
-    max-width: 62ch;
-  }
-
-  .lede strong { color: var(--ink); font-weight: 500; }
-
-  /* ── 메타 ─────────────────────────────── */
-  .meta {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 56px;
-  }
-
-  .meta div { background: var(--ground); padding: 16px 18px; }
-
-  .meta dt {
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 5px;
-  }
-
-  .meta dd { margin: 0; font-size: 15px; font-weight: 500; }
-
-  /* ── 섹션 ─────────────────────────────── */
-  section { margin-bottom: 60px; }
-
-  h2 {
-    font-size: 13px;
-    font-family: var(--mono);
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 6px;
-  }
-
-  .h2sub {
-    font-size: 25px;
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    margin: 0 0 26px;
-    text-wrap: balance;
-  }
-
-  p { margin: 0 0 18px; max-width: 66ch; }
-  p:last-child { margin-bottom: 0; }
-
-  /* ── 지표 ─────────────────────────────── */
-  .figures {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(128px, 1fr));
-    gap: 28px 20px;
-    padding: 28px 0;
-    border-top: 1px solid var(--line-firm);
-    border-bottom: 1px solid var(--line-firm);
-  }
-
-  .fig b {
-    display: block;
-    font-family: var(--mono);
-    font-size: 30px;
-    font-weight: 500;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-    line-height: 1.1;
-  }
-
-  .fig span {
-    display: block;
-    font-size: 13px;
-    color: var(--muted);
-    margin-top: 5px;
-  }
-
-  /* ── 판단 사례 ─────────────────────────── */
-  .case {
-    border-top: 1px solid var(--line);
-    padding-top: 26px;
-    margin-bottom: 34px;
-  }
-
-  .case:last-child { margin-bottom: 0; }
-
-  .case-tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 8px;
-  }
-
-  .case h3 {
-    font-size: 20px;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-    margin: 0 0 16px;
-    text-wrap: balance;
-  }
-
-  .step { display: flex; gap: 14px; margin-bottom: 13px; }
-  .step:last-child { margin-bottom: 0; }
-
-  .step-k {
-    flex: 0 0 46px;
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--accent);
-    padding-top: 5px;
-  }
-
-  .step-v { flex: 1; margin: 0; max-width: none; }
-  .step-v strong { font-weight: 600; }
-
-  /* ── 코드 ─────────────────────────────── */
-  pre {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 4px;
-    padding: 14px 16px;
-    margin: 14px 0 0;
-    overflow-x: auto;
-    font-family: var(--mono);
-    font-size: 12.5px;
-    line-height: 1.65;
-  }
-
-  pre b { color: var(--accent-deep); font-weight: 600; }
-  pre i { color: var(--muted); font-style: normal; }
-
-  code {
-    font-family: var(--mono);
-    font-size: 0.88em;
-    background: var(--accent-wash);
-    padding: 1px 5px;
-    border-radius: 3px;
-  }
-
-  /* ── 목록 ─────────────────────────────── */
-  .rows { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
-  .row { background: var(--ground); padding: 14px 18px; display: flex; gap: 16px; align-items: baseline; }
-  .row-k { flex: 0 0 104px; font-size: 13px; color: var(--muted); font-family: var(--mono); }
-  .row-v { flex: 1; font-size: 14.5px; }
-
-  ul { margin: 0; padding-left: 18px; max-width: 66ch; }
-  li { margin-bottom: 9px; }
-  li:last-child { margin-bottom: 0; }
-
-  /* ── 상태 배지 ─────────────────────────── */
-  .state {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 2px 8px;
-    border-radius: 3px;
-    border: 1px solid currentColor;
-    white-space: nowrap;
-  }
-
-  .state.done { color: var(--good); }
-  .state.wait { color: var(--warn); }
-
-  .note {
-    font-size: 14px;
-    color: var(--muted);
-    border-left: 2px solid var(--line-firm);
-    padding-left: 16px;
-    margin: 20px 0 0;
-    max-width: 62ch;
-  }
-
-  footer {
-    margin-top: 76px;
-    padding-top: 22px;
-    border-top: 1px solid var(--line);
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  @media (max-width: 560px) {
-    .page { padding: 44px 20px 72px; }
-    .step { flex-direction: column; gap: 3px; }
-    .step-k { flex: none; padding-top: 0; }
-    .row { flex-direction: column; gap: 3px; }
-    .row-k { flex: none; }
-  }
-
-  /* 제목 다음에 읽는 의사결정 흐름: 이 figure 안에서만 적용 */
-  .case-decision-figure {
-    margin: 0 0 22px;
-    padding: 16px;
-    border: 1px solid var(--line-firm);
-    border-radius: 8px;
-    background: var(--surface);
-    color: var(--ink);
-  }
-  .case-decision-figure .case-decision-track {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 18px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .case-decision-figure .case-decision-step {
-    position: relative;
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-  }
-  .case-decision-figure .case-decision-step + .case-decision-step::before {
-    content: "";
-    position: absolute;
-    left: -13px;
-    top: 31px;
-    width: 6px;
-    height: 6px;
-    border-top: 1px solid var(--accent-deep);
-    border-right: 1px solid var(--accent-deep);
-    transform: rotate(45deg);
-  }
-  .case-decision-figure .case-decision-label {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--accent-deep);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .08em;
-  }
-  .case-decision-figure .case-decision-step strong {
-    display: block;
-    margin-bottom: 7px;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 1.5;
-    word-break: keep-all;
-  }
-  .case-decision-figure .case-decision-step p {
-    margin: 0;
-    color: var(--ink);
-    font-size: 12px;
-    line-height: 1.65;
-    word-break: keep-all;
-    overflow-wrap: anywhere;
-  }
-  .case-decision-figure .case-decision-boundary {
-    margin: 14px 0 0;
-    padding-top: 11px;
-    border-top: 1px solid var(--line-firm);
-    color: var(--ink);
-    font-size: 11.5px;
-    line-height: 1.6;
-  }
-  .case-decision-figure figcaption {
-    margin-top: 8px;
-    color: var(--muted);
-    font-size: 10.5px;
-    line-height: 1.6;
-  }
-  @media (max-width: 620px) {
-    .case-decision-figure .case-decision-track {
-      grid-template-columns: 1fr;
-      gap: 22px;
+    @media (max-width: 720px) {
+      .shots.phones img { width: 104px; }
+      .shots.phones { gap: 8px; }
+      .states { grid-template-columns: 1fr; }
+      .src div { grid-template-columns: 1fr; gap: 0; }
+      .det { display: none; }
+      .gear { margin-left: 0; }
+      .phones-grid { grid-template-columns: 1fr 1fr; gap: 18px 14px; }
     }
-    .case-decision-figure .case-decision-step + .case-decision-step::before {
-      left: 3px;
-      top: -15px;
-      transform: rotate(135deg);
-    }
-    .case-decision-figure .case-decision-label { margin-bottom: 3px; }
-    .case-decision-figure .case-decision-step strong { margin-bottom: 3px; }
-  }
-
-</style>
-<link rel="stylesheet" href="../../project-navigation.css">
+  </style>
 </head>
-<body>
-<div class="portfolio-return" role="navigation" aria-label="포트폴리오"><a href="../../#projects">← 프로젝트 목록</a></div>
+<body class="case-page">
 
-<div class="page">
-
-  <p class="eyebrow">2026 관광데이터 활용 공모전 · 지정과제 6</p>
-  <h1>반갑꼬리</h1>
-  <figure class="case-decision-figure" aria-label="반갑꼬리 의사결정 흐름">
-    <ol class="case-decision-track">
-      <li class="case-decision-step">
-        <span class="case-decision-label">01 / 문제</span>
-        <strong>동반 조건 불명확</strong>
-        <p>몸무게·품종·이용 구역의 조건이 문장마다 다름</p>
-      </li>
-      <li class="case-decision-step">
-        <span class="case-decision-label">02 / 선택</span>
-        <strong>조건을 규칙으로</strong>
-        <p>시설 조건을 구조화해 반려동물 정보와 대조</p>
-      </li>
-      <li class="case-decision-step">
-        <span class="case-decision-label">03 / 검토</span>
-        <strong>확인 필요를 구분</strong>
-        <p>모호함·조건 없음은 ‘가능’으로 단정하지 않음</p>
-      </li>
-    </ol>
-    <p class="case-decision-boundary">실기기·API 연결 확인과 현장 입장 가능 여부는 별개이며, 모호한 조건은 방문 전 확인이 필요합니다.</p>
-    <figcaption>본문을 바탕으로 재구성한 의사결정 흐름입니다. 효과를 측정한 도표가 아닙니다.</figcaption>
-  </figure>
-  <p class="lede">
-    "반려동물 동반 가능"이라고 적혀 있어도 막상 가면 다릅니다. 10kg까지만, 소형견만, 실외 좌석만 —
-    조건은 제각각인데 어디에도 정리돼 있지 않습니다. <strong>우리 아이의 몸무게와 품종을 기준으로
-    시설의 동반 조건을 근거와 함께 확인하는 앱</strong>을 만들었습니다.
-  </p>
-
-  <dl class="meta">
-    <div><dt>역할</dt><dd>프론트엔드 · 기능/DB 설계</dd></div>
-    <div><dt>팀</dt><dd>3인 (본인, 백엔드 2)</dd></div>
-    <div><dt>기간</dt><dd>2026.07 – 진행 중</dd></div>
-    <div><dt>배포</dt><dd><a href="https://apps.apple.com/kr/app/%EB%B0%98%EA%B0%91%EA%BC%AC%EB%A6%AC/id6810158091" target="_blank" rel="noopener">App Store 1.1.4 공개 ↗</a></dd></div>
-  </dl>
-
-  <section>
-    <div class="figures">
-      <div class="fig"><b>48,786</b><span>분석한 관광공사 시설 데이터</span></div>
-      <div class="fig"><b>43/44</b><span>라이브 API 연동</span></div>
-      <div class="fig"><b>26</b><span>화면</span></div>
-      <div class="fig"><b>20,218</b><span>TypeScript 줄</span></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Problem</h2>
-    <p class="h2sub">데이터는 있는데, 답이 안 나온다</p>
-    <p>
-      한국관광공사 반려동물 동반여행 데이터에는 4만 8천여 곳이 있습니다. 그런데 이 프로젝트의 DB 분류에서
-      <strong>조건을 파싱한 곳은 626건, 약 1.3%</strong>였습니다. "일부 구역 동반가능",
-      "10kg 미만 소형견에 한함" 같은 문장을 규칙으로 바꾸되, 모호하거나 조건이 없는 데이터는 구분해야 했습니다.
-    </p>
-    <p>
-      그래서 이 앱의 핵심은 지도가 아니라 <strong>판별</strong>입니다. 자연어 조건을 파싱해
-      규칙으로 바꾸고, 등록된 반려동물의 몸무게·품종과 대조해 "가능 / 조건부 / 어려움"을
-      근거와 함께 보여줍니다.
-    </p>
-    <p class="note">
-      DB 실측 기준 <code>PARSED</code> 626건(1.28%) · <code>AMBIGUOUS</code> 468건(0.96%) ·
-      <code>NO_CONDITION</code> 47,692건(97.76%). 조건이 없는 97%를 "가능"으로 단정하지 않는 것이
-      이 서비스의 설계 전제입니다. 분류 비율은 데이터의 상태를 나타내며, 판별 정확도나 실제 입장 가능 비율이 아닙니다.
-    </p>
-  </section>
-
-  <section>
-    <h2>Planning</h2>
-    <p class="h2sub">지도보다 먼저 ‘조건을 믿을 수 있는가’를 정했습니다</p>
-    <p>3인 팀 프로젝트에서 핵심 기능을 <strong>자연어 조건 파싱</strong>으로 좁혔습니다. 검색·리뷰·게임 요소를 모두 동시에 키우기보다, “우리 강아지가 실제로 들어갈 수 있는가”에 답하는 데이터 흐름을 P0로 두고 탐색 화면과 부가 기능은 그 결과를 설명하는 범위에서 확장했습니다.</p>
-    <div class="rows">
-      <div class="row"><div class="row-k">P0 · 판별</div><div class="row-v">시설 원문 → 조건 파싱 → 반려동물 몸무게·품종 대조 → 가능 / 조건부 / 어려움과 근거 표시</div></div>
-      <div class="row"><div class="row-k">P1 · 탐색</div><div class="row-v">지역·지도·코스·리뷰를 붙이되, 파싱되지 않은 조건은 “확인 필요”로 남겨 과장하지 않기</div></div>
-      <div class="row"><div class="row-k">결정 방식</div><div class="row-v">시설상세 카드에 파싱 키워드를 전부 노출할지 팀원과 의견이 갈렸을 때, 두 버전을 직접 구현해 비교한 뒤 상세페이지로 옮기는 팀원 판단을 채택</div></div>
-    </div>
-    <p class="note">말로 설득하는 대신 두 안을 실제 화면으로 만들어 정보 밀도와 사용 흐름을 비교했습니다. 팀원의 판단이 더 나았다는 걸 인정하고 기획을 수정한 협업 사례입니다.</p>
-  </section>
-
-  <section>
-    <h2>AI Agent Development</h2>
-    <p class="h2sub">자연어를 규칙으로 바꾸는 과정을 쪼개서 지시했습니다</p>
-    <p>Claude Code와 Codex에는 파싱 로직과 화면 연동을 한 번에 만들라고 하지 않고, <strong>원문 정규화 → 키워드 추출 → 구조화된 조건 저장 → 반려동물 프로필과 판정 → 설명 문구 생성</strong> 순서로 나눠 지시했습니다. 각 단계에서 예시 문장과 예외 케이스를 먼저 확인하게 하고, 실제 관광 데이터로 결과를 다시 대조했습니다.</p>
-    <div class="rows">
-      <div class="row"><div class="row-k">Prompt</div><div class="row-v">“10kg 미만·소형견·실외만·리드줄 필수처럼 서로 다른 표현을 같은 조건 필드로 정규화하고, 근거 원문을 함께 보존하라.”</div></div>
-      <div class="row"><div class="row-k">반복 작업</div><div class="row-v">파싱 fixture 생성, TypeScript 타입·API 응답 계약 정리, 48,786건 상태 분류 결과의 누락·중복 검사</div></div>
-      <div class="row"><div class="row-k">직접 판단</div><div class="row-v">조건이 없다고 “가능”으로 단정하지 않기, 애매한 문장은 사용자 확인으로 보내기, 팀원이 제안한 카드 정보 구조를 비교 후 채택하기</div></div>
-    </div>
-  </section>
-
-  <section>
-    <h2>Scope</h2>
-    <p class="h2sub">맡은 범위</p>
-    <div class="rows">
-      <div class="row"><div class="row-k">앱 전체</div><div class="row-v">Expo · React Native · TypeScript. 화면 26개, 공용 컴포넌트 37개</div></div>
-      <div class="row"><div class="row-k">API 연동</div><div class="row-v">라이브 44개 중 43개. 미연동 1개는 QR 검증 페이지로 앱이 부를 일이 없는 엔드포인트</div></div>
-      <div class="row"><div class="row-k">설계</div><div class="row-v">기능 명세 · DB 스키마 · 조건 파싱 파이프라인 · 게이미피케이션</div></div>
-      <div class="row"><div class="row-k">배포</div><div class="row-v">EAS 빌드 · App Store Connect · TestFlight · 소셜 로그인 4종 콘솔 등록</div></div>
-    </div>
-    <p class="note">백엔드(Spring)는 팀원 2명이 맡았습니다. 아래 판단 사례는 모두 앱과 연동 층에서 내린 것입니다.</p>
-  </section>
-
-  <section>
-    <h2>Decisions</h2>
-    <p class="h2sub">실데이터와 실기기에서 막힌 흐름을 고친 과정</p>
-
-    <div class="case">
-      <p class="case-tag">Resilience</p>
-      <h3>모듈 하나가 없다고 앱 전체가 죽지 않게</h3>
-      <div class="step">
-        <div class="step-k">상황</div>
-        <p class="step-v">푸시 알림을 붙인 뒤 팀 개발 빌드에서 앱이 <strong>시작조차 못 했습니다.</strong>
-        <code>Native module NativeRNFBTurboApp is not registered</code>. Firebase·expo-notifications는
-        import되는 순간 네이티브 모듈을 찾는데, 그 파일이 스토어 → 테마 → 탭 레이아웃으로 이어지는
-        최상위 의존이라 화면 하나가 아니라 앱이 통째로 뜨지 않았습니다.</p>
-      </div>
-      <div class="step">
-        <div class="step-k">판단</div>
-        <p class="step-v">재빌드로 덮지 않고 <strong>구조로 막았습니다.</strong> 실제로 쓸 때만 안에서
-        require하고, 그 전에 모듈이 있는지부터 확인합니다.</p>
-      </div>
-      <div class="step">
-        <div class="step-k">근거</div>
-        <p class="step-v"><code>try/catch</code>만으로는 부족했습니다. Metro가 모듈 로드 실패를
-        <strong>먼저 기록해 에러 화면을 띄우기 때문에</strong>, 예외를 잡았을 땐 이미 화면이 떠 있습니다.
-        던지지 않고 확인만 하는 API가 따로 있어 그걸 씁니다.</p>
-        <pre><i>// expo-modules와 TurboModule은 확인 방법이 다르다</i>
-<b>requireOptionalNativeModule</b>('ExpoPushTokenManager') != null &&
-<b>TurboModuleRegistry.get</b>('NativeRNFBTurboApp') != null</pre>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="../../">
+        <span class="logo" aria-hidden="true">JW</span>신재우
+        <span class="role">서비스 기획</span>
+      </a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="../../#how">일하는 방식</a>
+          <a href="../../#projects" class="active">프로젝트</a>
+          <a href="../../#more">그 밖의 활동</a>
+          <a href="../../#contact">연락</a>
+        </div>
       </div>
     </div>
+  </nav>
 
-    <div class="case">
-      <p class="case-tag">Trust</p>
-      <h3>보내지 않은 것을 보냈다고 말하지 않기</h3>
-      <div class="step">
-        <div class="step-k">상황</div>
-        <p class="step-v">「사업자에게 확인 요청」을 누르면 <strong>"보냈어요"가 떴지만 아무 데도 가지
-        않았습니다.</strong> 로컬 상태만 바뀌는 코드였고, 서버에 그런 엔드포인트가 없었습니다.
-        「제보하기」도 같은 상태였습니다.</p>
-      </div>
-      <div class="step">
-        <div class="step-k">판단</div>
-        <p class="step-v">제보는 <strong>서버 전송을 붙였고</strong>, 붙일 데가 없는 확인 요청은
-        문구를 사실에 맞게 낮췄습니다. 완료 화면이 1.6초 만에 자동으로 닫히던 것도 확인 버튼으로 바꿨습니다 —
-        무슨 일이 일어났는지 읽을 시간이 없었습니다.</p>
-      </div>
-      <div class="step">
-        <div class="step-k">근거</div>
-        <p class="step-v">제보 종류 셋 중 <strong>「실제로는 입장됐어요」만 서버에 보내지 않습니다.</strong>
-        거부의 반대인데 거부 제보로 보내면 그 시설을 보려던 다른 사용자에게 <strong>없던 경고가 뜹니다.</strong>
-        기능을 붙이는 것보다 데이터를 오염시키지 않는 게 먼저였습니다.</p>
-      </div>
-    </div>
+  <main class="wrap">
+    <a class="back" href="../../#projects"><i class="fa-solid fa-arrow-left" aria-hidden="true"></i>프로젝트 목록</a>
 
-    <div class="case">
-      <p class="case-tag">Constraint</p>
-      <h3>인증을 강제하지 않는 인증</h3>
-      <div class="step">
-        <div class="step-k">상황</div>
-        <p class="step-v">여권 도장(방문 기록)에 GPS 현장 확인을 넣기로 했습니다. 시설 반경 안에서
-        찍었는지 확인하는 기능입니다.</p>
+    <header class="case-hero">
+      <p class="case-kicker">Project · 반려동물 동반여행 앱</p>
+      <h1>반갑꼬리</h1>
+      <p class="lede">
+        <span class="s">“반려동물 동반 가능”이라고 적혀 있어도 막상 가면 조건이 다릅니다.</span>
+        <span class="s"><span class="u">우리 아이의 몸무게와 품종으로</span> <span class="u">시설 출입 조건을 근거 원문과 함께 판별해 주는</span> <span class="u">반려동물 동반여행 앱입니다.</span></span>
+      </p>
+      <p class="award-line"><i class="fa-solid fa-flag" aria-hidden="true"></i>2026 관광데이터 활용 공모전 출품작 (지정과제 6), App Store 공개</p>
+      <div class="chips">
+        <span class="chip role">프론트엔드, 기능과 DB 설계, 배포</span>
+        <span class="chip">3인 팀 (본인 + 백엔드 2명)</span>
+        <span class="chip">2026.07 ~</span>
+        <span class="chip">Expo</span><span class="chip">React Native</span><span class="chip">TypeScript</span><span class="chip">Claude API</span>
       </div>
-      <div class="step">
-        <div class="step-k">판단</div>
-        <p class="step-v"><strong>확인하되 막지 않습니다.</strong> 반경 밖이거나 위치를 거부해도 도장은
-        남고, 「현장」 배지만 붙지 않습니다.</p>
+      <div class="cta">
+        <a class="btn primary" href="https://apps.apple.com/kr/app/%EB%B0%98%EA%B0%91%EA%BC%AC%EB%A6%AC/id6810158091" target="_blank" rel="noopener"><i class="fa-brands fa-app-store-ios" aria-hidden="true"></i>App Store에서 보기</a>
+        <a class="btn" href="#try"><i class="fa-solid fa-hand-pointer" aria-hidden="true"></i>여기서 바로 판별해 보기</a>
+        <a class="btn" href="https://github.com/13JVV/bangapkkori-overview" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i>소개 저장소</a>
       </div>
-      <div class="step">
-        <div class="step-k">근거</div>
-        <p class="step-v">반경 밖이거나 위치 권한을 거부해도
-        <strong>기록 기능을 사용할 수 있도록 현장 배지와 분리</strong>했습니다. 현장에 없는 심사자도
-        기능을 확인할 수 있습니다. 반경 1km는 실내 GPS 오차를 고려한 기준이며,
-        현장 배지가 실제 방문이나 부정 방지를 보장하지는 않습니다.</p>
-      </div>
-    </div>
 
-    <div class="case">
-      <p class="case-tag">Build</p>
-      <h3>검증된 것을 지키는 쪽으로</h3>
-      <div class="step">
-        <div class="step-k">상황</div>
-        <p class="step-v">첫 production 빌드가 <code>Install pods</code> 단계에서 실패했습니다.
-        RN 0.75부터 Firebase iOS SDK를 Swift Package Manager로 푸는데, SPM은
-        <code>use_frameworks! :linkage =&gt; :dynamic</code>을 요구합니다.</p>
+      <div class="shots phones">
+        <figure><img src="../../assets/img/shots/pet-01-hero.webp" alt="반갑꼬리 첫 화면" data-zoom width="480" height="1044" /><figcaption>첫 화면</figcaption></figure>
+        <figure><img src="../../assets/img/shots/pet-02-check.webp" alt="AI 출입 판별 화면" data-zoom width="480" height="1044" /><figcaption>AI 출입 판별</figcaption></figure>
+        <figure><img src="../../assets/img/shots/pet-03-pass.webp" alt="동반 출입증 화면" data-zoom width="480" height="1044" /><figcaption>동반 출입증</figcaption></figure>
       </div>
-      <div class="step">
-        <div class="step-k">판단</div>
-        <p class="step-v">그 설정을 켜는 대신 <strong>Firebase만 CocoaPods로 되돌렸습니다</strong>
-        (<code>disableSPM</code>).</p>
-      </div>
-      <div class="step">
-        <div class="step-k">근거</div>
-        <p class="step-v"><code>useFrameworks</code>는 Podfile 전체에 걸립니다. 모든 네이티브 모듈의
-        링크 방식이 바뀌고, <strong>실기기에서 이미 검증을 끝낸 소셜 로그인 4종</strong>(카카오·네이버·구글·애플)을
-        전부 다시 확인해야 합니다. 마감 12일 전에 질 위험이 아니었습니다.</p>
-      </div>
-    </div>
 
-    <div class="case">
-      <p class="case-tag">Locale</p>
-      <h3>한글에서만 드러나는 결함</h3>
-      <div class="step">
-        <div class="step-k">상황</div>
-        <p class="step-v">실기기에서 시설 이름의 <strong>글자 윗부분이 수평으로 잘려</strong> 나왔습니다.
-        시뮬레이터와 웹에서는 멀쩡했습니다.</p>
+      <div class="facts">
+        <div class="fact"><div class="n">48,786<small>건</small></div><div class="l">분류한 한국관광공사 반려동물 동반여행 시설 데이터</div></div>
+        <div class="fact"><div class="n">1.3<small>%</small></div><div class="l">조건을 규칙으로 읽을 수 있던 시설 (626건)</div></div>
+        <div class="fact"><div class="n">26<small>개</small></div><div class="l">직접 구현한 앱 화면</div></div>
+        <div class="fact"><div class="n">43<small>/44</small></div><div class="l">앱에 연동한 라이브 API</div></div>
       </div>
-      <div class="step">
-        <div class="step-k">판단</div>
-        <p class="step-v"><code>lineHeight</code> 누락이었습니다. 한 곳만 고치지 않고
-        <strong>같은 패턴 18곳을 전수 조사해 일괄</strong> 지정했습니다.</p>
-      </div>
-      <div class="step">
-        <div class="step-k">근거</div>
-        <p class="step-v">iOS는 <code>fontWeight: 900</code> 같은 무거운 굵기에서 시스템 폰트 메트릭으로
-        행 높이를 잡는데, 한글은 폴백 폰트의 ascender가 그보다 커서 넘칩니다. 작은 텍스트에는
-        <code>lineHeight</code>가 붙어 있는데 <strong>큰 제목에만 빠져 있었습니다</strong> —
-        두 곳만 고쳤으면 다른 화면에서 그대로 다시 나왔을 겁니다.</p>
-      </div>
-    </div>
+    </header>
 
-    <div class="case">
-      <p class="case-tag">Data</p>
-      <h3>목 데이터로는 안 드러나는 것</h3>
-      <div class="step">
-        <div class="step-k">상황</div>
-        <p class="step-v">판별을 끝내고 「동반 출입증 보기」를 눌러도 <strong>"먼저 AI 판별을 해주세요"</strong>가
-        떴습니다. 핵심 기능 하나가 실서비스에서 통째로 막혀 있었습니다.</p>
-      </div>
-      <div class="step">
-        <div class="step-k">판단</div>
-        <p class="step-v">출입증 화면이 시설을 <strong>목 데이터에서만</strong> 찾고 있었습니다.
-        스토어 캐시를 보도록 바꾸고, 같은 패턴을 홈·제보 화면에서도 찾아 고쳤습니다.</p>
-      </div>
-      <div class="step">
-        <div class="step-k">근거</div>
-        <p class="step-v">관광공사에서 온 실제 시설은 목 데이터에 없으니 조회가 항상 실패하고,
-        판별 기록이 있어도 "판별한 적 없음" 분기로 빠졌습니다. <strong>데모용 목 시설로 테스트할 때는
-        전혀 드러나지 않습니다.</strong> 실제 시설 ID로 판별부터 출입증까지 이어지는 경로를 확인해야 찾을 수 있는 결함이었습니다.</p>
-      </div>
-    </div>
-  </section>
+    <!-- 직접 써 보기 -->
+    <section class="sec" id="try">
+      <div class="demo reveal">
+        <div class="demo-head">
+          <div>
+            <span class="tag"><i class="fa-solid fa-paw" aria-hidden="true"></i>TRY IT</span>
+            <h2>우리 아이가 들어갈 수 있는지 판별해 보세요</h2>
+            <p>몸무게, 크기, 품종을 바꾸면 아래 일곱 시설의 판별이 바로 다시 계산됩니다.</p>
+          </div>
+        </div>
 
-  <section>
-    <h2>Stack</h2>
-    <p class="h2sub">기술 구성</p>
-    <div class="rows">
-      <div class="row"><div class="row-k">앱</div><div class="row-v">Expo SDK 57 · React Native 0.86 · TypeScript 6 · Expo Router</div></div>
-      <div class="row"><div class="row-k">상태·저장</div><div class="row-v">Context + Reducer 패턴 · SecureStore / localStorage 플랫폼 분기</div></div>
-      <div class="row"><div class="row-k">애니메이션</div><div class="row-v">Reanimated 4 · Gesture Handler (공유 요소 전환, 스와이프)</div></div>
-      <div class="row"><div class="row-k">네이티브</div><div class="row-v">Firebase Messaging(FCM) · 소셜 로그인 4종 · expo-location · image-picker</div></div>
-      <div class="row"><div class="row-k">빌드</div><div class="row-v">EAS Build · TestFlight · 파일 타입 환경변수로 시크릿 분리</div></div>
-      <div class="row"><div class="row-k">외부 데이터</div><div class="row-v">한국관광공사 반려동물 동반여행 정보 (areaCode / sigunguCode)</div></div>
-    </div>
-  </section>
+        <div class="pk">
+          <form class="pk-form" id="pk-form" onsubmit="return false" aria-label="반려동물 정보">
+            <label class="field"><span>이름 <small>선택</small></span><input id="pk-name" type="text" maxlength="12" placeholder="예: 콩이" autocomplete="off" /></label>
+            <div class="field"><span>종류</span>
+              <div class="seg" id="pk-species" role="group" aria-label="종류">
+                <button type="button" data-v="dog" aria-pressed="true">강아지</button>
+                <button type="button" data-v="cat" aria-pressed="false">고양이</button>
+              </div>
+            </div>
+            <div class="pk-two">
+              <label class="field"><span>몸무게</span><span class="kg"><input id="pk-kg" type="number" inputmode="decimal" min="0" max="90" step="0.1" value="5" /><em>kg</em></span></label>
+              <label class="field"><span>품종</span><select id="pk-breed"></select></label>
+            </div>
+            <div class="field"><span>크기 <small id="pk-size-hint">몸무게로 추천했습니다</small></span>
+              <div class="seg" id="pk-size" role="group" aria-label="크기">
+                <button type="button" data-v="소형" aria-pressed="true">소형</button>
+                <button type="button" data-v="중형" aria-pressed="false">중형</button>
+                <button type="button" data-v="대형" aria-pressed="false">대형</button>
+              </div>
+            </div>
+            <div class="field"><span>마릿수</span>
+              <div class="seg" id="pk-count" role="group" aria-label="마릿수">
+                <button type="button" data-v="1" aria-pressed="true">1마리</button>
+                <button type="button" data-v="2" aria-pressed="false">2마리</button>
+                <button type="button" data-v="3" aria-pressed="false">3마리</button>
+              </div>
+            </div>
+            <div class="pk-presets" id="pk-presets">
+              <b>예시로 채우기</b>
+              <button type="button" data-p="dog|5|말티즈|1">말티즈 5kg</button>
+              <button type="button" data-p="dog|12|웰시코기|1">웰시코기 12kg</button>
+              <button type="button" data-p="dog|30|골든 리트리버|1">골든 리트리버 30kg</button>
+              <button type="button" data-p="dog|3|토이 푸들|3">토이 푸들 3마리</button>
+              <button type="button" data-p="cat|4|코리안 숏헤어|1">고양이 4kg</button>
+            </div>
+          </form>
 
-  <section>
-    <h2>Outcome · Reflection</h2>
-    <p class="h2sub">공개된 앱, 검증이 남은 판별</p>
-    <div class="rows">
-      <div class="row"><div class="row-k">앱</div><div class="row-v"><span class="state done">완료</span> 판별 · 탐색 · 출입증 · 코스 · 리뷰 · 거부 경고 · 여권 도장 · 푸시</div></div>
-      <div class="row"><div class="row-k">배포</div><div class="row-v"><span class="state done">공개</span> <a href="https://apps.apple.com/kr/app/%EB%B0%98%EA%B0%91%EA%BC%AC%EB%A6%AC/id6810158091" target="_blank" rel="noopener">App Store 1.1.4 ↗</a></div></div>
-      <div class="row"><div class="row-k">개발 검증</div><div class="row-v">TestFlight 내부 테스트와 실기기·실데이터 연결 과정에서 발견한 결함을 수정</div></div>
-      <div class="row"><div class="row-k">게임 요소</div><div class="row-v"><span class="state wait">진행</span> 도장·뱃지 1차 완료, 레벨·경험치 연동 예정</div></div>
-    </div>
-    <p class="note">출시는 앱의 공개 상태입니다. 시설 조건 판별의 정확도, 현장 입장 성공률, 이용자 만족도는 아직 이 기록에서 수치로 제시하지 않습니다. 조건이 모호하거나 없는 시설은 방문 전 직접 확인이 필요합니다.</p>
-    <p><strong>회고.</strong> 실제 시설 ID로 판별부터 출입증까지 확인하면서, 목 데이터만으로는 제품의 연결 흐름을 검증할 수 없다는 점을 배웠습니다. 다음 버전에서는 조건 원문의 품질을 높이고, 게임 요소와 공개 배포 이후의 피드백을 연결할 계획입니다.</p>
-  </section>
+          <div>
+            <p class="pk-sum" id="pk-sum" aria-live="polite"></p>
+            <ul class="pk-list" id="pk-list"></ul>
+            <p class="legend" aria-hidden="true"><span class="l-ok">조건 충족</span><span class="l-bad">조건 위반</span><span class="l-cond">준비물, 구역 조건</span><span class="l-ask">확인이 필요한 부분</span></p>
+          </div>
+        </div>
 
-  <footer>
-    <span>반갑꼬리 · 반려동물 동반여행 AI 판별</span>
-    <span>2026.09</span>
-  </footer>
-</div>
-<script src="../../recruiter-clean.js"></script>
+        <p class="demo-foot">
+          <span class="s">실제 앱은 시설 조건 문장을 Claude 구조화 출력으로 규칙으로 바꾸고 서버 데이터로 판별합니다.</span>
+          <span class="s">여기서는 그 흐름을 브라우저 안에서 단순 규칙으로 재현한 체험판입니다.</span>
+          <span class="s"><span class="u">원문은 한국관광공사 반려동물 동반여행 데이터에 실린 실제 문장이고,</span> <span class="u">시설 이름만 가렸습니다.</span></span>
+          <span class="s"><span class="u">크기 추천 기준(10kg, 25kg)은 체험용으로 정한 값이며,</span> <span class="u">판별 결과가 현장 입장을 보장하지는 않습니다.</span></span>
+        </p>
+      </div>
+    </section>
+
+    <!-- 문제 -->
+    <section class="sec" id="problem">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Problem</p>
+        <h2 class="sec-title">데이터는 있는데, 우리 아이 기준의 답은 없었습니다</h2>
+      </div>
+      <dl class="pdr reveal">
+        <dt>현재</dt>
+        <dd><span class="s">“반려동물 동반 가능”이라고 적혀 있어도 막상 가면 다릅니다.</span><span class="s"><span class="u">10kg까지만, 소형견만, 실외 좌석만처럼</span> <span class="u">조건이 시설마다 다르고 어디에도 정리돼 있지 않습니다.</span></span></dd>
+        <dt>빈칸</dt>
+        <dd><span class="s"><span class="u">한국관광공사 데이터에는 4만 8천여 곳이 있지만,</span> <span class="u">조건 문장을 우리 아이의 몸무게와 품종에 대 보는 일은</span> <span class="u">보호자 몫으로 남아 있었습니다.</span></span><span class="s"><span class="u">“일부 구역 동반가능”, “10kg 미만 소형견에 한함” 같은 문장은</span> <span class="u">표현도 제각각입니다.</span></span></dd>
+        <dt>범위</dt>
+        <dd><span class="s">그래서 이 앱의 핵심은 지도가 아니라 판별입니다.</span><span class="s"><span class="u">시설 조건 문장을 규칙으로 바꾸고 등록한 반려동물과 대조해,</span> <span class="u">가능, 조건부, 어려움을 근거 원문과 함께 보여 줍니다.</span></span></dd>
+      </dl>
+    </section>
+
+    <!-- 데이터 -->
+    <section class="sec" id="data">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Data</p>
+        <h2 class="sec-title">48,786건을 분류해 보니, 규칙으로 읽을 수 있는 곳은 1.3%였습니다</h2>
+        <p class="sec-desc">프로젝트 DB에서 시설마다 조건 문장의 상태를 세 가지로 나눠 실측했습니다.</p>
+      </div>
+      <div class="facts reveal" style="margin-top:0">
+        <div class="fact"><div class="n">626<small>건</small></div><div class="l">조건을 규칙으로 읽을 수 있음, 1.28% (PARSED)</div></div>
+        <div class="fact"><div class="n">468<small>건</small></div><div class="l">조건이 적혀 있지만 모호함, 0.96% (AMBIGUOUS)</div></div>
+        <div class="fact"><div class="n">47,692<small>건</small></div><div class="l">조건이 아예 적혀 있지 않음, 97.76% (NO_CONDITION)</div></div>
+        <div class="fact"><div class="n">48,786<small>건</small></div><div class="l">분류한 전체 시설</div></div>
+      </div>
+      <div class="prose reveal" style="margin-top:20px">
+        <p><span class="s"><span class="u">대부분의 시설은 ‘동반 가능’ 표시만 있고</span> <span class="u">몸무게나 품종 조건이 적혀 있지 않았습니다.</span></span><span class="s"><span class="u">이 숫자를 보고, 조건이 없는 97%를</span> <span class="u">‘가능’으로 단정하지 않는 것을 서비스의 설계 전제로 정했습니다.</span></span></p>
+      </div>
+      <p class="note reveal"><b>읽는 법</b> 분류 비율은 데이터의 상태를 나타냅니다. 판별 정확도나 실제 입장 가능 비율이 아닙니다.</p>
+    </section>
+
+    <!-- 원칙 -->
+    <section class="sec" id="principle">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Planning</p>
+        <h2 class="sec-title">모르는 건 모른다고 보여 주기로 했습니다</h2>
+        <p class="sec-desc">조건이 없는 시설을 ‘가능’으로 보여 주면, 앱이 실제보다 많이 안다고 말하게 됩니다.</p>
+      </div>
+      <div class="states reveal">
+        <div class="card"><span class="vd ok"><i class="fa-solid fa-check" aria-hidden="true"></i>가능</span><p>규칙으로 읽은 몸무게, 크기, 품종, 마릿수 조건을 모두 만족합니다.</p></div>
+        <div class="card"><span class="vd cd"><i class="fa-solid fa-suitcase" aria-hidden="true"></i>조건부</span><p>들어갈 수 있지만 이동장, 목줄 같은 준비물이나 구역 제한이 있습니다. 준비물을 함께 알려 줍니다.</p></div>
+        <div class="card"><span class="vd no"><i class="fa-solid fa-xmark" aria-hidden="true"></i>어려움</span><p>적힌 조건 중 하나라도 맞지 않습니다. 어느 조건에 걸렸는지 원문으로 보여 줍니다.</p></div>
+        <div class="card"><span class="vd ask"><i class="fa-solid fa-question" aria-hidden="true"></i>확인 필요</span><p>조건이 없거나 모호합니다. ‘가능’으로 단정하지 않고 방문 전 확인으로 보냅니다.</p></div>
+      </div>
+      <div class="prose reveal" style="margin-top:22px">
+        <p><span class="s"><span class="u">3인 팀 프로젝트에서 핵심 기능을</span> <span class="u">자연어 조건 판별로 좁혔습니다.</span></span><span class="s"><span class="u">“우리 강아지가 실제로 들어갈 수 있는가”에 답하는 흐름을 P0로 두고,</span> <span class="u">지역, 지도, 코스, 리뷰 같은 탐색 기능은</span> <span class="u">그 결과를 설명하는 범위에서 확장했습니다.</span></span><span class="s"><span class="u">여러 마리를 한 번에 판별하고 필요한 준비물까지 알려 주며,</span> <span class="u">판별 결과는 시설 조건 원문과 함께 동반 출입증 한 장에 담깁니다.</span></span></p>
+      </div>
+    </section>
+
+    <!-- 두 화면안 -->
+    <section class="sec" id="two-plans">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Collaboration</p>
+        <h2 class="sec-title">카드 정보량은 두 화면을 직접 만들어 비교한 뒤 팀원 안을 골랐습니다</h2>
+        <p class="sec-desc">시설 카드에 파싱한 조건 키워드를 얼마나 보여 줄지에서 팀원과 의견이 갈렸습니다.</p>
+      </div>
+      <div class="grid2 two-plans reveal">
+        <div class="card"><span class="tag">안 1, 제 안</span><h3>카드에 조건 키워드를 전부 노출</h3><p>시설 카드 안에 파싱한 조건 키워드를 모두 보여 줍니다.</p></div>
+        <div class="card pick"><span class="tag pick">안 2, 팀원 안, 채택</span><h3>조건 키워드는 상세 페이지로</h3><p>조건 키워드를 카드에서 빼서 시설 상세 페이지로 옮깁니다.</p></div>
+      </div>
+      <div class="prose reveal" style="margin-top:20px">
+        <p><span class="s"><span class="u">말로 설득하는 대신 두 안을 모두 실제 화면으로 구현해</span> <span class="u">정보 밀도와 사용 흐름을 비교했습니다.</span></span><span class="s"><span class="u">비교해 보니 팀원의 판단이 더 나았고,</span> <span class="u">그 점을 인정하고 기획을 고쳤습니다.</span></span></p>
+      </div>
+    </section>
+
+    <!-- 결정 -->
+    <section class="sec" id="decisions">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Decisions</p>
+        <h2 class="sec-title">실데이터와 실기기에서 막힌 흐름을 고친 과정</h2>
+        <p class="sec-desc">백엔드(Spring)는 팀원 2명이 맡았고, 아래 판단은 모두 앱과 연동 층에서 내린 것입니다.</p>
+      </div>
+      <div class="decisions">
+        <article class="dc reveal">
+          <h3>보내지 않은 것을 보냈다고 말하지 않았습니다</h3>
+          <p><span class="s"><span class="u">「사업자에게 확인 요청」을 누르면 “보냈어요”가 떴지만</span> <span class="u">실제로는 아무 데도 가지 않았습니다.</span></span><span class="s"><span class="u">로컬 상태만 바뀌는 코드였고,</span> <span class="u">서버에는 그런 엔드포인트가 없었습니다.</span></span><span class="s"><span class="u">같은 상태였던 「제보하기」는 서버 전송을 붙였고,</span> <span class="u">붙일 곳이 없는 확인 요청은 문구를 실제 동작에 맞게 낮췄습니다.</span></span><span class="s"><span class="u">1.6초 만에 저절로 닫히던 완료 화면도</span> <span class="u">읽을 시간이 있도록 확인 버튼으로 바꿨습니다.</span></span></p>
+          <div class="ev"><b>예외</b> 제보 종류 셋 중 「실제로는 입장됐어요」만 서버에 보내지 않습니다. 거부 제보로 보내면 그 시설을 보려던 다른 사용자에게 없던 경고가 뜨기 때문입니다.</div>
+        </article>
+        <article class="dc reveal">
+          <h3>실제 시설 ID로 판별부터 출입증까지 끝까지 확인했습니다</h3>
+          <p><span class="s"><span class="u">판별을 마치고 「동반 출입증 보기」를 눌러도</span> <span class="u">“먼저 AI 판별을 해주세요”가 떴습니다.</span></span><span class="s"><span class="u">출입증 화면이 시설을 목 데이터에서만 찾고 있어서,</span> <span class="u">관광공사에서 온 실제 시설은 조회가 항상 실패했습니다.</span></span><span class="s"><span class="u">스토어 캐시를 보도록 고치고,</span> <span class="u">같은 패턴을 홈과 제보 화면에서도 찾아 고쳤습니다.</span></span></p>
+          <div class="ev"><b>교훈</b> 데모용 목 시설로 테스트하면 전혀 드러나지 않는 결함이었습니다. 실데이터로 화면과 API를 끝까지 연결해 본 뒤 App Store에 공개했습니다.</div>
+        </article>
+        <article class="dc reveal">
+          <h3>모듈 하나가 없다고 앱 전체가 멈추지 않게 했습니다</h3>
+          <p><span class="s"><span class="u">푸시 알림을 붙인 뒤</span> <span class="u">팀 개발 빌드에서 앱이 시작조차 못 했습니다.</span></span><span class="s"><span class="u">알림 모듈이 스토어, 테마, 탭 레이아웃으로 이어지는</span> <span class="u">최상위 의존이라, 불러오는 순간 앱이 통째로 멈췄습니다.</span></span><span class="s"><span class="u">재빌드로 덮지 않고, 실제로 쓸 때만 불러오되</span> <span class="u">그 전에 모듈이 있는지부터 확인하도록 구조를 바꿨습니다.</span></span></p>
+          <div class="ev"><b>근거</b> <code>try/catch</code>만으로는 Metro가 로드 실패를 먼저 기록해 에러 화면을 띄웁니다. 그래서 던지지 않고 확인만 하는 <code>requireOptionalNativeModule</code>과 <code>TurboModuleRegistry.get</code>을 사용했습니다.</div>
+        </article>
+        <article class="dc reveal">
+          <h3>위치는 확인하되, 기록을 막지는 않았습니다</h3>
+          <p><span class="s"><span class="u">여행 여권 도장에 시설 반경 안에서 찍었는지 확인하는</span> <span class="u">GPS 현장 확인을 넣었습니다.</span></span><span class="s"><span class="u">반경 밖이거나 위치 권한을 거부해도 도장은 남기고,</span> <span class="u">「현장」 배지만 붙지 않게 분리했습니다.</span></span><span class="s">현장에 없는 심사자도 기능을 확인할 수 있습니다.</span></p>
+          <div class="ev"><b>한계</b> 반경 1km는 실내 GPS 오차를 고려한 기준이며, 현장 배지가 실제 방문이나 부정 방지를 보장하지는 않습니다.</div>
+        </article>
+        <article class="dc reveal">
+          <h3>마감 12일 전에는 검증된 설정을 지켰습니다</h3>
+          <p><span class="s"><span class="u">첫 production 빌드가</span> <span class="u">Install pods 단계에서 실패했습니다.</span></span><span class="s"><span class="u">Firebase iOS SDK를 Swift Package Manager로 풀려면</span> <span class="u">Podfile 전체에 동적 프레임워크 설정을 켜야 했습니다.</span></span><span class="s"><span class="u">그러면 모든 네이티브 모듈의 링크 방식이 바뀌어서,</span> <span class="u">Firebase만 CocoaPods로 되돌렸습니다.</span></span></p>
+          <div class="ev"><b>비교</b> <code>useFrameworks</code> 전체 적용 시 실기기 검증을 끝낸 소셜 로그인 4종(카카오, 네이버, 구글, 애플) 재확인 필요 → <code>disableSPM</code>으로 Firebase만 분리</div>
+        </article>
+        <article class="dc reveal">
+          <h3>한글 제목이 잘리는 결함을 같은 패턴 18곳에서 한 번에 고쳤습니다</h3>
+          <p><span class="s"><span class="u">실기기에서만 시설 이름의 윗부분이 잘려 나왔고,</span> <span class="u">시뮬레이터와 웹에서는 멀쩡했습니다.</span></span><span class="s"><span class="u">iOS는 무거운 굵기에서 시스템 폰트 기준으로 행 높이를 잡는데,</span> <span class="u">한글 폴백 폰트가 그보다 커서 넘쳤습니다.</span></span><span class="s"><span class="u">작은 글씨에는 있고 큰 제목에만 빠진 <code>lineHeight</code>였기에,</span> <span class="u">두 곳만 고치지 않고 전수 조사했습니다.</span></span></p>
+          <div class="ev"><b>범위</b> 같은 패턴 18곳에 <code>lineHeight</code> 일괄 지정</div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 개발 방식 -->
+    <section class="sec" id="how-built">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">AI Agents</p>
+        <h2 class="sec-title">자연어를 규칙으로 바꾸는 과정을 쪼개서 지시했습니다</h2>
+      </div>
+      <div class="prose reveal">
+        <p><span class="s"><span class="u">Claude Code와 Codex를 사용했고,</span> <span class="u">파싱 로직과 화면 연동을 한 번에 만들라고 하지 않았습니다.</span></span><span class="s"><span class="u">원문 정규화 → 키워드 추출 → 구조화된 조건 저장 →</span> <span class="u">반려동물 프로필과 판정 → 설명 문구 생성 순서로 나눠 지시하고,</span> <span class="u">단계마다 예시 문장과 예외를 먼저 확인했습니다.</span></span></p>
+      </div>
+      <div class="grid2 reveal" style="margin-top:18px">
+        <div class="card">
+          <span class="tag">에이전트에게 맡긴 일</span>
+          <p><span class="s">파싱 fixture 생성</span><span class="s">TypeScript 타입과 API 응답 계약 정리</span><span class="s">48,786건 상태 분류 결과의 누락, 중복 검사</span></p>
+        </div>
+        <div class="card">
+          <span class="tag">제가 결정한 일</span>
+          <p><span class="s">조건이 없다고 ‘가능’으로 단정하지 않기</span><span class="s">애매한 문장은 사용자 확인으로 보내기</span><span class="s">10kg 미만, 소형견, 실외만, 리드줄 필수처럼 다른 표현을 같은 조건 필드로 정규화하고 근거 원문을 함께 보존하기</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 범위 -->
+    <section class="sec" id="scope">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Scope</p>
+        <h2 class="sec-title">맡은 범위</h2>
+        <p class="sec-desc">3인 팀(본인 + 백엔드 2명)에서 앱 전체와 기능, DB 설계, 배포를 맡았습니다.</p>
+      </div>
+      <div class="tbl reveal">
+        <table>
+          <thead><tr><th>구분</th><th>내용</th></tr></thead>
+          <tbody>
+            <tr><td>앱 전체</td><td>Expo, React Native, TypeScript로 화면 26개, 공용 컴포넌트 37개, TypeScript 20,218줄</td></tr>
+            <tr><td>API 연동</td><td>라이브 API 44개 중 43개 연동 (남은 1개는 QR 검증 페이지용이라 앱이 부를 일이 없는 엔드포인트)</td></tr>
+            <tr><td>설계</td><td>기능 명세, DB 스키마, 조건 파싱 파이프라인, 게이미피케이션</td></tr>
+            <tr><td>배포</td><td>EAS Build, App Store Connect, TestFlight, 소셜 로그인 4종 콘솔 등록</td></tr>
+            <tr><td>백엔드</td><td>Spring 서버는 팀원 2명 담당</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 화면 -->
+    <section class="sec" id="screens">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Screens</p>
+        <h2 class="sec-title">주요 화면</h2>
+      </div>
+      <div class="phones-grid reveal">
+        <figure class="fig"><img src="../../assets/img/shots/pet-01-hero.webp" alt="첫 화면" data-zoom loading="lazy" width="480" height="1044" /><figcaption>첫 화면</figcaption></figure>
+        <figure class="fig"><img src="../../assets/img/shots/pet-02-check.webp" alt="AI 출입 판별" data-zoom loading="lazy" width="480" height="1044" /><figcaption>AI 출입 판별. 여러 마리를 한 번에 판별하고 준비물을 알려 줍니다.</figcaption></figure>
+        <figure class="fig"><img src="../../assets/img/shots/pet-03-pass.webp" alt="동반 출입증" data-zoom loading="lazy" width="480" height="1044" /><figcaption>동반 출입증. 판별 근거는 QR로 확인합니다.</figcaption></figure>
+        <figure class="fig"><img src="../../assets/img/shots/pet-04-passport.webp" alt="여행 여권" data-zoom loading="lazy" width="480" height="1044" /><figcaption>여행 여권. 반경 안에서 찍으면 「현장」 배지가 붙습니다.</figcaption></figure>
+        <figure class="fig"><img src="../../assets/img/shots/pet-05-explore.webp" alt="탐색" data-zoom loading="lazy" width="480" height="1044" /><figcaption>탐색. 지역, 지도, 코스로 시설을 찾습니다.</figcaption></figure>
+        <figure class="fig"><img src="../../assets/img/shots/pet-06-kit.webp" alt="여행 안심 키트" data-zoom loading="lazy" width="480" height="1044" /><figcaption>여행 안심 키트. 접종, 예방약, 준비물을 출발 전에 점검합니다.</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- 기술 -->
+    <section class="sec" id="stack">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Stack</p>
+        <h2 class="sec-title">기술 구성</h2>
+      </div>
+      <div class="grid3 reveal">
+        <div class="card"><span class="tag">App</span><p>Expo SDK 57, React Native 0.86, TypeScript 6, Expo Router, Context + Reducer, SecureStore와 localStorage 플랫폼 분기, Reanimated 4, Gesture Handler</p></div>
+        <div class="card"><span class="tag">Native · Build</span><p>Firebase Messaging(FCM), 소셜 로그인 4종, expo-location, image-picker, EAS Build, App Store Connect, TestFlight, 파일 타입 환경변수로 시크릿 분리</p></div>
+        <div class="card"><span class="tag">Data · AI</span><p>한국관광공사 반려동물 동반여행 데이터(areaCode, sigunguCode), MySQL, Claude API (구조화 출력으로 조건 판별과 파싱), 백엔드 Spring (팀원 2명 담당)</p></div>
+      </div>
+    </section>
+
+    <!-- 다음 -->
+    <section class="sec" id="next">
+      <div class="sec-head reveal">
+        <p class="sec-kicker">Next</p>
+        <h2 class="sec-title">공개된 앱, 검증이 남은 판별</h2>
+      </div>
+      <div class="prose reveal">
+        <p><span class="s"><span class="u">판별, 탐색, 출입증, 코스, 리뷰, 거부 경고, 여권 도장, 푸시까지 구현해</span> <span class="u">App Store 1.1.4로 공개했습니다.</span></span><span class="s"><span class="u">게임 요소는 도장과 뱃지까지 1차로 마쳤고,</span> <span class="u">레벨과 경험치 연동이 남아 있습니다.</span></span><span class="s"><span class="u">다음 버전에서는 조건 원문의 품질을 높이고,</span> <span class="u">공개 배포 이후의 피드백을 게임 요소와 연결할 계획입니다.</span></span></p>
+      </div>
+      <p class="note reveal">
+        <span class="s"><span class="u"><b>한계</b> 출시는 앱의 공개 상태일 뿐입니다.</span> <span class="u">조건 판별의 정확도, 현장 입장 성공률, 이용자 만족도는</span> <span class="u">아직 수치로 제시하지 않습니다.</span></span>
+        <span class="s">조건이 모호하거나 없는 시설은 방문 전 직접 확인이 필요합니다.</span>
+      </p>
+    </section>
+
+    <section class="sec" id="others">
+      <div class="sec-head reveal"><p class="sec-kicker">More projects</p><h2 class="sec-title">다른 프로젝트</h2></div>
+      <div class="others reveal">
+        <a class="other" href="../jinggeomdari/"><img src="../../assets/img/icons/jinggeomdari.svg" alt="" /><b>징검다리</b><span>AI 교사 지원, 해커톤 우수상</span></a>
+        <a class="other" href="../crowdsense/"><img src="../../assets/img/icons/crowdsense.svg" alt="" /><b>CrowdSense</b><span>AI 인파안전 관제, 행정안전부 장관상</span></a>
+        <a class="other" href="../itsme/"><img src="../../assets/img/icons/itsme.webp" alt="" /><b>It's me</b><span>디지털 명함 앱</span></a>
+        <a class="other" href="../jverdict/"><img src="../../assets/img/icons/jverdict.svg" alt="" /><b>J-Verdict</b><span>정책 효과 판정 AI Agent</span></a>
+        <a class="other" href="../subscription/"><img src="../../assets/img/icons/subscription.svg" alt="" /><b>구독 모델 분석</b><span>선택 실험 113명</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 신재우 · <a href="../../">13jvv.github.io</a></footer>
+  <script src="../../assets/site.js"></script>
+  <script>
+// 반갑꼬리 체험판 판별 로직 (브라우저와 node 양쪽에서 동작)
+var PET = (function () {
+  var DANGER = ['도사견', '아메리칸 핏불 테리어', '아메리칸 스태퍼드셔 테리어', '스태퍼드셔 불 테리어', '로트와일러'];
+  var GEAR = [
+    { re: /목줄|리드줄/, name: '목줄' },
+    { re: /이동장|켄넬|케이지|이동가방/, name: '이동장' },
+    { re: /유모차|개모차/, name: '유모차' },
+    { re: /매너벨트/, name: '매너벨트' },
+    { re: /배변봉투/, name: '배변봉투' }
+  ];
+  var SIZE_ORDER = { '소형': 0, '중형': 1, '대형': 2 };
+
+  function suggestSize(species, kg) {
+    if (species === 'cat') return '소형';
+    if (!(kg > 0)) return '소형';
+    if (kg < 10) return '소형';
+    if (kg < 25) return '중형';
+    return '대형';
+  }
+
+  // 원문 필드들을 읽어 규칙과 근거 위치(span)를 만듭니다.
+  function parse(fields) {
+    var r = { maxKg: null, strict: false, sizes: null, noLarge: false, noDanger: false, dogOnly: false, catOk: false,
+      maxCount: null, mustFit: false, outdoorOnly: false, noIndoor: false, gear: [], ask: false, spans: {} };
+    function add(fi, m, key) {
+      if (!m) return;
+      (r.spans[key] = r.spans[key] || []).push({ f: fi, s: m.index, e: m.index + m[0].length });
+    }
+    fields.forEach(function (f, fi) {
+      var t = f.text || '';
+      var m;
+      // 몸무게: "N kg 이하/미만/이내/까지"
+      m = /(\d+(?:\.\d+)?)\s*(?:kg|㎏)\s*(이하|미만|이내|까지)/i.exec(t);
+      if (m && r.maxKg === null) { r.maxKg = parseFloat(m[1]); r.strict = m[2] === '미만'; add(fi, m, 'kg'); }
+      // 크기
+      m = /중\s*[,·\/]?\s*소형견|중소형견/.exec(t);
+      if (m) { r.sizes = ['소형', '중형']; add(fi, m, 'size'); }
+      else {
+        m = /소형견/.exec(t);
+        if (m && !r.sizes) { r.sizes = ['소형']; add(fi, m, 'size'); }
+      }
+      m = /(?:대형견[^,.()\/]{0,6}?(?:제외|불가))|(?:(?:\d+\s*kg\s*이상\s*)?대형견은\s*입실이\s*불가)/i.exec(t);
+      if (m) { r.noLarge = true; add(fi, m, 'large'); }
+      // 품종
+      m = /맹견(?=[^,.\/]{0,10}?(?:제외|불가|제한))/.exec(t);
+      if (m) { r.noDanger = true; add(fi, m, 'danger'); }
+      // 종
+      m = /고양이|반려묘/.exec(t);
+      if (m) { r.catOk = true; add(fi, m, 'species'); }
+      m = /견종|반려견|소형견|중소형견|강아지|애견/.exec(t);
+      if (m) { r.dogOnly = true; add(fi, m, 'dog'); }
+      // 마릿수
+      m = /최대\s*(\d+)\s*마리|(\d+)\s*마리까지|(?:한|1)\s*마리/.exec(t);
+      if (m) { r.maxCount = m[1] ? +m[1] : m[2] ? +m[2] : 1; add(fi, m, 'count'); }
+      // 구역
+      m = /(?:실외|야외)\s*좌석만|(?:실외|야외)만/.exec(t);
+      if (m) { r.outdoorOnly = true; add(fi, m, 'area'); }
+      m = /실내[^,.\/]{0,8}?불가/.exec(t);
+      if (m) { r.noIndoor = true; add(fi, m, 'area'); }
+      // 이동장 안에 몸 전체가 들어가야 하는 조건
+      m = /(?:이동장|켄넬|유모차)[^.]{0,20}?들어가/.exec(t);
+      if (m) { r.mustFit = true; var k = m[0].lastIndexOf('들어가'); add(fi, { index: m.index + k, 0: m[0].slice(k) + (t.charAt(m.index + m[0].length) || '') }, 'fit'); }
+      // 준비물
+      GEAR.forEach(function (g) {
+        var gm = g.re.exec(t);
+        if (gm && f.label !== '허용 동물') {
+          if (r.gear.indexOf(g.name) < 0) r.gear.push(g.name);
+          add(fi, gm, 'gear');
+        } else if (gm && g.name === '이동장' && /들어가|이용 필수/.test(t)) {
+          if (r.gear.indexOf(g.name) < 0) r.gear.push(g.name);
+          add(fi, gm, 'gear');
+        }
+      });
+      // 모호한 표현
+      m = /사전\s*확인\s*필요|전화\s*문의|문의\s*요망|사전\s*협의|입장\s*전\s*문의|상이/.exec(t);
+      if (m) { r.ask = true; add(fi, m, 'ask'); }
+    });
+    r.empty = fields.every(function (f) { return !f.text; });
+    return r;
+  }
+
+  // pet: { species:'dog'|'cat', kg:number|null, size:'소형'|'중형'|'대형', breed:string, count:number }
+  function judge(fac, pet) {
+    var r = parse(fac.fields);
+    var bad = [], ask = [], cond = [], ok = [], hi = {};
+    function mark(key, cls) { (r.spans[key] || []).forEach(function (sp) { hi[sp.f + ':' + sp.s] = { f: sp.f, s: sp.s, e: sp.e, c: cls }; }); }
+    var kgTxt = function (v) { return (Math.round(v * 10) / 10) + 'kg'; };
+
+    if (r.empty) {
+      ask.push('조건 문장이 없습니다, ‘' + (fac.zone || '동반가능') + '’ 표시만 있습니다');
+      return finish();
+    }
+    // 몸무게
+    if (r.maxKg !== null) {
+      var lim = kgTxt(r.maxKg) + (r.strict ? ' 미만' : ' 이하');
+      if (!(pet.kg > 0)) { ask.push(lim + ' 조건, 몸무게를 입력해야 판별됩니다'); mark('kg', 'ask'); }
+      else if (r.strict ? pet.kg >= r.maxKg : pet.kg > r.maxKg) { bad.push(lim + ' 조건, 입력 ' + kgTxt(pet.kg)); mark('kg', 'bad'); }
+      else { ok.push(lim + ' 조건, 입력 ' + kgTxt(pet.kg)); mark('kg', 'ok'); }
+    }
+    // 크기
+    if (r.sizes || r.noLarge) {
+      var inSizes = !r.sizes || r.sizes.indexOf(pet.size) >= 0;
+      var largeBad = r.noLarge && pet.size === '대형';
+      var sizeLabel = r.sizes ? (r.sizes.length === 2 ? '중소형견만' : '소형견만') : '대형견 제외';
+      if (!inSizes || largeBad) bad.push(sizeLabel + ' 조건, 입력 ' + pet.size);
+      else ok.push(sizeLabel + ' 조건, 입력 ' + pet.size);
+      mark('size', inSizes ? 'ok' : 'bad'); mark('large', largeBad ? 'bad' : 'ok');
+    }
+    // 품종
+    if (r.noDanger) {
+      if (DANGER.indexOf(pet.breed) >= 0) { bad.push('맹견 제외 조건, 입력 ' + pet.breed); mark('danger', 'bad'); }
+      else { ok.push('맹견 제외 조건, 해당 없음'); mark('danger', 'ok'); }
+    }
+    // 마릿수
+    if (r.maxCount !== null) {
+      if (pet.count > r.maxCount) { bad.push('최대 ' + r.maxCount + '마리 조건, 입력 ' + pet.count + '마리'); mark('count', 'bad'); }
+      else { ok.push('최대 ' + r.maxCount + '마리 조건, 입력 ' + pet.count + '마리'); mark('count', 'ok'); }
+    }
+    // 구역
+    if (r.outdoorOnly) { cond.push('실외 좌석만 이용할 수 있습니다'); mark('area', 'cond'); }
+    else if (r.noIndoor) { cond.push('실내 시설은 들어갈 수 없습니다'); mark('area', 'cond'); }
+    if (r.mustFit) {
+      mark('fit', pet.size === '대형' ? 'ask' : 'cond');
+      if (pet.size === '대형') ask.push('대형견은 이동장에 몸 전체가 들어가는지 확인이 필요합니다');
+      else cond.push('몸 전체가 이동장에 들어가야 합니다');
+    }
+    if (fac.zone === '일부구역 동반가능' && !r.outdoorOnly && !r.noIndoor) cond.push('일부 구역에서만 동반할 수 있습니다');
+    // 준비물
+    if (r.gear.length) mark('gear', 'cond');
+    // 종: 반려견만 적힌 원문은 고양이에게 단정하지 않습니다
+    if (pet.species === 'cat' && r.dogOnly && !r.catOk) { ask.unshift('원문에 반려견만 적혀 있고 고양이 언급은 없습니다'); mark('dog', 'ask'); }
+    // 모호함
+    if (r.ask) { ask.push('원문에 ‘사전 확인 필요’라고 적혀 있습니다'); mark('ask', 'ask'); }
+    // 판단할 규칙이 하나도 없으면 단정하지 않습니다
+    if (!bad.length && !ask.length && !ok.length && !cond.length && !r.gear.length) ask.push('규칙으로 읽을 수 있는 조건이 없습니다');
+    return finish();
+
+    function finish() {
+      var v, reason;
+      if (bad.length) { v = '어려움'; reason = bad[0]; }
+      else if (ask.length) { v = '확인 필요'; reason = ask[0]; }
+      else if (cond.length || r.gear.length) { v = '조건부'; reason = cond[0] || ok[0] || '준비물을 챙기면 동반할 수 있습니다'; }
+      else { v = '가능'; reason = ok[0]; }
+      var spans = Object.keys(hi).map(function (k) { return hi[k]; });
+      var catAsk = pet.species === 'cat' && r.dogOnly && !r.catOk;
+      var details = bad.concat(ask, cond, ok).filter(function (x) { return x !== reason && !(catAsk && /견만 조건|대형견 제외 조건|맹견 제외 조건/.test(x)); });
+      return { verdict: v, reason: reason, details: details.slice(0, 3),
+        gear: v === '어려움' ? [] : r.gear.slice(), spans: spans, rules: r };
+    }
+  }
+
+  return { judge: judge, parse: parse, suggestSize: suggestSize, DANGER: DANGER };
+})();
+var FACS = [
+  { id: 'A', name: '숙소 A', kind: '펜션', region: '전남', zone: '전구역 동반가능',
+    fields: [{ label: '허용 동물', text: '중소형견(8Kg 미만), (8Kg이상 대형견은 입실이 불가합니다.)' }] },
+  { id: 'B', name: '숙소 B', kind: '리조트', region: '강원', zone: '일부구역 동반가능',
+    fields: [{ label: '허용 동물', text: '4kg이하 소형견 최대 2마리 동반 가능' }] },
+  { id: 'C', name: '수목원 C', kind: '관광지', region: '충남', zone: '일부구역 동반가능',
+    fields: [{ label: '허용 동물', text: '15kg 미만 중소형견만 입장 가능(맹견 및 대형견 입장 불가)' },
+             { label: '필요 사항', text: '반려동물 유모차 탑승,이동장(켄넬)사용' },
+             { label: '기타 (발췌)', text: '내부 실내 시설 입장 불가 / 야외 좌석 착석은 가능(잔디 진입 불가) / 배변봉투 지참 및 수거 필수' }] },
+  { id: 'D', name: '케이블카 D', kind: '관광지', region: '부산', zone: '일부구역 동반가능',
+    fields: [{ label: '허용 동물', text: '이동장(켄넬)에 들어가는 전 견종 동반 가능' },
+             { label: '필요 사항', text: '이동장(켄넬)사용' },
+             { label: '기타', text: '이동장(켄넬) 안에 반려동물 몸 전체가 모두 들어가야 동반 가능' }] },
+  { id: 'E', name: '카페 E', kind: '카페', region: '경기', zone: '일부구역 동반가능',
+    fields: [{ label: '허용 동물', text: '가능 (실외좌석만 가능)' }] },
+  { id: 'F', name: '산책로 F', kind: '관광지', region: '충북', zone: '전구역 동반가능',
+    fields: [{ label: '허용 동물', text: '중소형견 동반 가능(상세 기준 사전 확인 필요)' },
+             { label: '필요 사항', text: '목줄 착용,이동장(켄넬)사용' }] },
+  { id: 'G', name: '카페 G', kind: '카페', region: '강원', zone: '전구역 동반가능',
+    fields: [] }
+];
+    (function () {
+      var BREEDS = {
+        dog: [['자주 보는 품종', ['믹스', '말티즈', '토이 푸들', '포메라니안', '비숑 프리제', '시츄', '웰시코기', '시바견', '진돗개', '골든 리트리버', '래브라도 리트리버']],
+              ['맹견 5종 (동물보호법)', PET.DANGER]],
+        cat: [['자주 보는 품종', ['코리안 숏헤어', '러시안 블루', '브리티시 숏헤어', '페르시안', '믹스']]]
+      };
+      var VD = { '가능': ['ok', 'fa-check'], '조건부': ['cd', 'fa-suitcase'], '어려움': ['no', 'fa-xmark'], '확인 필요': ['ask', 'fa-question'] };
+      var $ = function (id) { return document.getElementById(id); };
+      var state = { species: 'dog', size: '소형', sizeManual: false, count: 1 };
+      var last = {};
+
+      function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+      function setSeg(box, v) { box.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-v') === String(v))); }); }
+      function fillBreeds(pick) {
+        var sel = $('pk-breed');
+        sel.innerHTML = BREEDS[state.species].map(function (g) {
+          return '<optgroup label="' + esc(g[0]) + '">' + g[1].map(function (b) { return '<option>' + esc(b) + '</option>'; }).join('') + '</optgroup>';
+        }).join('');
+        if (pick) sel.value = pick;
+        if (!sel.value) sel.selectedIndex = 0;
+      }
+      function kg() { var v = parseFloat($('pk-kg').value); return v > 0 ? v : null; }
+      function autoSize() {
+        if (state.sizeManual) return;
+        state.size = PET.suggestSize(state.species, kg());
+        setSeg($('pk-size'), state.size);
+        $('pk-size-hint').textContent = kg() ? '몸무게로 추천했습니다' : '몸무게를 넣으면 추천합니다';
+      }
+      function hl(text, spans) {
+        var list = spans.slice().sort(function (a, b) { return a.s - b.s || b.e - a.e; });
+        var out = '', at = 0;
+        list.forEach(function (sp) {
+          if (sp.s < at) return;
+          out += esc(text.slice(at, sp.s)) + '<mark class="' + sp.c + '">' + esc(text.slice(sp.s, sp.e)) + '</mark>';
+          at = sp.e;
+        });
+        return out + esc(text.slice(at));
+      }
+      function render() {
+        var pet = { species: state.species, kg: kg(), size: state.size, breed: $('pk-breed').value, count: state.count };
+        var name = $('pk-name').value.trim();
+        var tally = { '가능': 0, '조건부': 0, '어려움': 0, '확인 필요': 0 };
+        $('pk-list').innerHTML = FACS.map(function (f) {
+          var j = PET.judge(f, pet);
+          tally[j.verdict]++;
+          var v = VD[j.verdict];
+          var flash = last[f.id] && last[f.id] !== j.verdict ? ' flash' : '';
+          last[f.id] = j.verdict;
+          var src = f.fields.length ? f.fields.map(function (fd, i) {
+            return '<div><dt>' + esc(fd.label) + '</dt><dd>' + hl(fd.text, j.spans.filter(function (s) { return s.f === i; })) + '</dd></div>';
+          }).join('') : '<div><dt>허용 동물</dt><dd class="none">조건 문장 없음</dd></div>';
+          return '<li class="fac' + flash + '">' +
+            '<div class="fac-head"><h3>' + esc(f.name) + '<span class="meta">' + esc(f.kind + ', ' + f.region + ', ' + f.zone) + '</span></h3>' +
+            '<span class="vd ' + v[0] + '"><i class="fa-solid ' + v[1] + '" aria-hidden="true"></i>' + j.verdict + '</span></div>' +
+            '<dl class="src">' + src + '</dl>' +
+            '<p class="why"><i class="fa-solid fa-arrow-turn-up fa-rotate-90" aria-hidden="true"></i>' + esc(j.reason) + '</p>' +
+            (j.details.length ? '<p class="det">' + esc(j.details.join(', ')) + '</p>' : '') +
+            (j.gear.length ? '<p class="gear">준비물 ' + j.gear.map(function (g) { return '<span>' + esc(g) + '</span>'; }).join('') + '</p>' : '') +
+            '</li>';
+        }).join('');
+        var who = (name ? esc(name) : '입력한 ' + (state.species === 'cat' ? '고양이' : '강아지')) + (pet.kg ? ' (' + pet.kg + 'kg, ' + pet.size + (state.count > 1 ? ', ' + state.count + '마리' : '') + ')' : '');
+        $('pk-sum').innerHTML = '<b>' + who + ' 기준</b>' + Object.keys(tally).map(function (k) {
+          return '<span class="vd ' + VD[k][0] + '">' + k + ' ' + tally[k] + '</span>';
+        }).join('');
+      }
+
+      $('pk-species').addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        state.species = b.getAttribute('data-v'); state.sizeManual = false;
+        setSeg(this, state.species); fillBreeds(); autoSize(); render();
+      });
+      $('pk-size').addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        state.size = b.getAttribute('data-v'); state.sizeManual = true;
+        setSeg(this, state.size); $('pk-size-hint').textContent = '직접 고른 값입니다'; render();
+      });
+      $('pk-count').addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        state.count = +b.getAttribute('data-v'); setSeg(this, state.count); render();
+      });
+      $('pk-kg').addEventListener('input', function () { autoSize(); render(); });
+      $('pk-breed').addEventListener('change', render);
+      $('pk-name').addEventListener('input', render);
+      $('pk-presets').addEventListener('click', function (e) {
+        var b = e.target.closest('button'); if (!b) return;
+        var p = b.getAttribute('data-p').split('|');
+        state.species = p[0]; state.sizeManual = false; state.count = +p[3];
+        setSeg($('pk-species'), p[0]); setSeg($('pk-count'), p[3]);
+        $('pk-kg').value = p[1]; fillBreeds(p[2]); autoSize(); render();
+      });
+
+      fillBreeds('말티즈'); autoSize(); render();
+    })();
+  </script>
 </body>
 </html>
